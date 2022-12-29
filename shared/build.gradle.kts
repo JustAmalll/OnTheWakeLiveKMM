@@ -3,7 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version Deps.kotlinVersion
-    id("com.squareup.sqldelight")
+//    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -30,8 +30,8 @@ kotlin {
                 implementation(Deps.ktorCore)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
-                implementation(Deps.sqlDelightRuntime)
-                implementation(Deps.sqlDelightCoroutinesExtensions)
+//                implementation(Deps.sqlDelightRuntime)
+//                implementation(Deps.sqlDelightCoroutinesExtensions)
                 implementation(Deps.kotlinDateTime)
             }
         }
@@ -45,7 +45,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Deps.ktorAndroid)
-                implementation(Deps.sqlDelightAndroidDriver)
+//                implementation(Deps.sqlDelightAndroidDriver)
             }
         }
         val androidTest by getting
@@ -60,7 +60,7 @@ kotlin {
 
             dependencies {
                 implementation(Deps.ktorIOS)
-                implementation(Deps.sqlDelightNativeDriver)
+//                implementation(Deps.sqlDelightNativeDriver)
             }
         }
         val iosX64Test by getting

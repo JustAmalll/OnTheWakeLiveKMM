@@ -3,38 +3,37 @@ package dev.amal.onthewakelivekmm.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import dev.amal.onthewakelivekmm.Greeting
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+import coil.ImageLoader
+import dagger.hilt.android.AndroidEntryPoint
+import dev.amal.onthewakelivekmm.android.core.presentation.ui.theme.OnTheWakeLiveTheme
+import dev.amal.onthewakelivekmm.android.feature_queue.presentation.AndroidQueueViewModel
+import dev.amal.onthewakelivekmm.android.navigation.SetupNavGraph
+import javax.inject.Inject
 
+@ExperimentalMaterial3Api
+@ExperimentalAnimationApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    GreetingView(Greeting().greet())
-                }
+            OnTheWakeLiveTheme {
+                val viewModel = hiltViewModel<AndroidQueueViewModel>()
+                val navController = rememberNavController()
+                SetupNavGraph(
+                    viewModel = viewModel,
+                    navController = navController,
+                    imageLoader = imageLoader
+                )
             }
         }
-    }
-}
-
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
     }
 }

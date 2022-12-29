@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OnTheWakeLIveKMM"
+rootProject.name = "OnTheWakeLiveKMM"
 include(":androidApp")
 include(":shared")

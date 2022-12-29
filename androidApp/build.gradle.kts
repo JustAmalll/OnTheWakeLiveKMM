@@ -46,12 +46,16 @@ dependencies {
     implementation(Deps.composeNavigation)
     implementation(Deps.coilCompose)
 
+    implementation(Deps.systemUiController)
+
     implementation(Deps.hiltAndroid)
     kapt(Deps.hiltAndroidCompiler)
     kapt(Deps.hiltCompiler)
     implementation(Deps.hiltNavigationCompose)
 
     implementation(Deps.ktorAndroid)
+    implementation(Deps.ktorSerialization)
+    implementation(Deps.ktorSerializationJson)
 
     androidTestImplementation(Deps.testRunner)
     androidTestImplementation(Deps.jUnit)
