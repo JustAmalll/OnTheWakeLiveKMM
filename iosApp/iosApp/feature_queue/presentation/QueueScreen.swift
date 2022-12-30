@@ -8,7 +8,6 @@
 
 import SwiftUI
 import shared
-import CachedAsyncImage
 
 struct QueueScreen: View {
     private var queueService: QueueService
@@ -99,47 +98,7 @@ struct QueueRightContent: View {
         List {
             ForEach(rightQueue, id: \.self.id) { queueItem in
                 NavigationLink(destination: Text(queueItem.firstName)) {
-                    HStack() {
-                        CachedAsyncImage(
-                            url: URL(string: queueItem.profilePictureUri)
-                        ) { phase in
-                            
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .scaledToFit()
-                                    .clipShape(Circle())
-                            } else {
-                                ZStack {
-                                    Circle()
-                                        .foregroundColor(.gray)
-                                    Image(systemName: "person")
-                                        .foregroundColor(Color.white)
-                                }
-                                .frame(width: 40, height: 40)
-                            }
-                        }
-                        .padding(.trailing, 4)
-                        
-                        VStack(alignment: .leading) {
-                            Text(queueItem.firstName)
-                                .font(.headline)
-                            Text(queueItem.lastName)
-                                .font(.subheadline)
-                        }
-                    }
-                    .swipeActions() {
-                        Button(role: .destructive) {
-                            event(
-                                QueueSocketEvent.DeleteQueueItem(
-                                    queueItemId: queueItem.id
-                                )
-                            )
-                        } label: {
-                            Label("Delete", systemImage: "trash.fill")
-                        }
-                    }
+                    QueueItem(queueItem: queueItem, event: event)
                 }
             }
         }
@@ -158,47 +117,7 @@ struct QueueLeftContent: View {
         List {
             ForEach(leftQueue, id: \.self.id) { queueItem in
                 NavigationLink(destination: Text(queueItem.firstName)) {
-                    HStack() {
-                        CachedAsyncImage(
-                            url: URL(string: queueItem.profilePictureUri)
-                        ) { phase in
-                            
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .scaledToFit()
-                                    .clipShape(Circle())
-                            } else {
-                                ZStack {
-                                    Circle()
-                                        .foregroundColor(.gray)
-                                    Image(systemName: "person")
-                                        .foregroundColor(Color.white)
-                                }
-                                .frame(width: 40, height: 40)
-                            }
-                        }
-                        .padding(.trailing, 4)
-                        
-                        VStack(alignment: .leading) {
-                            Text(queueItem.firstName)
-                                .font(.headline)
-                            Text(queueItem.lastName)
-                                .font(.subheadline)
-                        }
-                    }
-                    .swipeActions() {
-                        Button(role: .destructive) {
-                            event(
-                                QueueSocketEvent.DeleteQueueItem(
-                                    queueItemId: queueItem.id
-                                )
-                            )
-                        } label: {
-                            Label("Delete", systemImage: "trash.fill")
-                        }
-                    }
+                    QueueItem(queueItem: queueItem, event: event)
                 }
             }
         }

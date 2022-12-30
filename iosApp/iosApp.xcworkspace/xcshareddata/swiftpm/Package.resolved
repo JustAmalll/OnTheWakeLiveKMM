@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "slidingtabview",
+      "identity" : "lottie-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/QuynhNguyen/SlidingTabView",
+      "location" : "https://github.com/airbnb/lottie-ios",
       "state" : {
-        "revision" : "b0f0662977418824d50546b2850a523dcd793bb0",
-        "version" : "1.0.2"
+        "revision" : "a4622b4d6fdbe76cc5487bc27e84029abaf07217",
+        "version" : "4.0.1"
       }
     },
     {
