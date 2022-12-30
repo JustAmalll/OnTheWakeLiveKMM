@@ -14,6 +14,10 @@ object Deps {
     // Material 3
     const val composeMaterial = "androidx.compose.material3:material3:1.1.0-alpha03"
 
+    // Tabs
+    const val tabs = "com.google.accompanist:accompanist-pager:0.13.0"
+    const val tabIndicators = "com.google.accompanist:accompanist-pager-indicators:0.13.0"
+
     // Accompanist System UI Controller
     const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
 
@@ -38,6 +42,9 @@ object Deps {
     // KTOR
     private const val ktorVersion = "2.2.1"
     const val ktorCore = "io.ktor:ktor-client-core:$ktorVersion"
+    const val ktorCIO = "io.ktor:ktor-client-cio:$ktorVersion"
+    const val ktorWebSockets = "io.ktor:ktor-client-websockets:$ktorVersion"
+    const val ktorLogging = "io.ktor:ktor-client-logging:$ktorVersion"
     const val ktorSerialization = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
     const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"

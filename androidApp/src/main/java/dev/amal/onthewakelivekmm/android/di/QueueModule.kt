@@ -6,7 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.amal.onthewakelivekmm.core.data.remote.HttpClientFactory
 import dev.amal.onthewakelivekmm.feature_queue.data.repository.QueueServiceImpl
+import dev.amal.onthewakelivekmm.feature_queue.data.repository.QueueSocketServiceImpl
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
+import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueSocketService
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.*
@@ -29,4 +31,10 @@ object QueueModule {
     fun provideQueueService(
         client: HttpClient
     ): QueueService = QueueServiceImpl(client)
+
+    @Provides
+    @Singleton
+    fun provideQueueSocketService(
+        client: HttpClient
+    ): QueueSocketService = QueueSocketServiceImpl(client)
 }

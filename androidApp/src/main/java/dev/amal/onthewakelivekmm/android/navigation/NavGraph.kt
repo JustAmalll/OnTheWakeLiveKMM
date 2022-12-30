@@ -9,9 +9,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.ImageLoader
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.AndroidQueueViewModel
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.QueueScreen
 
+@ExperimentalPagerApi
 @ExperimentalMaterial3Api
 @ExperimentalAnimationApi
 @Composable
@@ -26,7 +28,9 @@ fun SetupNavGraph(
     ) {
         composable(route = Screen.QueueScreen.route) {
             val state by viewModel.state.collectAsState()
-            QueueScreen(state = state, imageLoader = imageLoader)
+            QueueScreen(state = state, imageLoader = imageLoader) { event ->
+                viewModel.onEvent(event)
+            }
         }
     }
 }

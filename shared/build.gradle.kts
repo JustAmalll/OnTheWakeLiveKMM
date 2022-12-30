@@ -28,6 +28,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(Deps.ktorCore)
+                implementation(Deps.ktorWebSockets)
+                implementation(Deps.ktorCIO)
+                implementation(Deps.ktorLogging)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
 //                implementation(Deps.sqlDelightRuntime)

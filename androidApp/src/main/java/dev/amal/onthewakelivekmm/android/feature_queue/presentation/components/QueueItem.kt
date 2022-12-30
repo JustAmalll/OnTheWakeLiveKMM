@@ -25,6 +25,9 @@ fun QueueItem(
     onDetailsClicked: (String) -> Unit,
     onUserAvatarClicked: (String) -> Unit
 ) {
+
+    Spacer(modifier = Modifier.height(12.dp))
+
     Row(
         modifier = Modifier
             .fillMaxWidth()

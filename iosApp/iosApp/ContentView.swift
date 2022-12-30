@@ -9,7 +9,10 @@ struct ContentView: View {
 
 	var body: some View {
         TabView {
-            QueueScreen(queueService: appModule.queueService)
+            QueueScreen(
+                queueService: appModule.queueService,
+                queueSocketService: appModule.queueSocketService
+            )
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Queue")

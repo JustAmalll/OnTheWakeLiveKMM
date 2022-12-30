@@ -48,12 +48,16 @@ dependencies {
 
     implementation(Deps.systemUiController)
 
+    implementation(Deps.tabs)
+    implementation(Deps.tabIndicators)
+
     implementation(Deps.hiltAndroid)
     kapt(Deps.hiltAndroidCompiler)
     kapt(Deps.hiltCompiler)
     implementation(Deps.hiltNavigationCompose)
 
     implementation(Deps.ktorAndroid)
+    implementation(Deps.ktorLogging)
     implementation(Deps.ktorSerialization)
     implementation(Deps.ktorSerializationJson)
 

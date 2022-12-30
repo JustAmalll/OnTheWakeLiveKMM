@@ -12,20 +12,28 @@ import shared
 extension QueueScreen {
     @MainActor class IOSQueueViewModel: ObservableObject {
         private var queueService: QueueService
+        private var queueSocketService: QueueSocketService
         
         private let viewModel: QueueViewModel
         
         @Published var state: QueueState = QueueState(
-            queue: [], isQueueLoading: false
+            isQueueLoading: false, queue: [], error: nil
         )
     
         private var handle: DisposableHandle?
         
-        init(queueService: QueueService) {
+        init(queueService: QueueService, queueSocketService: QueueSocketService) {
             self.queueService = queueService
+            self.queueSocketService = queueSocketService
             self.viewModel = QueueViewModel(
-                queueService: queueService, coroutineScope: nil
+                queueService: queueService,
+                queueSocketService: queueSocketService,
+                coroutineScope: nil
             )
+        }
+        
+        func onEvent(event: QueueSocketEvent) {
+            viewModel.onEvent(event: event)
         }
         
         func startObserving() {

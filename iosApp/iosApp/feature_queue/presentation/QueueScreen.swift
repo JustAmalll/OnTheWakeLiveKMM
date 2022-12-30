@@ -12,13 +12,18 @@ import CachedAsyncImage
 
 struct QueueScreen: View {
     private var queueService: QueueService
+    private var queueSocketService: QueueSocketService
     @ObservedObject var viewModel: IOSQueueViewModel
     
     @State private var selected = 1
 
-    init(queueService: QueueService) {
+    init(queueService: QueueService, queueSocketService: QueueSocketService) {
         self.queueService = queueService
-        self.viewModel = IOSQueueViewModel(queueService: queueService)
+        self.queueSocketService = queueSocketService
+        self.viewModel = IOSQueueViewModel(
+            queueService: queueService,
+            queueSocketService: queueSocketService
+        )
     }
     
     var body: some View {
@@ -34,53 +39,33 @@ struct QueueScreen: View {
                 .padding(.top, 10)
                 .pickerStyle(SegmentedPickerStyle())
                 
-                List {
-                    ForEach(viewModel.state.queue, id: \.self.id) { queueItem in
-                        NavigationLink(destination: Text(queueItem.firstName)) {
-                            HStack() {
-                                CachedAsyncImage(
-                                    url: URL(string: queueItem.profilePictureUri)
-                                ) { phase in
-                                    
-                                    if let image = phase.image {
-                                        image
-                                            .resizable()
-                                            .frame(width: 40, height: 40)
-                                            .scaledToFit()
-                                            .clipShape(Circle())
-                                    } else {
-                                        ZStack {
-                                            Circle()
-                                                .foregroundColor(.gray)
-                                            Image(systemName: "person")
-                                                .foregroundColor(Color.white)
-                                        }
-                                        .frame(width: 40, height: 40)
-                                    }
-                                }
-                                .padding(.trailing, 4)
-                                
-                                VStack(alignment: .leading) {
-                                    Text(queueItem.firstName)
-                                        .font(.headline)
-                                    Text(queueItem.lastName)
-                                        .font(.subheadline)
-                                }
-                            }
-                            .swipeActions() {
-                                Button(role: .destructive) {
-                                    
-                                } label: {
-                                    Label("Delete", systemImage: "trash.fill")
-                                }
-                            }
+                if selected == 1 {
+                    QueueLeftContent(
+                        state: viewModel.state, event: { event in
+                            viewModel.onEvent(event: event)
                         }
-                    }
+                    )
+                } else {
+                    QueueRightContent(
+                        state: viewModel.state, event: { event in
+                            viewModel.onEvent(event: event)
+                        }
+                    )
                 }
             }
             .navigationTitle("Queue")
             .overlay(
-                Button(action: {}) {
+                Button(
+                    action: {
+                        viewModel.onEvent(
+                            event: QueueSocketEvent.AddToQueue(
+                                isLeftQueue: selected == 1,
+                                firstName: "ios test",
+                                timestamp: 123123
+                            )
+                        )
+                    }
+                ) {
                     Image(systemName: "plus")
                         .foregroundColor(.white)
                         .frame(width: 20, height: 20)
@@ -97,6 +82,124 @@ struct QueueScreen: View {
             }
             .onDisappear {
                 viewModel.dispose()
+            }
+        }
+    }
+}
+
+struct QueueRightContent: View {
+    let state: QueueState
+    let event: (QueueSocketEvent) -> Void
+    
+    var body: some View {
+        let rightQueue = state.queue.filter { queue in
+            return queue.isLeftQueue == false
+        }
+        
+        List {
+            ForEach(rightQueue, id: \.self.id) { queueItem in
+                NavigationLink(destination: Text(queueItem.firstName)) {
+                    HStack() {
+                        CachedAsyncImage(
+                            url: URL(string: queueItem.profilePictureUri)
+                        ) { phase in
+                            
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                            } else {
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(.gray)
+                                    Image(systemName: "person")
+                                        .foregroundColor(Color.white)
+                                }
+                                .frame(width: 40, height: 40)
+                            }
+                        }
+                        .padding(.trailing, 4)
+                        
+                        VStack(alignment: .leading) {
+                            Text(queueItem.firstName)
+                                .font(.headline)
+                            Text(queueItem.lastName)
+                                .font(.subheadline)
+                        }
+                    }
+                    .swipeActions() {
+                        Button(role: .destructive) {
+                            event(
+                                QueueSocketEvent.DeleteQueueItem(
+                                    queueItemId: queueItem.id
+                                )
+                            )
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+    
+struct QueueLeftContent: View {
+    let state: QueueState
+    let event: (QueueSocketEvent) -> Void
+    
+    var body: some View {
+        let leftQueue = state.queue.filter { queue in
+            return queue.isLeftQueue == true
+        }
+        
+        List {
+            ForEach(leftQueue, id: \.self.id) { queueItem in
+                NavigationLink(destination: Text(queueItem.firstName)) {
+                    HStack() {
+                        CachedAsyncImage(
+                            url: URL(string: queueItem.profilePictureUri)
+                        ) { phase in
+                            
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                            } else {
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(.gray)
+                                    Image(systemName: "person")
+                                        .foregroundColor(Color.white)
+                                }
+                                .frame(width: 40, height: 40)
+                            }
+                        }
+                        .padding(.trailing, 4)
+                        
+                        VStack(alignment: .leading) {
+                            Text(queueItem.firstName)
+                                .font(.headline)
+                            Text(queueItem.lastName)
+                                .font(.subheadline)
+                        }
+                    }
+                    .swipeActions() {
+                        Button(role: .destructive) {
+                            event(
+                                QueueSocketEvent.DeleteQueueItem(
+                                    queueItemId: queueItem.id
+                                )
+                            )
+                        } label: {
+                            Label("Delete", systemImage: "trash.fill")
+                        }
+                    }
+                }
             }
         }
     }

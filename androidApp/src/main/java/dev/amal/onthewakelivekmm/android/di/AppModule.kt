@@ -8,27 +8,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_JWT_TOKEN
-import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(
-        sharedPreferences: SharedPreferences
-    ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor {
-            val token = sharedPreferences.getString(PREFS_JWT_TOKEN, "")
-            val modifiedRequest = it.request().newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .build()
-            it.proceed(modifiedRequest)
-        }
-        .build()
 
     @Provides
     @Singleton
