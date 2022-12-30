@@ -25,7 +25,12 @@ class QueueViewModel(
         viewModelScope.launch {
             _state.update { it.copy(isQueueLoading = true) }
             val result = queueService.getQueue()
-            _state.update { it.copy(queue = result, isQueueLoading = false) }
+            _state.update { queueState ->
+                queueState.copy(
+                    queue = result.map { it.toQueueItemState() },
+                    isQueueLoading = false
+                )
+            }
         }
     }
 }

@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "slidingtabview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/QuynhNguyen/SlidingTabView",
+      "state" : {
+        "revision" : "b0f0662977418824d50546b2850a523dcd793bb0",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swiftui-cached-async-image",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lorenzofiamingo/swiftui-cached-async-image",
+      "state" : {
+        "revision" : "467a3d17479887943ab917a379e62bbaff60ac8a",
+        "version" : "2.1.1"
+      }
+    }
+  ],
+  "version" : 2
+}

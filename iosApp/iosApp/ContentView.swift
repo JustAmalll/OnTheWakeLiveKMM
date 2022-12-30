@@ -2,10 +2,26 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greet()
+    
+    private let appModule = AppModule()
+    
+    @State private var selection = 1
 
 	var body: some View {
-		Text(greet)
+        TabView {
+            QueueScreen(queueService: appModule.queueService)
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Queue")
+                }
+                .tag(1)
+            Text("Profile")
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+                }
+                .tag(2)
+        }
 	}
 }
 
