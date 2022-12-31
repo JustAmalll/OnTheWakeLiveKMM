@@ -8,23 +8,24 @@ struct ContentView: View {
     @State private var selection = 1
 
 	var body: some View {
-        TabView {
-            QueueScreen(
-                queueService: appModule.queueService,
-                queueSocketService: appModule.queueSocketService
-            )
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Queue")
-                }
-                .tag(1)
-            Text("Profile")
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
-                }
-                .tag(2)
-        }
+        LoginScreen()
+//        TabView {
+//            QueueScreen(
+//                queueService: appModule.queueService,
+//                queueSocketService: appModule.queueSocketService
+//            )
+//                .tabItem {
+//                    Image(systemName: "house.fill")
+//                    Text("Queue")
+//                }
+//                .tag(1)
+//            Text("Profile")
+//                .tabItem {
+//                    Image(systemName: "person.fill")
+//                    Text("Profile")
+//                }
+//                .tag(2)
+//        }
 	}
 }
 
