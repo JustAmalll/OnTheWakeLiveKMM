@@ -56,7 +56,6 @@ dependencies {
     kapt(Deps.hiltCompiler)
     implementation(Deps.hiltNavigationCompose)
 
-    implementation(Deps.ktorAndroid)
     implementation(Deps.ktorLogging)
     implementation(Deps.ktorSerialization)
     implementation(Deps.ktorSerializationJson)

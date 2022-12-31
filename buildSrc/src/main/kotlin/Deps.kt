@@ -14,6 +14,11 @@ object Deps {
     // Material 3
     const val composeMaterial = "androidx.compose.material3:material3:1.1.0-alpha03"
 
+    // Multiplatform Settings
+    // This is a Kotlin library for Multiplatform apps, so that common code can persist key-value data.
+    const val kmmSettings = "com.russhwolf:multiplatform-settings-no-arg:1.0.0-RC"
+    const val kmmSettingsCoroutines = "com.russhwolf:multiplatform-settings-coroutines:1.0.0-RC"
+
     // Tabs
     const val tabs = "com.google.accompanist:accompanist-pager:0.13.0"
     const val tabIndicators = "com.google.accompanist:accompanist-pager-indicators:0.13.0"
@@ -47,7 +52,6 @@ object Deps {
     const val ktorLogging = "io.ktor:ktor-client-logging:$ktorVersion"
     const val ktorSerialization = "io.ktor:ktor-client-content-negotiation:$ktorVersion"
     const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
-    const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"
     const val ktorIOS = "io.ktor:ktor-client-darwin:$ktorVersion"
 
     // GRADLE PLUGINS

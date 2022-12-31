@@ -33,6 +33,8 @@ kotlin {
                 implementation(Deps.ktorLogging)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
+                implementation(Deps.kmmSettings)
+                implementation(Deps.kmmSettingsCoroutines)
 //                implementation(Deps.sqlDelightRuntime)
 //                implementation(Deps.sqlDelightCoroutinesExtensions)
                 implementation(Deps.kotlinDateTime)
@@ -47,7 +49,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(Deps.ktorAndroid)
 //                implementation(Deps.sqlDelightAndroidDriver)
             }
         }

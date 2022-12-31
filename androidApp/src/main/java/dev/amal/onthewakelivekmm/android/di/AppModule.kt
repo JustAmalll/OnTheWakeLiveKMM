@@ -1,13 +1,17 @@
 package dev.amal.onthewakelivekmm.android.di
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
+import android.content.Context
 import coil.ImageLoader
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.amal.onthewakelivekmm.core.data.cache.MultiplatformSettingsWrapper
+import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
+import dev.amal.onthewakelivekmm.core.data.remote.HttpClientFactory
+import io.ktor.client.*
 import javax.inject.Singleton
 
 @Module
@@ -16,8 +20,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSharedPref(app: Application): SharedPreferences =
-        app.getSharedPreferences("prefs", MODE_PRIVATE)
+    fun provideHttpClient(): HttpClient = HttpClientFactory().create()
+
+    @Provides
+    @Singleton
+    fun providePreferencesManager(@ApplicationContext context: Context): PreferenceManager =
+        PreferenceManager(MultiplatformSettingsWrapper(context))
 
     @Provides
     @Singleton
