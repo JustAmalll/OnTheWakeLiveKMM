@@ -8,7 +8,9 @@ struct ContentView: View {
     @State private var selection = 1
 
 	var body: some View {
-        LoginScreen()
+        LoginScreen(
+            authRepository: appModule.authRepository
+        )
 //        TabView {
 //            QueueScreen(
 //                queueService: appModule.queueService,

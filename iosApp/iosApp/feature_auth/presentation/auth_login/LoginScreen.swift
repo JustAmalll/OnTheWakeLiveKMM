@@ -7,26 +7,58 @@
 //
 
 import SwiftUI
+import shared
 
 struct LoginScreen: View {
     
-    @State private var phoneNumber = ""
+    private var authRepository: AuthRepository
+    @ObservedObject var viewModel: IOSLoginViewModel
     
+    init(authRepository: AuthRepository) {
+        self.authRepository = authRepository
+        self.viewModel = IOSLoginViewModel(authRepository: authRepository)
+    }
+
     var body: some View {
         Form {
             Section {
-                TextField("Phone number", text: $phoneNumber)
-                    .textContentType(.telephoneNumber)
-                    .keyboardType(.phonePad)
-                PasswordTextField()
+                TextField(
+                    "Phone number", text: Binding(
+                        get: { viewModel.state.signInPhoneNumber},
+                        set: { value in
+                            viewModel.onEvent(
+                                event: LoginEvent.SignInPhoneNumberChanged(value: value)
+                            )
+                        }
+                    )
+                )
+                .textContentType(.telephoneNumber)
+                .keyboardType(.phonePad)
+                
+                PasswordTextField(
+                    password: Binding(
+                        get: { viewModel.state.signInPassword },
+                        set: { value in
+                            viewModel.onEvent(
+                                event: LoginEvent.SignInPasswordChanged(value: value)
+                            )
+                        }
+                    )
+                )
             } header: {
                 Text("")
             }
             Button() {
-                
+                viewModel.onEvent(event: LoginEvent.SignIn())
             } label: {
                 Text("Submit")
             }
+        }
+        .onAppear {
+            viewModel.startObserving()
+        }
+        .onDisappear {
+            viewModel.dispose()
         }
         .overlay(alignment: .bottom) {
             HStack {
@@ -38,11 +70,5 @@ struct LoginScreen: View {
             .padding(.bottom)
         }
         .navigationTitle("Login")
-    }
-}
-
-struct LoginScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginScreen()
     }
 }

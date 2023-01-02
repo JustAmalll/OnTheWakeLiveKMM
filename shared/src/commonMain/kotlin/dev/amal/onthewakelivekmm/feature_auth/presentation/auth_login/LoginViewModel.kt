@@ -32,20 +32,17 @@ class LoginViewModel(
             is LoginEvent.SignInPasswordChanged -> _state.update {
                 it.copy(signInPassword = event.value)
             }
-            is LoginEvent.SignIn -> signIn(
-                phoneNumber = state.value.signInPhoneNumber,
-                password = state.value.signInPassword
-            )
+            is LoginEvent.SignIn -> signIn()
         }
     }
 
-    private fun signIn(phoneNumber: String, password: String) {
+    private fun signIn() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             val result = repository.signIn(
                 AuthRequest(
-                    phoneNumber = phoneNumber.trim(),
-                    password = password.trim()
+                    phoneNumber = state.value.signInPhoneNumber.trim(),
+                    password = state.value.signInPassword.trim()
                 )
             )
             println("auth result  is $result")

@@ -28,7 +28,7 @@ struct RegisterScreen: View {
                 TextField("Phone number", text: $otpViewModel.number)
                     .textContentType(.telephoneNumber)
                     .keyboardType(.phonePad)
-                PasswordTextField()
+               // PasswordTextField()
             } header: {
                 Text("")
             }

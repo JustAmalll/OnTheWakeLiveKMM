@@ -13,6 +13,7 @@
 		6484FED7066D6EF277A7BAFF /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
+		B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */; };
 		B3BA0B71295F2CDB006E5C40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3BA0B70295F2CDB006E5C40 /* Lottie */; };
 		B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B72295F71C9006E5C40 /* QueueItem.swift */; };
 		B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B78295FF149006E5C40 /* LoginScreen.swift */; };
@@ -35,6 +36,7 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3BA0B72295F71C9006E5C40 /* QueueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
 		B3BA0B78295FF149006E5C40 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreen.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				B3BA0B78295FF149006E5C40 /* LoginScreen.swift */,
+				B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */,
 			);
 			path = auth_login;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */,
 				B3BA0B8529608412006E5C40 /* OtpViewModel.swift in Sources */,
 				B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */,
+				B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */,
 				B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */,
 				B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,

@@ -10,8 +10,8 @@ import SwiftUI
 
 struct PasswordTextField: View {
     
-    @State private var password = ""
-    @State var isSecure: Bool = true
+    @Binding var password: String
+    @State private var isSecure: Bool = true
     
     var body: some View {
         HStack {
@@ -33,6 +33,8 @@ struct PasswordTextField: View {
 
 struct PasswordTextField_Previews: PreviewProvider {
     static var previews: some View {
-        PasswordTextField()
+        PasswordTextField(
+            password: Binding(get: { "password" }, set: { value in })
+        )
     }
 }
