@@ -12,11 +12,15 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		6484FED7066D6EF277A7BAFF /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
 		B3BA0B71295F2CDB006E5C40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3BA0B70295F2CDB006E5C40 /* Lottie */; };
 		B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B72295F71C9006E5C40 /* QueueItem.swift */; };
 		B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B78295FF149006E5C40 /* LoginScreen.swift */; };
 		B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */; };
 		B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */; };
+		B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8229607F18006E5C40 /* OtpScreen.swift */; };
+		B3BA0B8529608412006E5C40 /* OtpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8429608412006E5C40 /* OtpViewModel.swift */; };
+		B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */; };
 		B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */; };
 		B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D67CC8295DF400001A653A /* QueueScreen.swift */; };
 		B3D67CCF295E9CD8001A653A /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D67CCE295E9CD8001A653A /* CachedAsyncImage */; };
@@ -35,6 +39,9 @@
 		B3BA0B78295FF149006E5C40 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreen.swift; sourceTree = "<group>"; };
 		B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		B3BA0B8229607F18006E5C40 /* OtpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpScreen.swift; sourceTree = "<group>"; };
+		B3BA0B8429608412006E5C40 /* OtpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpViewModel.swift; sourceTree = "<group>"; };
+		B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSQueueViewModel.swift; sourceTree = "<group>"; };
 		B3D67CC8295DF400001A653A /* QueueScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueScreen.swift; sourceTree = "<group>"; };
 		C5FFBB5CBA611AC6F879E1E2 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -48,6 +55,7 @@
 				6484FED7066D6EF277A7BAFF /* Pods_iosApp.framework in Frameworks */,
 				B3D67CCF295E9CD8001A653A /* CachedAsyncImage in Frameworks */,
 				B3BA0B71295F2CDB006E5C40 /* Lottie in Frameworks */,
+				B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +114,7 @@
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
@@ -123,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				B3BA0B7E296011FD006E5C40 /* components */,
+				B3BA0B8129607EDD006E5C40 /* auth_otp */,
 				B3BA0B7B295FFCBE006E5C40 /* auth_register */,
 				B3BA0B7A295FFC8E006E5C40 /* auth_login */,
 			);
@@ -151,6 +161,15 @@
 				B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		B3BA0B8129607EDD006E5C40 /* auth_otp */ = {
+			isa = PBXGroup;
+			children = (
+				B3BA0B8229607F18006E5C40 /* OtpScreen.swift */,
+				B3BA0B8429608412006E5C40 /* OtpViewModel.swift */,
+			);
+			path = auth_otp;
 			sourceTree = "<group>";
 		};
 		B3D67CC3295DF363001A653A /* feature_queue */ = {
@@ -201,6 +220,7 @@
 			packageProductDependencies = (
 				B3D67CCE295E9CD8001A653A /* CachedAsyncImage */,
 				B3BA0B70295F2CDB006E5C40 /* Lottie */,
+				B37B2C412961B38800CB02E8 /* FirebaseAuth */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
@@ -233,6 +253,7 @@
 			packageReferences = (
 				B3D67CCD295E9CD8001A653A /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				B3BA0B6F295F2CDB006E5C40 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				B37B2C402961B38800CB02E8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -250,6 +271,7 @@
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,10 +343,12 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */,
+				B3BA0B8529608412006E5C40 /* OtpViewModel.swift in Sources */,
 				B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */,
 				B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */,
 				B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */,
 				B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */,
 				B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */,
 			);
@@ -545,6 +569,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B37B2C402961B38800CB02E8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		B3BA0B6F295F2CDB006E5C40 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -564,6 +596,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B37B2C412961B38800CB02E8 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B37B2C402961B38800CB02E8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		B3BA0B70295F2CDB006E5C40 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B3BA0B6F295F2CDB006E5C40 /* XCRemoteSwiftPackageReference "lottie-ios" */;

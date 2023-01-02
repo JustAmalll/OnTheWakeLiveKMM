@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.android.feature_auth.presentation
+package dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

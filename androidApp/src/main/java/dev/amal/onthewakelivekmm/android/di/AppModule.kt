@@ -24,8 +24,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePreferencesManager(@ApplicationContext context: Context): PreferenceManager =
-        PreferenceManager(MultiplatformSettingsWrapper(context))
+    fun providePreferencesManager(
+        @ApplicationContext context: Context
+    ): PreferenceManager = PreferenceManager(
+        MultiplatformSettingsWrapper(context)
+    )
 
     @Provides
     @Singleton

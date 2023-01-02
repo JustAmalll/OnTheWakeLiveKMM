@@ -11,8 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.ImageLoader
 import com.google.accompanist.pager.ExperimentalPagerApi
-import dev.amal.onthewakelivekmm.android.feature_auth.presentation.AndroidLoginViewModel
-import dev.amal.onthewakelivekmm.android.feature_auth.presentation.LoginScreen
+import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login.AndroidLoginViewModel
+import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login.LoginScreen
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.AndroidQueueViewModel
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.QueueScreen
 

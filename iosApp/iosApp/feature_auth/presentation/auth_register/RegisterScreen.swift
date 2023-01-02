@@ -10,6 +10,8 @@ import SwiftUI
 
 struct RegisterScreen: View {
     
+    @StateObject var otpViewModel: OtpViewModel = .init()
+    
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var phoneNumber = ""
@@ -23,20 +25,28 @@ struct RegisterScreen: View {
                 TextField("Last name", text: $lastName)
                     .textContentType(.familyName)
                     .keyboardType(.namePhonePad)
-                TextField("Phone number", text: $phoneNumber)
+                TextField("Phone number", text: $otpViewModel.number)
                     .textContentType(.telephoneNumber)
                     .keyboardType(.phonePad)
                 PasswordTextField()
             } header: {
                 Text("")
             }
+            
             Button() {
-                
+                Task { await otpViewModel.sendOtp() }
             } label: {
                 Text("Submit")
             }
+            .disabled(otpViewModel.number == "")
         }
         .navigationTitle("Register")
+        .background {
+            NavigationLink(tag: "Verification", selection: $otpViewModel.navigationTag) {
+                OtpScreen()
+                    .environmentObject(otpViewModel)
+            } label: {}
+        }
     }
 }
 
