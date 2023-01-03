@@ -7,51 +7,67 @@
 //
 
 import SwiftUI
+import shared
 
 struct RegisterScreen: View {
     
     @StateObject var otpViewModel: OtpViewModel = .init()
+    @StateObject var registerViewModel = IOSRegisterViewModel()
     
-    @State private var firstName = ""
-    @State private var lastName = ""
-    @State private var phoneNumber = ""
+    @State var validationError: String? = nil
     
     var body: some View {
+        
         Form {
             Section {
-                TextField("First name", text: $firstName)
+                TextField( "First name", text: $registerViewModel.firstName)
                     .textContentType(.name)
                     .keyboardType(.namePhonePad)
-                TextField("Last name", text: $lastName)
+                
+                TextField( "Last name", text: $registerViewModel.lastName)
                     .textContentType(.familyName)
                     .keyboardType(.namePhonePad)
-                TextField("Phone number", text: $otpViewModel.number)
+                
+                TextField("Phone number", text: $registerViewModel.phoneNumber)
                     .textContentType(.telephoneNumber)
-                    .keyboardType(.phonePad)
-               // PasswordTextField()
+                    .keyboardType(.numberPad)
+                
+                PasswordTextField(
+                    password: $registerViewModel.password
+                )
             } header: {
                 Text("")
+            } footer: {
+                Text(validationError ?? "")
+                    .foregroundColor(.red)
             }
             
             Button() {
-                Task { await otpViewModel.sendOtp() }
+                let validationResult = registerViewModel.validateRegisterForm()
+                validationError = validationResult.errorMessage
+                
+                if validationResult.successful {
+                    Task {
+                        await otpViewModel.sendOtp(
+                            phoneNumber: registerViewModel.phoneNumber
+                        )
+                    }
+                }
             } label: {
                 Text("Submit")
             }
-            .disabled(otpViewModel.number == "")
         }
         .navigationTitle("Register")
         .background {
             NavigationLink(tag: "Verification", selection: $otpViewModel.navigationTag) {
-                OtpScreen()
-                    .environmentObject(otpViewModel)
+                OtpScreen(
+                    firstName: registerViewModel.firstName,
+                    lastName: registerViewModel.lastName,
+                    phoneNumber: registerViewModel.phoneNumber,
+                    password: registerViewModel.password
+                )
+                .environmentObject(otpViewModel)
             } label: {}
         }
-    }
-}
-
-struct RegisterScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterScreen()
     }
 }

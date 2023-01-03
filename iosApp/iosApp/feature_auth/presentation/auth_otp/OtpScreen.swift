@@ -1,5 +1,5 @@
 //
-//  OtpScreem.swift
+//  OtpScreen.swift
 //  iosApp
 //
 //  Created by Amal Nuritdinkhodzhaev on 31/12/22.
@@ -12,24 +12,34 @@ struct OtpScreen: View {
     
     @EnvironmentObject var otpModel: OtpViewModel
     
+    @State var validationError: String? = nil
+    
+    let firstName: String
+    let lastName: String
+    let phoneNumber: String
+    let password: String
+    
     var body: some View {
         Form {
-            TextField("OTP", text: $otpModel.otp)
-                .textContentType(.oneTimeCode)
-                .keyboardType(.phonePad)
-            
-            Button {
-                Task { await otpModel.verifyOtp() }
-            } label: {
-                Text("Verify")
+            Section {
+                TextField("OTP", text: $otpModel.otp)
+                    .textContentType(.oneTimeCode)
+                    .keyboardType(.phonePad)
+                
+                Button {
+                    let validationResult = otpModel.validateOtp()
+                    validationError = validationResult.errorMessage
+                    
+                    if validationResult.successful {
+                        Task { await otpModel.verifyOtp() }
+                    }
+                } label: {
+                    Text("Verify")
+                }
+            } header: {
+                Text("")
             }
         }
         .navigationTitle("Verification")
-    }
-}
-
-struct OtpScreem_Previews: PreviewProvider {
-    static var previews: some View {
-        OtpScreen()
     }
 }

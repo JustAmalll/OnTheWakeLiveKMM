@@ -12,7 +12,7 @@ import Firebase
 
 @MainActor class OtpViewModel: ObservableObject {
     
-    @Published var number: String = ""
+    private let validationUseCase = ValidationUseCase()
     
     @Published var otp: String = ""
     
@@ -25,18 +25,13 @@ import Firebase
     
     @Published var navigationTag: String?
     
-    func sendOtp() async {
-        
-        print("send otp")
-        
+    func sendOtp(phoneNumber: String) async {
         if isLoading { return }
         do {
             isLoading = true
             
-            print("number is \(number)")
-            
             let result = try await
-            PhoneAuthProvider.provider().verifyPhoneNumber(number, uiDelegate: nil)
+            PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil)
             
             DispatchQueue.main.async {
                 self.isLoading = false
@@ -52,10 +47,13 @@ import Firebase
     func verifyOtp() async {
         do {
             isLoading = true
+            
             let credential = PhoneAuthProvider
                 .provider()
                 .credential(withVerificationID: verificationCode, verificationCode: otp)
-            let _ = try await Auth.auth().signIn(with: credential)
+            
+            try await Auth.auth().signIn(with: credential)
+            
             DispatchQueue.main.async { [self] in
                 isLoading = false
                 print("Success")
@@ -64,6 +62,11 @@ import Firebase
             print(error.localizedDescription)
             handleError(error: error.localizedDescription)
         }
+    }
+    
+    func validateOtp() -> ValidationResult {
+        let otpResult = validationUseCase.validateOTP(otp: otp)
+        return ValidationResult(successful: otpResult.successful, errorMessage: otpResult.errorMessage)
     }
     
     func handleError(error: String) {

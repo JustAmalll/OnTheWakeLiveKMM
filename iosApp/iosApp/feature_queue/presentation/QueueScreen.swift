@@ -52,7 +52,6 @@ struct QueueScreen: View {
                     )
                 }
             }
-            .navigationTitle("Queue")
             .overlay(
                 Button(
                     action: {

@@ -24,8 +24,10 @@ struct PasswordTextField: View {
                         .autocapitalization(.none)
                 }
             }
-            Button(action: { isSecure.toggle() }) {
-                Image(systemName: !isSecure ? "eye.slash" : "eye" )
+            if !password.isEmpty {
+                Button(action: { isSecure.toggle() }) {
+                    Image(systemName: isSecure ? "eye" : "eye.slash" )
+                }
             }
         }
     }

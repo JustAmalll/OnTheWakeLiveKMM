@@ -29,6 +29,7 @@ import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardTextField
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
 import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_login.LoginEvent
+import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_login.LoginEvent.*
 import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_login.LoginState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -90,9 +91,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 StandardTextField(
                     value = state.signInPhoneNumber,
-                    onValueChange = {
-                        onEvent(LoginEvent.SignInPhoneNumberChanged(it))
-                    },
+                    onValueChange = { onEvent(SignInPhoneNumberChanged(it)) },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Phone,
                         imeAction = ImeAction.Next
@@ -104,9 +103,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 StandardTextField(
                     value = state.signInPassword,
-                    onValueChange = {
-                        onEvent(LoginEvent.SignInPasswordChanged(it))
-                    },
+                    onValueChange = { onEvent(SignInPasswordChanged(it))  },
                     label = stringResource(id = R.string.password),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Password,
@@ -114,7 +111,7 @@ fun LoginScreen(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            onEvent(LoginEvent.SignIn)
+                            onEvent(SignIn)
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             focusManager.clearFocus()
                         }
@@ -126,7 +123,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
-                        onEvent(LoginEvent.SignIn)
+                        onEvent(SignIn)
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                         focusManager.clearFocus()
                     },

@@ -1,9 +1,11 @@
 package dev.amal.onthewakelivekmm.core.domain.util
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+@DelicateCoroutinesApi
 actual open class CommonMutableStateFlow<T> actual constructor(
     private val flow: MutableStateFlow<T>
 ) : CommonStateFlow<T>(flow), MutableStateFlow<T> {

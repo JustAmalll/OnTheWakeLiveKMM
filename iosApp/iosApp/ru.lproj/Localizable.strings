@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  iosApp
+
+  Created by Amal Nuritdinkhodzhaev on 2/1/23.
+  Copyright © 2023 orgName. All rights reserved.
+*/
+
+"queue" = "Queue";
+"login" = "Войти";
+"Phone number" = "Номер телефона";
+"Password" = "Пароль";

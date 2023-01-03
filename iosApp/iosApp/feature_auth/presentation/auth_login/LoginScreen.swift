@@ -12,44 +12,55 @@ import shared
 struct LoginScreen: View {
     
     private var authRepository: AuthRepository
+    
     @ObservedObject var viewModel: IOSLoginViewModel
+    
+    @State var validationError: String? = nil
     
     init(authRepository: AuthRepository) {
         self.authRepository = authRepository
-        self.viewModel = IOSLoginViewModel(authRepository: authRepository)
+        self.viewModel = IOSLoginViewModel(
+            authRepository: authRepository
+        )
     }
-
+    
+    
     var body: some View {
         Form {
             Section {
-                TextField(
-                    "Phone number", text: Binding(
-                        get: { viewModel.state.signInPhoneNumber},
-                        set: { value in
-                            viewModel.onEvent(
-                                event: LoginEvent.SignInPhoneNumberChanged(value: value)
-                            )
-                        }
-                    )
-                )
+                TextField("Phone number", text: Binding(
+                    get: { viewModel.state.signInPhoneNumber },
+                    set: { value in
+                        viewModel.onEvent(
+                            event: LoginEvent.SignInPhoneNumberChanged(value: value)
+                        )
+                    }
+                ))
                 .textContentType(.telephoneNumber)
                 .keyboardType(.phonePad)
                 
-                PasswordTextField(
-                    password: Binding(
-                        get: { viewModel.state.signInPassword },
-                        set: { value in
-                            viewModel.onEvent(
-                                event: LoginEvent.SignInPasswordChanged(value: value)
-                            )
-                        }
-                    )
-                )
+                PasswordTextField(password: Binding(
+                    get: { viewModel.state.signInPassword },
+                    set: { value in
+                        viewModel.onEvent(
+                            event: LoginEvent.SignInPasswordChanged(value: value)
+                        )
+                    }
+                ))
             } header: {
                 Text("")
+            } footer: {
+                Text(validationError ?? "")
+                    .foregroundColor(.red)
             }
-            Button() {
-                viewModel.onEvent(event: LoginEvent.SignIn())
+            
+            Button {
+                let validationResult = viewModel.validateLoginForm()
+                validationError = validationResult.errorMessage
+                
+                if validationResult.successful {
+                    viewModel.onEvent(event: LoginEvent.SignIn())
+                }
             } label: {
                 Text("Submit")
             }
@@ -63,12 +74,14 @@ struct LoginScreen: View {
         .overlay(alignment: .bottom) {
             HStack {
                 Text("Don't have an account yet?")
-                NavigationLink(destination: RegisterScreen()) {
+                NavigationLink(
+                    destination: RegisterScreen()
+                ) {
                     Text("Sign Up!")
                 }
             }
             .padding(.bottom)
         }
-        .navigationTitle("Login")
+        .navigationTitle("login")
     }
 }

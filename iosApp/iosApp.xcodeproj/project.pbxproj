@@ -12,6 +12,10 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		6484FED7066D6EF277A7BAFF /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		B310235D2962D8A900B2D8A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B310235F2962D8A900B2D8A3 /* Localizable.strings */; };
+		B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */; };
+		B34546BE29641697004D400A /* ValidationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546BD29641697004D400A /* ValidationUseCase.swift */; };
+		B34546C029643239004D400A /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546BF29643239004D400A /* ValidationResult.swift */; };
 		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
 		B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */; };
 		B3BA0B71295F2CDB006E5C40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3BA0B70295F2CDB006E5C40 /* Lottie */; };
@@ -36,6 +40,11 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B310235E2962D8A900B2D8A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B31023602962D8AD00B2D8A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSRegisterViewModel.swift; sourceTree = "<group>"; };
+		B34546BD29641697004D400A /* ValidationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationUseCase.swift; sourceTree = "<group>"; };
+		B34546BF29643239004D400A /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3BA0B72295F71C9006E5C40 /* QueueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
 		B3BA0B78295FF149006E5C40 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
@@ -114,6 +123,7 @@
 				B3D67CC3295DF363001A653A /* feature_queue */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
+				B310235F2962D8A900B2D8A3 /* Localizable.strings */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */,
@@ -122,9 +132,35 @@
 			path = iosApp;
 			sourceTree = "<group>";
 		};
+		B34546BB2964167C004D400A /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				B34546C129643259004D400A /* models */,
+				B34546BC29641683004D400A /* use_case */,
+			);
+			path = domain;
+			sourceTree = "<group>";
+		};
+		B34546BC29641683004D400A /* use_case */ = {
+			isa = PBXGroup;
+			children = (
+				B34546BD29641697004D400A /* ValidationUseCase.swift */,
+			);
+			path = use_case;
+			sourceTree = "<group>";
+		};
+		B34546C129643259004D400A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				B34546BF29643239004D400A /* ValidationResult.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		B3BA0B74295FF0FF006E5C40 /* feature_auth */ = {
 			isa = PBXGroup;
 			children = (
+				B34546BB2964167C004D400A /* domain */,
 				B3BA0B77295FF11C006E5C40 /* presentation */,
 			);
 			path = feature_auth;
@@ -154,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */,
+				B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */,
 			);
 			path = auth_register;
 			sourceTree = "<group>";
@@ -251,6 +288,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
@@ -273,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
+				B310235D2962D8A900B2D8A3 /* Localizable.strings in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 				B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */,
 			);
@@ -351,14 +390,29 @@
 				B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */,
 				B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */,
 				B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */,
+				B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */,
 				B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */,
+				B34546C029643239004D400A /* ValidationResult.swift in Sources */,
 				B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */,
+				B34546BE29641697004D400A /* ValidationUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B310235F2962D8A900B2D8A3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B310235E2962D8A900B2D8A3 /* en */,
+				B31023602962D8AD00B2D8A3 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
