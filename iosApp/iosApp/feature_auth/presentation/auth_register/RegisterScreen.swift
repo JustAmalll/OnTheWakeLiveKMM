@@ -11,10 +11,17 @@ import shared
 
 struct RegisterScreen: View {
     
-    @StateObject var otpViewModel: OtpViewModel = .init()
+    private var authRepository: AuthRepository
+    
+    @ObservedObject var otpViewModel: IOSOtpViewModel
     @StateObject var registerViewModel = IOSRegisterViewModel()
     
     @State var validationError: String? = nil
+    
+    init(authRepository: AuthRepository) {
+        self.authRepository = authRepository
+        self.otpViewModel = IOSOtpViewModel(authRepository: authRepository)
+    }
     
     var body: some View {
         

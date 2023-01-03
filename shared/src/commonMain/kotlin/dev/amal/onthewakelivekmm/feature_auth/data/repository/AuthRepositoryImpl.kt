@@ -1,6 +1,6 @@
 package dev.amal.onthewakelivekmm.feature_auth.data.repository
 
-import com.onthewake.onthewakelive.feature_auth.data.remote.request.CreateAccountRequest
+import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants.BASE_URL
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.AuthRequest

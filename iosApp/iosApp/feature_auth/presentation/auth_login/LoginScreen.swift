@@ -75,7 +75,7 @@ struct LoginScreen: View {
             HStack {
                 Text("Don't have an account yet?")
                 NavigationLink(
-                    destination: RegisterScreen()
+                    destination: RegisterScreen(authRepository: authRepository)
                 ) {
                     Text("Sign Up!")
                 }

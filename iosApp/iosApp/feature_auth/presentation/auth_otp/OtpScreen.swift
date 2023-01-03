@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OtpScreen: View {
     
-    @EnvironmentObject var otpModel: OtpViewModel
+    @EnvironmentObject var otpModel: IOSOtpViewModel
     
     @State var validationError: String? = nil
     
@@ -31,7 +31,14 @@ struct OtpScreen: View {
                     validationError = validationResult.errorMessage
                     
                     if validationResult.successful {
-                        Task { await otpModel.verifyOtp() }
+                        Task {
+                            await otpModel.verifyOtpAndSignUp(
+                                firstName: firstName,
+                                lastName: lastName,
+                                phoneNumber: phoneNumber,
+                                password: password
+                            )
+                        }
                     }
                 } label: {
                     Text("Verify")

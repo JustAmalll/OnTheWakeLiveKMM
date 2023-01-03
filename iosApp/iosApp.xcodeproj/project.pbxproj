@@ -24,7 +24,7 @@
 		B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */; };
 		B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */; };
 		B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8229607F18006E5C40 /* OtpScreen.swift */; };
-		B3BA0B8529608412006E5C40 /* OtpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8429608412006E5C40 /* OtpViewModel.swift */; };
+		B3BA0B8529608412006E5C40 /* IOSOtpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8429608412006E5C40 /* IOSOtpViewModel.swift */; };
 		B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */; };
 		B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */; };
 		B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D67CC8295DF400001A653A /* QueueScreen.swift */; };
@@ -51,7 +51,7 @@
 		B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreen.swift; sourceTree = "<group>"; };
 		B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		B3BA0B8229607F18006E5C40 /* OtpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpScreen.swift; sourceTree = "<group>"; };
-		B3BA0B8429608412006E5C40 /* OtpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpViewModel.swift; sourceTree = "<group>"; };
+		B3BA0B8429608412006E5C40 /* IOSOtpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSOtpViewModel.swift; sourceTree = "<group>"; };
 		B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSQueueViewModel.swift; sourceTree = "<group>"; };
 		B3D67CC8295DF400001A653A /* QueueScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueScreen.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				B3BA0B8229607F18006E5C40 /* OtpScreen.swift */,
-				B3BA0B8429608412006E5C40 /* OtpViewModel.swift */,
+				B3BA0B8429608412006E5C40 /* IOSOtpViewModel.swift */,
 			);
 			path = auth_otp;
 			sourceTree = "<group>";
@@ -385,7 +385,7 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */,
-				B3BA0B8529608412006E5C40 /* OtpViewModel.swift in Sources */,
+				B3BA0B8529608412006E5C40 /* IOSOtpViewModel.swift in Sources */,
 				B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */,
 				B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */,
 				B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */,
