@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OtpScreen: View {
     
-    @EnvironmentObject var otpModel: IOSOtpViewModel
+    @EnvironmentObject var otpViewModel: IOSOtpViewModel
     
     @State var validationError: String? = nil
     
@@ -22,17 +22,17 @@ struct OtpScreen: View {
     var body: some View {
         Form {
             Section {
-                TextField("OTP", text: $otpModel.otp)
+                TextField("OTP", text: $otpViewModel.otp)
                     .textContentType(.oneTimeCode)
                     .keyboardType(.phonePad)
                 
                 Button {
-                    let validationResult = otpModel.validateOtp()
+                    let validationResult = otpViewModel.validateOtp()
                     validationError = validationResult.errorMessage
                     
                     if validationResult.successful {
                         Task {
-                            await otpModel.verifyOtpAndSignUp(
+                            await otpViewModel.verifyOtpAndSignUp(
                                 firstName: firstName,
                                 lastName: lastName,
                                 phoneNumber: phoneNumber,
@@ -45,6 +45,12 @@ struct OtpScreen: View {
                 }
             } header: {
                 Text("")
+            }
+        }
+        .overlay {
+            if otpViewModel.isLoading {
+                Color(.systemBackground).ignoresSafeArea()
+                ProgressView()
             }
         }
         .navigationTitle("Verification")

@@ -71,16 +71,24 @@ struct LoginScreen: View {
         .onDisappear {
             viewModel.dispose()
         }
-        .overlay(alignment: .bottom) {
-            HStack {
-                Text("Don't have an account yet?")
-                NavigationLink(
-                    destination: RegisterScreen(authRepository: authRepository)
-                ) {
-                    Text("Sign Up!")
-                }
+        .overlay {
+            if viewModel.state.isLoading  {
+                Color(.systemBackground).ignoresSafeArea()
+                ProgressView()
             }
-            .padding(.bottom)
+        }
+        .overlay(alignment: .bottom) {
+            if !viewModel.state.isLoading {
+                HStack {
+                    Text("Don't have an account yet?")
+                    NavigationLink(
+                        destination: RegisterScreen(authRepository: authRepository)
+                    ) {
+                        Text("Sign Up!")
+                    }
+                }
+                .padding(.bottom)
+            }
         }
         .navigationTitle("login")
     }

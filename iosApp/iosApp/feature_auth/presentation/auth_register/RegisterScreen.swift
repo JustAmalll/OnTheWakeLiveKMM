@@ -65,6 +65,13 @@ struct RegisterScreen: View {
             }
         }
         .navigationTitle("Register")
+        .disabled(otpViewModel.isLoading)
+        .overlay {
+            if otpViewModel.isLoading {
+                Color(.systemBackground).ignoresSafeArea()
+                ProgressView()
+            }
+        }
         .background {
             NavigationLink(tag: "Verification", selection: $otpViewModel.navigationTag) {
                 OtpScreen(
