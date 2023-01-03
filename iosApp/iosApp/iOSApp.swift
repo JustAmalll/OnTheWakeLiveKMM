@@ -1,13 +1,21 @@
 import SwiftUI
+import shared
 import Firebase
 
 @main
 struct iOSApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var deletegate 
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var deletegate
+    private let appModule = AppModule()
+    
 	var body: some Scene {
 		WindowGroup {
             NavigationView {
-                ContentView()
+                SplashScreen(
+                    authRepository: appModule.authRepository,
+                    queueService: appModule.queueService,
+                    queueSocketService: appModule.queueSocketService
+                )
             }
 		}
 	}

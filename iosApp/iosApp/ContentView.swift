@@ -3,36 +3,30 @@ import shared
 
 struct ContentView: View {
     
-    private let appModule = AppModule()
+    private let queueService: QueueService
+    private let queueSocketService: QueueSocketService
     
-    @State private var selection = 1
-
-	var body: some View {
-        LoginScreen(
-            authRepository: appModule.authRepository
-        )
-//        TabView {
-//            QueueScreen(
-//                queueService: appModule.queueService,
-//                queueSocketService: appModule.queueSocketService
-//            )
-//                .tabItem {
-//                    Image(systemName: "house.fill")
-//                    Text("Queue")
-//                }
-//                .tag(1)
-//            Text("Profile")
-//                .tabItem {
-//                    Image(systemName: "person.fill")
-//                    Text("Profile")
-//                }
-//                .tag(2)
-//        }
-	}
-}
-
-struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
+    init(queueService: QueueService, queueSocketService: QueueSocketService) {
+        self.queueService = queueService
+        self.queueSocketService = queueSocketService
+    }
+    
+    var body: some View {
+        TabView {
+            QueueScreen(
+                queueService: queueService,
+                queueSocketService: queueSocketService
+            )
+            .tabItem {
+                Image(systemName: "house.fill")
+                Text("Queue")
+            }
+            Text("Profile")
+                .navigationTitle("Profile")
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+                }
+        }
+    }
 }

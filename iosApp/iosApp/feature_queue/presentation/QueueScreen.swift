@@ -10,12 +10,13 @@ import SwiftUI
 import shared
 
 struct QueueScreen: View {
+    
     private var queueService: QueueService
     private var queueSocketService: QueueSocketService
     @ObservedObject var viewModel: IOSQueueViewModel
     
     @State private var selected = 1
-
+    
     init(queueService: QueueService, queueSocketService: QueueSocketService) {
         self.queueService = queueService
         self.queueSocketService = queueSocketService
@@ -75,6 +76,7 @@ struct QueueScreen: View {
                     .padding(.bottom),
                 alignment: .bottomTrailing
             )
+            .navigationTitle("Queue")
             .onAppear {
                 viewModel.startObserving()
             }
