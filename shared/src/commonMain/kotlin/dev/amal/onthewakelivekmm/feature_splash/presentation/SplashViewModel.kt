@@ -25,7 +25,8 @@ class SplashViewModel(
     private fun authenticate() {
         viewModelScope.launch {
             val result = repository.authenticate()
-            _state.update { it.copy(isAuthorized = result is AuthResult.Authorized) }
+            val isAuthorized = result == AuthResult.Authorized
+            _state.update { it.copy(isAuthorized = isAuthorized) }
         }
     }
 }

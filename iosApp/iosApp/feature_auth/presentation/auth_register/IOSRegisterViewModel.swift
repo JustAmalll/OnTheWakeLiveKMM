@@ -9,7 +9,7 @@
 import Foundation
 
 extension RegisterScreen {
-    @MainActor class IOSRegisterViewModel: ObservableObject {
+    @MainActor final class IOSRegisterViewModel: ObservableObject {
         
         @Published var firstName: String = ""
         @Published var lastName: String = ""

@@ -4,5 +4,5 @@ import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
 
 data class OtpState(
     val isLoading: Boolean = false,
-    val signUpResult: AuthResult<Unit>? = null
+    val signUpResult: AuthResult? = null
 )

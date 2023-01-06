@@ -18,7 +18,7 @@ class AuthRepositoryImpl(
 
     override suspend fun signUp(
         accountRequest: CreateAccountRequest
-    ): AuthResult<Unit> = try {
+    ): AuthResult = try {
         val result = client.post("$BASE_URL/signup") {
             setBody(accountRequest)
         }
@@ -29,59 +29,59 @@ class AuthRepositoryImpl(
             )
         )
         when (result.status.value) {
-            in 200..299 -> AuthResult.Authorized()
-            401 -> AuthResult.Unauthorized()
-            409 -> AuthResult.UserAlreadyExist()
-            500 -> AuthResult.UnknownError()
-            else -> AuthResult.UnknownError()
+            in 200..299 -> AuthResult.Authorized
+            401 -> AuthResult.Unauthorized
+            409 -> AuthResult.UserAlreadyExist
+            500 -> AuthResult.UnknownError
+            else -> AuthResult.UnknownError
         }
     } catch (exception: Exception) {
-        AuthResult.UnknownError()
+        AuthResult.UnknownError
     }
 
     override suspend fun signIn(
         authRequest: AuthRequest
-    ): AuthResult<Unit> {
+    ): AuthResult {
         val result =  try {
             client.post("$BASE_URL/signin") {
                 setBody(authRequest)
             }
         } catch (exception: Exception) {
-            return AuthResult.UnknownError()
+            return AuthResult.UnknownError
         }
 
         when (result.status.value) {
             in 200..299 -> Unit
-            401 -> return AuthResult.Unauthorized()
-            409 -> return AuthResult.IncorrectData()
-            500 -> return AuthResult.UnknownError()
-            else -> return AuthResult.UnknownError()
+            401 -> return AuthResult.Unauthorized
+            409 -> return AuthResult.IncorrectData
+            500 -> return AuthResult.UnknownError
+            else -> return AuthResult.UnknownError
         }
 
         return try {
             val authResponse = result.body<AuthResponse>()
             preferenceManager.setString("token", authResponse.token)
-            AuthResult.Authorized()
+            AuthResult.Authorized
         } catch (exception: Exception) {
-            AuthResult.UnknownError()
+            AuthResult.UnknownError
         }
     }
 
-    override suspend fun authenticate(): AuthResult<Unit> {
+    override suspend fun authenticate(): AuthResult {
         return try {
             val token = preferenceManager.getString("token")
-                ?: return AuthResult.Unauthorized()
+                ?: return AuthResult.Unauthorized
 
             val result = client.get("$BASE_URL/authenticate") {
                 header("Bearer", token)
             }
             when (result.status.value) {
-                in 200..299 -> AuthResult.Authorized()
-                401 -> AuthResult.Unauthorized()
-                else -> AuthResult.UnknownError()
+                in 200..299 -> AuthResult.Authorized
+                401 -> AuthResult.Unauthorized
+                else -> AuthResult.UnknownError
             }
         } catch (exception: Exception) {
-            AuthResult.UnknownError()
+            AuthResult.UnknownError
         }
     }
 }

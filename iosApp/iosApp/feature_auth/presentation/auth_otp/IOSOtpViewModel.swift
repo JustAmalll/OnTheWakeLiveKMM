@@ -10,7 +10,7 @@ import Foundation
 import shared
 import Firebase
 
-@MainActor class IOSOtpViewModel: ObservableObject {
+@MainActor final class IOSOtpViewModel: ObservableObject {
     
     private let validationUseCase = ValidationUseCase()
     

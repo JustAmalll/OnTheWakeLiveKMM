@@ -15,15 +15,12 @@ struct LoginScreen: View {
     
     @ObservedObject var viewModel: IOSLoginViewModel
     
-    @State var validationError: String? = nil
-    
     init(authRepository: AuthRepository) {
         self.authRepository = authRepository
         self.viewModel = IOSLoginViewModel(
             authRepository: authRepository
         )
     }
-    
     
     var body: some View {
         Form {
@@ -50,13 +47,13 @@ struct LoginScreen: View {
             } header: {
                 Text("")
             } footer: {
-                Text(validationError ?? "")
+                Text(viewModel.validationError ?? "")
                     .foregroundColor(.red)
             }
             
             Button {
                 let validationResult = viewModel.validateLoginForm()
-                validationError = validationResult.errorMessage
+                viewModel.validationError = validationResult.errorMessage
                 
                 if validationResult.successful {
                     viewModel.onEvent(event: LoginEvent.SignIn())

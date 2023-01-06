@@ -31,16 +31,17 @@ struct SplashScreen: View {
     var body: some View {
         
         if isActive {
-            if let isAuthorized = viewModel.state.isAuthorized  {
-                if isAuthorized == true {
-                    ContentView(
-                        queueService: queueService,
-                        queueSocketService: queueSocketService
-                    )
-                } else {
-                    LoginScreen(authRepository: authRepository)
-                }
-            }
+            LoginScreen(authRepository: authRepository)
+//            if let isAuthorized = viewModel.state.isAuthorized  {
+//                if isAuthorized == true {
+//                    ContentView(
+//                        queueService: queueService,
+//                        queueSocketService: queueSocketService
+//                    )
+//                } else {
+//                    LoginScreen(authRepository: authRepository)
+//                }
+//            }
         } else {
             VStack {
                 Image("onthewake_logo_black")
@@ -51,7 +52,7 @@ struct SplashScreen: View {
             .scaleEffect(logoSize)
             .opacity(logoOpacity)
             .onAppear {
-                withAnimation(.easeIn(duration: 0.6)) {
+                withAnimation(.easeIn(duration: 0.4)) {
                     self.logoSize = 0.9
                     self.logoOpacity = 1.0
                 }

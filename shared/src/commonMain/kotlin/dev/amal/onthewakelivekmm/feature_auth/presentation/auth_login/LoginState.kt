@@ -4,7 +4,7 @@ import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
 
 data class LoginState(
     val isLoading: Boolean = false,
-    val loginResult: AuthResult<Unit>? = null,
+    val loginResult: AuthResult? = null,
     val signInPhoneNumber: String = "",
     val signInPhoneNumberError: String? = null,
     val signInPassword: String = "",

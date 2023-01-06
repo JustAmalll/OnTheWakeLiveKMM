@@ -10,11 +10,16 @@ import Foundation
 import shared
 
 extension LoginScreen {
-    @MainActor class IOSLoginViewModel: ObservableObject {
+    @MainActor final class IOSLoginViewModel: ObservableObject {
         
         private let validationUseCase = ValidationUseCase()
         private let authRepository: AuthRepository
         private let viewModel: LoginViewModel
+        
+        @Published var validationError: String?
+        
+        @Published var loginError: AuthResult?
+        @Published var hasLoginError: Bool = false
         
         @Published var state: LoginState = LoginState(
             isLoading: false,
@@ -24,7 +29,7 @@ extension LoginScreen {
             signInPassword: "",
             signInPasswordError: nil
         )
-        
+    
         private var handle: DisposableHandle?
         
         init(authRepository: AuthRepository) {
@@ -59,6 +64,20 @@ extension LoginScreen {
         
         func dispose() {
             handle?.dispose()
+        }
+    }
+}
+
+extension AuthResult: LocalizedError {
+    
+    public var errorDescription: String? {
+        switch self {
+        case .incorrectdata:
+            return "incorrectdata"
+        case .unknownerror:
+            return "unknownerror"
+        default:
+            return nil
         }
     }
 }

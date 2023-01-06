@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -24,21 +21,24 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardTextField
+import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
-import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_login.LoginEvent
 import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_login.LoginEvent.*
-import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_login.LoginState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
 fun LoginScreen(
-    state: LoginState,
-    onEvent: (LoginEvent) -> Unit
+    viewModel: AndroidLoginViewModel = hiltViewModel(),
+    navController: NavHostController
 ) {
+    val state by viewModel.state.collectAsState()
+
     val snackBarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
@@ -54,19 +54,19 @@ fun LoginScreen(
     }
 
     LaunchedEffect(key1 = state.loginResult) {
-        state.loginResult?.let { loginResult ->
-            when (loginResult) {
-                is AuthResult.Authorized -> snackBarHostState.showSnackbar(
-                    message = "Success"
-                )
-                is AuthResult.IncorrectData -> snackBarHostState.showSnackbar(
-                    message = context.getString(R.string.incorrect_data)
-                )
-                else -> snackBarHostState.showSnackbar(
-                    message = context.getString(R.string.unknown_error)
-                )
+        when (state.loginResult) {
+            AuthResult.Authorized -> navController.navigate(Screen.QueueScreen.route) {
+                popUpTo(Screen.LoginScreen.route) { inclusive = true }
             }
+            AuthResult.IncorrectData -> snackBarHostState.showSnackbar(
+                message = context.getString(R.string.incorrect_data)
+            )
+            AuthResult.UnknownError -> snackBarHostState.showSnackbar(
+                message = context.getString(R.string.unknown_error)
+            )
+            else -> Unit
         }
+        viewModel.onEvent(OnLoginResultSeen)
     }
 
     Scaffold(snackbarHost = { SnackbarHost(hostState = snackBarHostState) }) {
@@ -91,7 +91,9 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 StandardTextField(
                     value = state.signInPhoneNumber,
-                    onValueChange = { onEvent(SignInPhoneNumberChanged(it)) },
+                    onValueChange = {
+                        viewModel.onEvent(SignInPhoneNumberChanged(it))
+                    },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Phone,
                         imeAction = ImeAction.Next
@@ -103,7 +105,9 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 StandardTextField(
                     value = state.signInPassword,
-                    onValueChange = { onEvent(SignInPasswordChanged(it))  },
+                    onValueChange = {
+                        viewModel.onEvent(SignInPasswordChanged(it))
+                    },
                     label = stringResource(id = R.string.password),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Password,
@@ -111,7 +115,7 @@ fun LoginScreen(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            onEvent(SignIn)
+                            viewModel.onEvent(SignIn)
                             haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             focusManager.clearFocus()
                         }
@@ -123,7 +127,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
-                        onEvent(SignIn)
+                        viewModel.onEvent(SignIn)
                         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                         focusManager.clearFocus()
                     },

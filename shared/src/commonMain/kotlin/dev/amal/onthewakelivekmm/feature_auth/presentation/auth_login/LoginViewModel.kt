@@ -18,12 +18,6 @@ class LoginViewModel(
     private val _state = MutableStateFlow(LoginState())
     val state = _state.toCommonStateFlow()
 
-//    init {
-//        viewModelScope.launch {
-//            repository.authenticate()
-//        }
-//    }
-
     fun onEvent(event: LoginEvent) {
         when (event) {
             is LoginEvent.SignInPhoneNumberChanged -> _state.update {
@@ -31,6 +25,9 @@ class LoginViewModel(
             }
             is LoginEvent.SignInPasswordChanged -> _state.update {
                 it.copy(signInPassword = event.value)
+            }
+            is LoginEvent.OnLoginResultSeen -> _state.update {
+                it.copy(loginResult = null)
             }
             is LoginEvent.SignIn -> signIn()
         }
@@ -45,10 +42,8 @@ class LoginViewModel(
                     password = state.value.signInPassword.trim()
                 )
             )
-            println("auth result is ${result.data}")
-            _state.update {
-                it.copy(loginResult = result, isLoading = false)
-            }
+            println("auth result is $result")
+            _state.update { it.copy(loginResult = result, isLoading = false) }
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import shared
 
 extension SplashScreen {
-    @MainActor class IOSSplashViewModel: ObservableObject {
+    @MainActor final class IOSSplashViewModel: ObservableObject {
         
         private let authRepository: AuthRepository
         private let viewModel: SplashViewModel

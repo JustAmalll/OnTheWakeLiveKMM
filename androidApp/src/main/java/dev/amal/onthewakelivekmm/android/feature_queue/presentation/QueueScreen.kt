@@ -9,10 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.ImageLoader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -30,7 +28,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.EmptyContent
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.QueueItem
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.TabLayout
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueSocketEvent
+import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueSocketEvent.AddToQueue
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueState
 
 @ExperimentalPagerApi
@@ -38,10 +36,11 @@ import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueState
 @ExperimentalAnimationApi
 @Composable
 fun QueueScreen(
-    state: QueueState,
-    imageLoader: ImageLoader,
-    onEvent: (QueueSocketEvent) -> Unit
+    viewModel: AndroidQueueViewModel = hiltViewModel(),
+    imageLoader: ImageLoader
 ) {
+    val state by viewModel.state.collectAsState()
+
     val haptic = LocalHapticFeedback.current
 
     val pagerState = rememberPagerState(pageCount = 2, initialPage = 1)
@@ -85,8 +84,8 @@ fun QueueScreen(
             if (!state.isQueueLoading) FloatingActionButton(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    onEvent(
-                        QueueSocketEvent.AddToQueue(
+                    viewModel.onEvent(
+                        AddToQueue(
                             isLeftQueue = pagerState.currentPage == 0,
                             firstName = "First name",
                             timestamp = System.currentTimeMillis()
