@@ -58,6 +58,7 @@ struct OtpScreen: View {
             }
         }
         .navigationTitle("Verification")
+        .alert(otpViewModel.errorMessage, isPresented: $otpViewModel.showAlert) {}
         .overlay {
             if otpViewModel.isLoading {
                 Color(.systemBackground).ignoresSafeArea()

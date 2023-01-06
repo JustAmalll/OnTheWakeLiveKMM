@@ -29,7 +29,7 @@ struct LoginScreen: View {
         
         let phoneNumberError = viewModel.state.signInPhoneNumberError
         let passwordError = viewModel.state.signInPasswordError
-        
+    
         Form {
             Section {
                 TextField("Phone number", text: Binding(

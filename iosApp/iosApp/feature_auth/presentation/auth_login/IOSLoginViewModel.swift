@@ -56,17 +56,3 @@ extension LoginScreen {
         }
     }
 }
-
-extension AuthResult: LocalizedError {
-    
-    public var errorDescription: String? {
-        switch self {
-        case .incorrectdata:
-            return "incorrectdata"
-        case .unknownerror:
-            return "unknownerror"
-        default:
-            return nil
-        }
-    }
-}

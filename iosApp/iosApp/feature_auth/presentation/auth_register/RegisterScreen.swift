@@ -115,7 +115,7 @@ struct RegisterScreen: View {
             }
         }
         .navigationTitle("Register")
-        .disabled(otpViewModel.isLoading)
+        .alert(otpViewModel.errorMessage, isPresented: $otpViewModel.showAlert) {}
         .onAppear {
             registerViewModel.startObserving()
         }
