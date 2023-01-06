@@ -5,6 +5,7 @@ import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.data.remote.HttpClientFactory
 import dev.amal.onthewakelivekmm.feature_auth.data.repository.AuthRepositoryImpl
 import dev.amal.onthewakelivekmm.feature_auth.domain.repository.AuthRepository
+import dev.amal.onthewakelivekmm.feature_auth.domain.use_case.ValidationUseCase
 import dev.amal.onthewakelivekmm.feature_queue.data.repository.QueueServiceImpl
 import dev.amal.onthewakelivekmm.feature_queue.data.repository.QueueSocketServiceImpl
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
@@ -31,5 +32,9 @@ class AppModule {
         QueueSocketServiceImpl(
             HttpClientFactory().create()
         )
+    }
+
+    val validationUseCase: ValidationUseCase by lazy {
+        ValidationUseCase()
     }
 }

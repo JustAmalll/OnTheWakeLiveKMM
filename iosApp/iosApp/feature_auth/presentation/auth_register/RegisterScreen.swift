@@ -13,50 +13,100 @@ struct RegisterScreen: View {
     
     private var authRepository: AuthRepository
     
+    private let validationUseCase: ValidationUseCase
+    
     @ObservedObject var otpViewModel: IOSOtpViewModel
-    @StateObject var registerViewModel = IOSRegisterViewModel()
+    @ObservedObject var registerViewModel: IOSRegisterViewModel
     
-    @State var validationError: String? = nil
-    
-    init(authRepository: AuthRepository) {
+    init(authRepository: AuthRepository, validationUseCase: ValidationUseCase) {
         self.authRepository = authRepository
-        self.otpViewModel = IOSOtpViewModel(authRepository: authRepository)
+        self.validationUseCase = validationUseCase
+        self.registerViewModel = IOSRegisterViewModel(validationUseCase: validationUseCase)
+        self.otpViewModel = IOSOtpViewModel(
+            authRepository: authRepository,
+            validationUseCase: validationUseCase
+        )
     }
     
     var body: some View {
         
+        let state = registerViewModel.state
+        
+        let firstNameError = state.signUpFirstNameError
+        let lastNameError = state.signUpLastNameError
+        let phoneNumberError = state.signUpPhoneNumberError
+        let passwordError = state.signUpPasswordError
+        
         Form {
             Section {
-                TextField( "First name", text: $registerViewModel.firstName)
-                    .textContentType(.name)
-                    .keyboardType(.namePhonePad)
+                TextField("First name", text: Binding(
+                    get: { state.signUpFirstName },
+                    set: { value in
+                        registerViewModel.onEvent(
+                            event: RegisterEvent.SignUpFirstNameChanged(value: value)
+                        )
+                    }
+                ))
+                .textContentType(.name)
+                .keyboardType(.namePhonePad)
                 
-                TextField( "Last name", text: $registerViewModel.lastName)
-                    .textContentType(.familyName)
-                    .keyboardType(.namePhonePad)
+                TextField( "Last name", text: Binding(
+                    get: { state.signUpLastName },
+                    set: { value in
+                        registerViewModel.onEvent(
+                            event: RegisterEvent.SignUpLastNameChanged(value: value)
+                        )
+                    }
+                ))
+                .textContentType(.familyName)
+                .keyboardType(.namePhonePad)
                 
-                TextField("Phone number", text: $registerViewModel.phoneNumber)
-                    .textContentType(.telephoneNumber)
-                    .keyboardType(.numberPad)
+                TextField("Phone number", text: Binding(
+                    get: { state.signUpPhoneNumber },
+                    set: { value in
+                        registerViewModel.onEvent(
+                            event: RegisterEvent.SignUpPhoneNumberChanged(value: value)
+                        )
+                    }
+                ))
+                .textContentType(.telephoneNumber)
+                .keyboardType(.numberPad)
                 
                 PasswordTextField(
-                    password: $registerViewModel.password
+                    password: Binding(
+                        get: { state.signUpPassword },
+                        set: { value in
+                            registerViewModel.onEvent(
+                                event: RegisterEvent.SignUpPasswordChanged(value: value)
+                            )
+                        }
+                    )
                 )
             } header: {
                 Text("")
             } footer: {
-                Text(validationError ?? "")
-                    .foregroundColor(.red)
+                if let firstNameError = firstNameError {
+                    Text(LocalizedStringKey(firstNameError))
+                        .foregroundColor(.red)
+                } else if let lastNameError = lastNameError {
+                    Text(LocalizedStringKey(lastNameError))
+                        .foregroundColor(.red)
+                } else if let phoneNumberError = phoneNumberError {
+                    Text(LocalizedStringKey(phoneNumberError))
+                        .foregroundColor(.red)
+                } else if let passwordError = passwordError {
+                    Text(LocalizedStringKey(passwordError))
+                        .foregroundColor(.red)
+                } else {
+                    Text("")
+                }
             }
             
-            Button() {
-                let validationResult = registerViewModel.validateRegisterForm()
-                validationError = validationResult.errorMessage
-                
-                if validationResult.successful {
+            Button {
+                if registerViewModel.isValidationSuccess() {
                     Task {
                         await otpViewModel.sendOtp(
-                            phoneNumber: registerViewModel.phoneNumber
+                            phoneNumber: state.signUpPhoneNumber
                         )
                     }
                 }
@@ -66,6 +116,12 @@ struct RegisterScreen: View {
         }
         .navigationTitle("Register")
         .disabled(otpViewModel.isLoading)
+        .onAppear {
+            registerViewModel.startObserving()
+        }
+        .onDisappear {
+            registerViewModel.dispose()
+        }
         .overlay {
             if otpViewModel.isLoading {
                 Color(.systemBackground).ignoresSafeArea()
@@ -75,10 +131,10 @@ struct RegisterScreen: View {
         .background {
             NavigationLink(tag: "Verification", selection: $otpViewModel.navigationTag) {
                 OtpScreen(
-                    firstName: registerViewModel.firstName,
-                    lastName: registerViewModel.lastName,
-                    phoneNumber: registerViewModel.phoneNumber,
-                    password: registerViewModel.password
+                    firstName: state.signUpFirstName,
+                    lastName: state.signUpLastName,
+                    phoneNumber: state.signUpPhoneNumber,
+                    password: state.signUpPassword
                 )
                 .environmentObject(otpViewModel)
             } label: {}

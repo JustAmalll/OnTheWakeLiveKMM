@@ -12,26 +12,34 @@ import shared
 struct SplashScreen: View {
     
     private var authRepository: AuthRepository
+    private var validationUseCase: ValidationUseCase
     @ObservedObject var viewModel: IOSSplashViewModel
     
     private var queueService: QueueService
     private var queueSocketService: QueueSocketService
     
-    init(authRepository: AuthRepository, queueService: QueueService, queueSocketService: QueueSocketService) {
+    init(
+        authRepository: AuthRepository,
+        queueService: QueueService,
+        queueSocketService: QueueSocketService,
+        validationUseCase: ValidationUseCase
+    ) {
         self.queueService = queueService
         self.queueSocketService = queueSocketService
         self.authRepository = authRepository
+        self.validationUseCase = validationUseCase
         self.viewModel = IOSSplashViewModel(authRepository: authRepository)
     }
     
     @State var isActive: Bool = false
-    @State var logoSize = 0.8
-    @State var logoOpacity = 0.6
     
     var body: some View {
         
         if isActive {
-            LoginScreen(authRepository: authRepository)
+            LoginScreen(
+                authRepository: authRepository,
+                validationUseCase: validationUseCase
+            )
 //            if let isAuthorized = viewModel.state.isAuthorized  {
 //                if isAuthorized == true {
 //                    ContentView(
@@ -47,15 +55,10 @@ struct SplashScreen: View {
                 Image("onthewake_logo_black")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 300, height: 300)
+                    .frame(width: 260, height: 260)
             }
-            .scaleEffect(logoSize)
-            .opacity(logoOpacity)
             .onAppear {
-                withAnimation(.easeIn(duration: 0.4)) {
-                    self.logoSize = 0.9
-                    self.logoOpacity = 1.0
-                }
+                withAnimation(.easeIn) {}
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {

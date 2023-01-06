@@ -7,20 +7,6 @@
     <string name="notification_content_title">It\'s time to ride!</string>
     <string name="notification_content_text">The queue has almost reached you, you are next!</string>
 
-    <string name="validate_first_name_error">The first name can\'t be blank</string>
-    <string name="validate_user_error">There is already this user in the queue</string>
-    <string name="validate_last_name_error">The last name can\'t be blank</string>
-    <string name="validate_otp_error">OTP cannot be empty</string>
-    <string name="validate_otp_length_error">OTP must contain 6 digits</string>
-    <string name="validate_date_of_birth_error">Date of birth can\'t be greater than the current year</string>
-    <string name="validate_date_of_birth_day_error">Birthday can\'t be more than the number of days in a month</string>
-    <string name="validate_date_of_birth_month_error">The month of birth can\'t be greater than the number of months in a year</string>
-    <string name="validate_phone_number_error">"The phone number can\'t be blank</string>
-    <string name="validate_invalid_phone_number_error">"Invalid phone number</string>
-    <string name="validate_starts_with_zero_phone_number_error">"Phone number should starts with 0</string>
-    <string name="validate_password_error">The password can\'t be blank</string>
-    <string name="validate_password_length_error">The password needs to consist of at least 6 characters</string>
-
     <string name="unknown_error">An unknown error occurred</string>
     <string name="couldnt_reach_server">Oops! Couldn\'t reach server. Check your internet connection.</string>
     <string name="something_went_wrong">Oops! Something went wrong. Please try again.</string>

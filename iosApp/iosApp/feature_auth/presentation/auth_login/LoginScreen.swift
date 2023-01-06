@@ -11,18 +11,25 @@ import shared
 
 struct LoginScreen: View {
     
+    private var validationUseCase: ValidationUseCase
     private var authRepository: AuthRepository
     
     @ObservedObject var viewModel: IOSLoginViewModel
     
-    init(authRepository: AuthRepository) {
+    init(authRepository: AuthRepository, validationUseCase: ValidationUseCase) {
         self.authRepository = authRepository
+        self.validationUseCase = validationUseCase
         self.viewModel = IOSLoginViewModel(
-            authRepository: authRepository
+            authRepository: authRepository,
+            validationUseCase: validationUseCase
         )
     }
     
     var body: some View {
+        
+        let phoneNumberError = viewModel.state.signInPhoneNumberError
+        let passwordError = viewModel.state.signInPasswordError
+        
         Form {
             Section {
                 TextField("Phone number", text: Binding(
@@ -47,17 +54,19 @@ struct LoginScreen: View {
             } header: {
                 Text("")
             } footer: {
-                Text(viewModel.validationError ?? "")
-                    .foregroundColor(.red)
+                if let phoneNumberError = phoneNumberError {
+                    Text(LocalizedStringKey(phoneNumberError))
+                        .foregroundColor(.red)
+                } else if let passwordError = passwordError {
+                    Text(LocalizedStringKey(passwordError))
+                        .foregroundColor(.red)
+                } else {
+                    Text("")
+                }
             }
             
             Button {
-                let validationResult = viewModel.validateLoginForm()
-                viewModel.validationError = validationResult.errorMessage
-                
-                if validationResult.successful {
-                    viewModel.onEvent(event: LoginEvent.SignIn())
-                }
+                viewModel.onEvent(event: LoginEvent.SignIn())
             } label: {
                 Text("Submit")
             }
@@ -79,7 +88,10 @@ struct LoginScreen: View {
                 HStack {
                     Text("Don't have an account yet?")
                     NavigationLink(
-                        destination: RegisterScreen(authRepository: authRepository)
+                        destination: RegisterScreen(
+                            authRepository: authRepository,
+                            validationUseCase: validationUseCase
+                        )
                     ) {
                         Text("Sign Up!")
                     }

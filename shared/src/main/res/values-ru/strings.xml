@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="validate_first_name_error">Имя не может быть пустым</string>
+    <string name="validate_last_name_error">Фамилия не может быть пустой</string>
+    <string name="validate_phone_number_error">Номера телефона не может быть пустым</string>
+    <string name="validate_invalid_phone_number_error">Неправильный номер телефона</string>
+    <string name="validate_password_error">Пароль не может быть пустым</string>
+    <string name="validate_password_length_error">Пароль должен состоять не менее чем из 6 символов</string>
+    <string name="validate_otp_error">OTP не может быть пустым</string>
+</resources>

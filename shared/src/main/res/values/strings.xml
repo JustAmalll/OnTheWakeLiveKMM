@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="validate_first_name_error">The first name can\'t be blank</string>
+    <string name="validate_last_name_error">The last name can\'t be blank</string>
+    <string name="validate_phone_number_error">The phone number can\'t be blank</string>
+    <string name="validate_invalid_phone_number_error">Invalid phone number</string>
+    <string name="validate_password_error">The password can\'t be blank</string>
+    <string name="validate_password_length_error">The password needs to consist of at least 6 characters</string>
+    <string name="validate_otp_error">OTP cannot be empty</string>
+</resources>

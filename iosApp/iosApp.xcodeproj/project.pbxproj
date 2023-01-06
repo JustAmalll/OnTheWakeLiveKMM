@@ -14,8 +14,6 @@
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		B310235D2962D8A900B2D8A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B310235F2962D8A900B2D8A3 /* Localizable.strings */; };
 		B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */; };
-		B34546BE29641697004D400A /* ValidationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546BD29641697004D400A /* ValidationUseCase.swift */; };
-		B34546C029643239004D400A /* ValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546BF29643239004D400A /* ValidationResult.swift */; };
 		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
 		B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */; };
 		B3B93B5329648789000FD7EC /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B93B5229648789000FD7EC /* SplashScreen.swift */; };
@@ -45,8 +43,6 @@
 		B310235E2962D8A900B2D8A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B31023602962D8AD00B2D8A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSRegisterViewModel.swift; sourceTree = "<group>"; };
-		B34546BD29641697004D400A /* ValidationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationUseCase.swift; sourceTree = "<group>"; };
-		B34546BF29643239004D400A /* ValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationResult.swift; sourceTree = "<group>"; };
 		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3B93B5229648789000FD7EC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		B3B93B5429648F57000FD7EC /* IOSSplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSplashViewModel.swift; sourceTree = "<group>"; };
@@ -137,31 +133,6 @@
 			path = iosApp;
 			sourceTree = "<group>";
 		};
-		B34546BB2964167C004D400A /* domain */ = {
-			isa = PBXGroup;
-			children = (
-				B34546C129643259004D400A /* models */,
-				B34546BC29641683004D400A /* use_case */,
-			);
-			path = domain;
-			sourceTree = "<group>";
-		};
-		B34546BC29641683004D400A /* use_case */ = {
-			isa = PBXGroup;
-			children = (
-				B34546BD29641697004D400A /* ValidationUseCase.swift */,
-			);
-			path = use_case;
-			sourceTree = "<group>";
-		};
-		B34546C129643259004D400A /* models */ = {
-			isa = PBXGroup;
-			children = (
-				B34546BF29643239004D400A /* ValidationResult.swift */,
-			);
-			path = models;
-			sourceTree = "<group>";
-		};
 		B3B93B5029648759000FD7EC /* feature_splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +153,6 @@
 		B3BA0B74295FF0FF006E5C40 /* feature_auth */ = {
 			isa = PBXGroup;
 			children = (
-				B34546BB2964167C004D400A /* domain */,
 				B3BA0B77295FF11C006E5C40 /* presentation */,
 			);
 			path = feature_auth;
@@ -418,9 +388,7 @@
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */,
 				B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */,
-				B34546C029643239004D400A /* ValidationResult.swift in Sources */,
 				B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */,
-				B34546BE29641697004D400A /* ValidationUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

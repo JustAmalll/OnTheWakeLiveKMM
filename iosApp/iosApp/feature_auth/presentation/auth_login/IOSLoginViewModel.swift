@@ -12,11 +12,10 @@ import shared
 extension LoginScreen {
     @MainActor final class IOSLoginViewModel: ObservableObject {
         
-        private let validationUseCase = ValidationUseCase()
         private let authRepository: AuthRepository
-        private let viewModel: LoginViewModel
+        private let validationUseCase: ValidationUseCase
         
-        @Published var validationError: String?
+        private let viewModel: LoginViewModel
         
         @Published var loginError: AuthResult?
         @Published var hasLoginError: Bool = false
@@ -32,24 +31,14 @@ extension LoginScreen {
     
         private var handle: DisposableHandle?
         
-        init(authRepository: AuthRepository) {
+        init(authRepository: AuthRepository, validationUseCase: ValidationUseCase) {
             self.authRepository = authRepository
+            self.validationUseCase = validationUseCase
             self.viewModel = LoginViewModel(
                 repository: authRepository,
+                validationUseCase: validationUseCase,
                 coroutineScope: nil
             )
-        }
-        
-        func validateLoginForm() -> ValidationResult {
-            let phoneNumberResult = validationUseCase.validatePhoneNumber(phoneNumber: state.signInPhoneNumber)
-            let passwordResult = validationUseCase.validatePassword(password: state.signInPassword)
-            
-            let validationResults = [phoneNumberResult, passwordResult]
-            
-            let validationError = validationResults.filter { $0.errorMessage != nil }.first?.errorMessage
-            let isValidationSuccess = validationResults.allSatisfy { $0.successful }
-            
-            return ValidationResult(successful: isValidationSuccess, errorMessage: validationError)
         }
         
         func onEvent(event: LoginEvent) {

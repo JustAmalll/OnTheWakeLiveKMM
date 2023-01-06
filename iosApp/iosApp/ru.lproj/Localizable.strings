@@ -10,3 +10,10 @@
 "login" = "Войти";
 "Phone number" = "Номер телефона";
 "Password" = "Пароль";
+"The phone number can't be blank" = "Номер телефона не может быть пустым";
+"The first name can't be blank" = "Имя не может быть пустым";
+"The last name can't be blank" = "Фамилия не может быть пустой";
+"Invalid phone number" = "Неправильный номер телефона";
+"The password can't be blank" = "Пароль не может быть пустым";
+"The password needs to consist of at least 6 characters" = "Пароль должен состоять не менее чем из 6 символов";
+"OTP cannot be empty" = "OTP не может быть пустым";

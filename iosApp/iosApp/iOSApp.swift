@@ -14,7 +14,8 @@ struct iOSApp: App {
                 SplashScreen(
                     authRepository: appModule.authRepository,
                     queueService: appModule.queueService,
-                    queueSocketService: appModule.queueSocketService
+                    queueSocketService: appModule.queueSocketService,
+                    validationUseCase: appModule.validationUseCase
                 )
             }
 		}

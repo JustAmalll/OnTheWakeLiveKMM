@@ -12,12 +12,9 @@ import Firebase
 
 @MainActor final class IOSOtpViewModel: ObservableObject {
     
-    private let validationUseCase = ValidationUseCase()
-    
+    private let validationUseCase: ValidationUseCase
     private let authRepository: AuthRepository
     private let viewModel: OtpViewModel
-    
-    @Published var otp: String = ""
     
     @Published var showAlert: Bool = false
     @Published var errorMessage: String = ""
@@ -29,13 +26,19 @@ import Firebase
     @Published var navigationTag: String?
     
     @Published var state: OtpState = OtpState(
-        isLoading: false, signUpResult: nil
+        isLoading: false,
+        signUpResult: nil,
+        otp: "",
+        otpError: nil
     )
     
-    init(authRepository: AuthRepository) {
+    init(authRepository: AuthRepository, validationUseCase: ValidationUseCase) {
         self.authRepository = authRepository
+        self.validationUseCase = validationUseCase
         self.viewModel = OtpViewModel(
-            repository: authRepository, coroutineScope: nil
+            repository: authRepository,
+            validationUseCase: validationUseCase,
+            coroutineScope: nil
         )
     }
     
@@ -69,16 +72,15 @@ import Firebase
         do {
             isLoading = true
             
-            print("credential")
             let credential = PhoneAuthProvider
                 .provider()
-                .credential(withVerificationID: verificationCode, verificationCode: otp)
-            
-            print("try await start")
+                .credential(
+                    withVerificationID: verificationCode,
+                    verificationCode: state.otp
+                )
+
             try await Auth.auth().signIn(with: credential)
-            print("try await end")
-            
-            print("view model on event")
+  
             viewModel.onEvent(
                 event: OtpEvent.SignUp(
                     firstName: firstName,
@@ -98,9 +100,8 @@ import Firebase
         }
     }
     
-    func validateOtp() -> ValidationResult {
-        let otpResult = validationUseCase.validateOTP(otp: otp)
-        return ValidationResult(successful: otpResult.successful, errorMessage: otpResult.errorMessage)
+    func isOtpValidationSuccess() -> Bool {
+        return viewModel.isOtpValidationSuccess()
     }
     
     func onEvent(event: OtpEvent) {

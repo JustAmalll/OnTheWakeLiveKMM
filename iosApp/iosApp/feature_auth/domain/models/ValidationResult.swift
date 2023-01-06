@@ -6,9 +6,9 @@
 //  Copyright © 2023 orgName. All rights reserved.
 //
 
-import Foundation
-
-struct ValidationResult {
-    let successful: Bool
-    var errorMessage: String? = nil
-}
+//import Foundation
+//
+//struct ValidationResult {
+//    let successful: Bool
+//    var errorMessage: String? = nil
+//}

@@ -7,12 +7,11 @@
 //
 
 import SwiftUI
+import shared
 
 struct OtpScreen: View {
     
     @EnvironmentObject var otpViewModel: IOSOtpViewModel
-    
-    @State var validationError: String? = nil
     
     let firstName: String
     let lastName: String
@@ -22,15 +21,19 @@ struct OtpScreen: View {
     var body: some View {
         Form {
             Section {
-                TextField("OTP", text: $otpViewModel.otp)
-                    .textContentType(.oneTimeCode)
-                    .keyboardType(.phonePad)
+                TextField("OTP", text: Binding(
+                    get: { otpViewModel.state.otp },
+                    set: { value in
+                        otpViewModel.onEvent(
+                            event: OtpEvent.OtpChanged(value: value)
+                        )
+                    }
+                ))
+                .textContentType(.oneTimeCode)
+                .keyboardType(.phonePad)
                 
                 Button {
-                    let validationResult = otpViewModel.validateOtp()
-                    validationError = validationResult.errorMessage
-                    
-                    if validationResult.successful {
+                    if otpViewModel.isOtpValidationSuccess() {
                         Task {
                             await otpViewModel.verifyOtpAndSignUp(
                                 firstName: firstName,
@@ -45,14 +48,27 @@ struct OtpScreen: View {
                 }
             } header: {
                 Text("")
+            } footer: {
+                if let otpError = otpViewModel.state.otpError {
+                    Text(LocalizedStringKey(otpError))
+                        .foregroundColor(.red)
+                } else {
+                    Text("")
+                }
             }
         }
+        .navigationTitle("Verification")
         .overlay {
             if otpViewModel.isLoading {
                 Color(.systemBackground).ignoresSafeArea()
                 ProgressView()
             }
         }
-        .navigationTitle("Verification")
+        .onAppear {
+            otpViewModel.startObserving()
+        }
+        .onDisappear {
+            otpViewModel.dispose()
+        }
     }
 }
