@@ -12,8 +12,9 @@ import Firebase
 
 @MainActor final class IOSOtpViewModel: ObservableObject {
     
-    private let validationUseCase: ValidationUseCase
     private let authRepository: AuthRepository
+    private let validationUseCase: ValidationUseCase
+    
     private let viewModel: OtpViewModel
     
     @Published var showAlert: Bool = false
@@ -24,6 +25,8 @@ import Firebase
     @Published var isLoading: Bool = false
     
     @Published var navigationTag: String?
+    
+    @Published var isOtpVerified: Bool = false
     
     @Published var state: OtpState = OtpState(
         isLoading: false,
@@ -92,10 +95,11 @@ import Firebase
             
             DispatchQueue.main.async { [self] in
                 isLoading = false
-                print("Success")
+                isOtpVerified = true
             }
         } catch {
             print(error.localizedDescription)
+            isOtpVerified = false
             handleError(error: error.localizedDescription)
         }
     }
@@ -105,7 +109,7 @@ import Firebase
     }
     
     func onEvent(event: OtpEvent) {
-        self.viewModel.onEvent(event: event)
+        viewModel.onEvent(event: event)
     }
     
     func startObserving() {

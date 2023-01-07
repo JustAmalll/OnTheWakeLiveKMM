@@ -12,13 +12,13 @@ import shared
 struct OtpScreen: View {
     
     @EnvironmentObject var otpViewModel: IOSOtpViewModel
-    
+
     let firstName: String
     let lastName: String
     let phoneNumber: String
     let password: String
-    
-    var body: some View {
+        
+    var body: some View {        
         Form {
             Section {
                 TextField("OTP", text: Binding(
@@ -65,6 +65,13 @@ struct OtpScreen: View {
                 ProgressView()
             }
         }
+//        .background {
+//            NavigationLink(tag: "Queue", selection: $otpViewModel.navigationTag) {
+//                ContentView()
+//            } label: {
+//                EmptyView()
+//            }
+//        }
         .onAppear {
             otpViewModel.startObserving()
         }

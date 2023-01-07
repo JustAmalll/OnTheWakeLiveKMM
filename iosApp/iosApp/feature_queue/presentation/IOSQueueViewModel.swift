@@ -9,41 +9,39 @@
 import Foundation
 import shared
 
-extension QueueScreen {
-    @MainActor class IOSQueueViewModel: ObservableObject {
-        private var queueService: QueueService
-        private var queueSocketService: QueueSocketService
-        
-        private let viewModel: QueueViewModel
-        
-        @Published var state: QueueState = QueueState(
-            isQueueLoading: false, queue: [], error: nil
-        )
+@MainActor final class IOSQueueViewModel: ObservableObject {
+    private var queueService: QueueService
+    private var queueSocketService: QueueSocketService
     
-        private var handle: DisposableHandle?
-        
-        init(queueService: QueueService, queueSocketService: QueueSocketService) {
-            self.queueService = queueService
-            self.queueSocketService = queueSocketService
-            self.viewModel = QueueViewModel(
-                queueService: queueService,
-                queueSocketService: queueSocketService,
-                coroutineScope: nil
-            )
+    private let viewModel: QueueViewModel
+    
+    @Published var state: QueueState = QueueState(
+        isQueueLoading: false, queue: [], error: nil
+    )
+    
+    private var handle: DisposableHandle?
+    
+    init(queueService: QueueService, queueSocketService: QueueSocketService) {
+        self.queueService = queueService
+        self.queueSocketService = queueSocketService
+        self.viewModel = QueueViewModel(
+            queueService: queueService,
+            queueSocketService: queueSocketService,
+            coroutineScope: nil
+        )
+    }
+    
+    func onEvent(event: QueueSocketEvent) {
+        viewModel.onEvent(event: event)
+    }
+    
+    func startObserving() {
+        handle = viewModel.state.subscribe { [weak self] state in
+            if let state { self?.state = state }
         }
-        
-        func onEvent(event: QueueSocketEvent) {
-            viewModel.onEvent(event: event)
-        }
-        
-        func startObserving() {
-            handle = viewModel.state.subscribe { [weak self] state in
-                if let state { self?.state = state }
-            }
-        }
-        
-        func dispose() {
-            handle?.dispose()
-        }
+    }
+    
+    func dispose() {
+        handle?.dispose()
     }
 }

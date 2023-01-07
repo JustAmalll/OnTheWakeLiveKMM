@@ -122,11 +122,11 @@
 				B3B93B5029648759000FD7EC /* feature_splash */,
 				B3BA0B74295FF0FF006E5C40 /* feature_auth */,
 				B3D67CC3295DF363001A653A /* feature_queue */,
-				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
+				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				B310235F2962D8A900B2D8A3 /* Localizable.strings */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);

@@ -17,3 +17,6 @@
 "The password can't be blank" = "Пароль не может быть пустым";
 "The password needs to consist of at least 6 characters" = "Пароль должен состоять не менее чем из 6 символов";
 "OTP cannot be empty" = "OTP не может быть пустым";
+
+"Incorrect phone number or password" = "Неверный номер телефона или пароль";
+"An unknown error occurred" = "Произошла неизвестная ошибка";

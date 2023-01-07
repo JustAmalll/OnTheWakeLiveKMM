@@ -7,9 +7,12 @@
 */
 
 "queue" = "Queue";
+
 "login" = "Login";
+
 "Phone number" = "Phone number";
 "Password" = "Password";
+
 "The phone number can't be blank" = "The phone number can't be blank";
 "The first name can't be blank" = "The first name can't be blank";
 "The last name can't be blank" = "The last name can't be blank";
@@ -18,3 +21,6 @@
 "The password can't be blank" = "The password can't be blank";
 "The password needs to consist of at least 6 characters" = "The password needs to consist of at least 6 characters";
 "OTP cannot be empty" = "OTP cannot be empty";
+
+"Incorrect phone number or password" = "Incorrect phone number or password";
+"An unknown error occurred" = "An unknown error occurred";

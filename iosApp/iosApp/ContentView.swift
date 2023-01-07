@@ -3,30 +3,84 @@ import shared
 
 struct ContentView: View {
     
+    @ObservedObject var loginViewModel: IOSLoginViewModel
+    @ObservedObject var registerViewModel: IOSRegisterViewModel
+    @ObservedObject var otpViewModel: IOSOtpViewModel
+    
+    private let authRepository: AuthRepository
+    private let validationUseCase: ValidationUseCase
+    
     private let queueService: QueueService
     private let queueSocketService: QueueSocketService
     
-    init(queueService: QueueService, queueSocketService: QueueSocketService) {
+    private var isAuthorized: Bool = false
+    
+    init(
+        authRepository: AuthRepository,
+        validationUseCase: ValidationUseCase,
+        queueService: QueueService,
+        queueSocketService: QueueSocketService,
+        isAuthorized: Bool
+    ) {
         self.queueService = queueService
         self.queueSocketService = queueSocketService
+        
+        self.authRepository = authRepository
+        self.validationUseCase = validationUseCase
+        
+        self.loginViewModel = IOSLoginViewModel(
+            authRepository: authRepository,
+            validationUseCase: validationUseCase
+        )
+        self.registerViewModel = IOSRegisterViewModel(
+            validationUseCase: validationUseCase
+        )
+        self.otpViewModel = IOSOtpViewModel(
+            authRepository: authRepository,
+            validationUseCase: validationUseCase
+        )
+        
+        self.isAuthorized = isAuthorized
     }
     
     var body: some View {
+        
+        let isLoginSuccess = loginViewModel.state.loginResult == .authorized
+        
+        if isAuthorized || isLoginSuccess || otpViewModel.isOtpVerified {
+            mainContent
+        } else {
+            LoginScreen()
+                .environmentObject(loginViewModel)
+                .environmentObject(registerViewModel)
+                .environmentObject(otpViewModel)
+        }
+    }
+    
+    var mainContent: some View {
         TabView {
-            QueueScreen(
-                queueService: queueService,
-                queueSocketService: queueSocketService
-            )
-            .tabItem {
-                Image(systemName: "house.fill")
-                Text("Queue")
-            }
-            Text("Profile")
-                .navigationTitle("Profile")
+            QueueScreen()
+                .environmentObject(
+                    IOSQueueViewModel(
+                        queueService: queueService,
+                        queueSocketService: queueSocketService
+                    )
+                )
                 .tabItem {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "house.fill")
+                    Text("Queue")
+                }
+            
+            NavigationView {
+                VStack {
                     Text("Profile")
                 }
+                .navigationTitle("Profile")
+            }
+            .tabItem {
+                Image(systemName: "person.fill")
+                Text("Profile")
+            }
         }
     }
 }

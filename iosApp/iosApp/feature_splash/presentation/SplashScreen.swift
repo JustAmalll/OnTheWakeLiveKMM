@@ -11,12 +11,12 @@ import shared
 
 struct SplashScreen: View {
     
-    private var authRepository: AuthRepository
-    private var validationUseCase: ValidationUseCase
-    @ObservedObject var viewModel: IOSSplashViewModel
+    private let authRepository: AuthRepository
+    private let validationUseCase: ValidationUseCase
+    @ObservedObject var splashViewModel: IOSSplashViewModel
     
-    private var queueService: QueueService
-    private var queueSocketService: QueueSocketService
+    private let queueService: QueueService
+    private let queueSocketService: QueueSocketService
     
     init(
         authRepository: AuthRepository,
@@ -28,7 +28,9 @@ struct SplashScreen: View {
         self.queueSocketService = queueSocketService
         self.authRepository = authRepository
         self.validationUseCase = validationUseCase
-        self.viewModel = IOSSplashViewModel(authRepository: authRepository)
+        self.splashViewModel = IOSSplashViewModel(
+            authRepository: authRepository
+        )
     }
     
     @State var isActive: Bool = false
@@ -36,20 +38,13 @@ struct SplashScreen: View {
     var body: some View {
         
         if isActive {
-            LoginScreen(
+            ContentView(
                 authRepository: authRepository,
-                validationUseCase: validationUseCase
+                validationUseCase: validationUseCase,
+                queueService: queueService,
+                queueSocketService: queueSocketService,
+                isAuthorized: splashViewModel.state.isAuthorized == true
             )
-//            if let isAuthorized = viewModel.state.isAuthorized  {
-//                if isAuthorized == true {
-//                    ContentView(
-//                        queueService: queueService,
-//                        queueSocketService: queueSocketService
-//                    )
-//                } else {
-//                    LoginScreen(authRepository: authRepository)
-//                }
-//            }
         } else {
             VStack {
                 Image("onthewake_logo_black")
@@ -58,19 +53,62 @@ struct SplashScreen: View {
                     .frame(width: 260, height: 260)
             }
             .onAppear {
+                splashViewModel.startObserving()
+            }
+            .onAppear {
                 withAnimation(.easeIn) {}
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    self.isActive = true
+                    isActive = true
                 }
             }
-            .onAppear {
-                viewModel.startObserving()
-            }
             .onDisappear {
-                viewModel.dispose()
+                splashViewModel.dispose()
             }
         }
     }
 }
+
+//            if let isAuthorized = splashViewModel.state.isAuthorized  {
+//                if isAuthorized == true {
+//                    ContentView()
+//                        .environmentObject(
+//                            IOSQueueViewModel(
+//                                queueService: queueService,
+//                                queueSocketService: queueSocketService
+//                            )
+//                        )
+//                        .environmentObject(
+//                            IOSOtpViewModel(
+//                                authRepository: authRepository,
+//                                validationUseCase: validationUseCase
+//                            )
+//                        )
+//                } else {
+//                    ContentView()
+//                        .environmentObject(
+//                            IOSLoginViewModel(
+//                                authRepository: authRepository,
+//                                validationUseCase: validationUseCase
+//                            )
+//                        )
+//                        .environmentObject(
+//                            IOSRegisterViewModel(
+//                                validationUseCase: validationUseCase
+//                            )
+//                        )
+//                        .environmentObject(
+//                            IOSOtpViewModel(
+//                                authRepository: authRepository,
+//                                validationUseCase: validationUseCase
+//                            )
+//                        )
+//                        .environmentObject(
+//                            IOSQueueViewModel(
+//                                queueService: queueService,
+//                                queueSocketService: queueSocketService
+//                            )
+//                        )
+//                }
+//            }

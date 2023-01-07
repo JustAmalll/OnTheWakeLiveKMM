@@ -11,20 +11,8 @@ import shared
 
 struct QueueScreen: View {
     
-    private var queueService: QueueService
-    private var queueSocketService: QueueSocketService
-    @ObservedObject var viewModel: IOSQueueViewModel
-    
-    @State private var selected = 1
-    
-    init(queueService: QueueService, queueSocketService: QueueSocketService) {
-        self.queueService = queueService
-        self.queueSocketService = queueSocketService
-        self.viewModel = IOSQueueViewModel(
-            queueService: queueService,
-            queueSocketService: queueSocketService
-        )
-    }
+    @EnvironmentObject var viewModel: IOSQueueViewModel
+    @State private var selected = 2
     
     var body: some View {
         NavigationView {
@@ -95,7 +83,6 @@ struct QueueRightContent: View {
         let rightQueue = state.queue.filter { queue in
             return queue.isLeftQueue == false
         }
-        
         List {
             ForEach(rightQueue, id: \.self.id) { queueItem in
                 NavigationLink(destination: Text(queueItem.firstName)) {
@@ -105,7 +92,7 @@ struct QueueRightContent: View {
         }
     }
 }
-    
+
 struct QueueLeftContent: View {
     let state: QueueState
     let event: (QueueSocketEvent) -> Void
@@ -114,7 +101,6 @@ struct QueueLeftContent: View {
         let leftQueue = state.queue.filter { queue in
             return queue.isLeftQueue == true
         }
-        
         List {
             ForEach(leftQueue, id: \.self.id) { queueItem in
                 NavigationLink(destination: Text(queueItem.firstName)) {

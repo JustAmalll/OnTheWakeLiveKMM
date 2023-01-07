@@ -8,18 +8,16 @@ struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var deletegate
     private let appModule = AppModule()
     
-	var body: some Scene {
-		WindowGroup {
-            NavigationView {
-                SplashScreen(
-                    authRepository: appModule.authRepository,
-                    queueService: appModule.queueService,
-                    queueSocketService: appModule.queueSocketService,
-                    validationUseCase: appModule.validationUseCase
-                )
-            }
-		}
-	}
+    var body: some Scene {
+        WindowGroup {
+            SplashScreen(
+                authRepository: appModule.authRepository,
+                queueService: appModule.queueService,
+                queueSocketService: appModule.queueSocketService,
+                validationUseCase: appModule.validationUseCase
+            )
+        }
+    }
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate {

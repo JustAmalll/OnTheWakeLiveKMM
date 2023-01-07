@@ -11,22 +11,8 @@ import shared
 
 struct RegisterScreen: View {
     
-    private var authRepository: AuthRepository
-    
-    private let validationUseCase: ValidationUseCase
-    
-    @ObservedObject var otpViewModel: IOSOtpViewModel
-    @ObservedObject var registerViewModel: IOSRegisterViewModel
-    
-    init(authRepository: AuthRepository, validationUseCase: ValidationUseCase) {
-        self.authRepository = authRepository
-        self.validationUseCase = validationUseCase
-        self.registerViewModel = IOSRegisterViewModel(validationUseCase: validationUseCase)
-        self.otpViewModel = IOSOtpViewModel(
-            authRepository: authRepository,
-            validationUseCase: validationUseCase
-        )
-    }
+    @EnvironmentObject var otpViewModel: IOSOtpViewModel
+    @EnvironmentObject var registerViewModel: IOSRegisterViewModel
     
     var body: some View {
         
@@ -49,7 +35,7 @@ struct RegisterScreen: View {
                 ))
                 .textContentType(.name)
                 .keyboardType(.namePhonePad)
-                
+
                 TextField( "Last name", text: Binding(
                     get: { state.signUpLastName },
                     set: { value in
@@ -60,7 +46,7 @@ struct RegisterScreen: View {
                 ))
                 .textContentType(.familyName)
                 .keyboardType(.namePhonePad)
-                
+
                 TextField("Phone number", text: Binding(
                     get: { state.signUpPhoneNumber },
                     set: { value in
@@ -71,7 +57,7 @@ struct RegisterScreen: View {
                 ))
                 .textContentType(.telephoneNumber)
                 .keyboardType(.numberPad)
-                
+
                 PasswordTextField(
                     password: Binding(
                         get: { state.signUpPassword },
@@ -136,8 +122,9 @@ struct RegisterScreen: View {
                     phoneNumber: state.signUpPhoneNumber,
                     password: state.signUpPassword
                 )
-                .environmentObject(otpViewModel)
-            } label: {}
+            } label: {
+                EmptyView()
+            }
         }
     }
 }
