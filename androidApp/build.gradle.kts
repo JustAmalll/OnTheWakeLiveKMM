@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.serialization") version Deps.kotlinVersion
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
 }
@@ -20,7 +21,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Deps.composeVersion
+        kotlinCompilerExtensionVersion = AndroidDeps.composeVersion
     }
     packagingOptions {
         resources {
@@ -36,36 +37,30 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation(Deps.composeUi)
-    implementation(Deps.composeUiTooling)
-    implementation(Deps.composeUiToolingPreview)
-    implementation(Deps.composeFoundation)
-    implementation(Deps.composeMaterial)
-    implementation(Deps.activityCompose)
-    implementation(Deps.composeIconsExtended)
-    implementation(Deps.composeNavigation)
-    implementation(Deps.coilCompose)
+    implementation(AndroidDeps.composeUi)
+    implementation(AndroidDeps.composeUiTooling)
+    implementation(AndroidDeps.composeUiToolingPreview)
+    implementation(AndroidDeps.composeFoundation)
+    implementation(AndroidDeps.composeMaterial)
+    implementation(AndroidDeps.activityCompose)
+    implementation(AndroidDeps.composeIconsExtended)
+    implementation(AndroidDeps.composeNavigation)
+    implementation(AndroidDeps.coilCompose)
 
-    implementation(Deps.systemUiController)
+    implementation(AndroidDeps.systemUiController)
 
-    implementation(Deps.tabs)
-    implementation(Deps.tabIndicators)
+    implementation(AndroidDeps.ktorCIO)
 
-    implementation(Deps.hiltAndroid)
-    kapt(Deps.hiltAndroidCompiler)
-    kapt(Deps.hiltCompiler)
-    implementation(Deps.hiltNavigationCompose)
+    implementation(AndroidDeps.serialization)
 
-    implementation(Deps.ktorLogging)
-    implementation(Deps.ktorSerialization)
-    implementation(Deps.ktorSerializationJson)
+    implementation(AndroidDeps.tabs)
+    implementation(AndroidDeps.tabIndicators)
 
-    androidTestImplementation(Deps.testRunner)
-    androidTestImplementation(Deps.jUnit)
-    androidTestImplementation(Deps.composeTesting)
-    androidTestImplementation(Deps.rules)
-    debugImplementation(Deps.composeTestManifest)
+    implementation(AndroidDeps.hiltAndroid)
+    kapt(AndroidDeps.hiltAndroidCompiler)
+    kapt(AndroidDeps.hiltCompiler)
+    implementation(AndroidDeps.hiltNavigationCompose)
 
-    kaptAndroidTest(Deps.hiltAndroidCompiler)
-    androidTestImplementation(Deps.hiltTesting)
+    implementation(platform(AndroidDeps.firebaseBOM))
+    implementation(AndroidDeps.firebaseAuth)
 }

@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "411539508555",
+    "project_id": "onthewakelivefcm-8c21e",
+    "storage_bucket": "onthewakelivefcm-8c21e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411539508555:android:85f96515e4afefe9402cce",
+        "android_client_info": {
+          "package_name": "dev.amal.onthewakelive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411539508555-2a2ldveu5q22spl0hpnucbd5fptuslic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.amal.onthewakelive",
+            "certificate_hash": "504144a144e6d8a5591f0ae26931fff4cc97abfe"
+          }
+        },
+        {
+          "client_id": "411539508555-mv4fgr9ateob8sj7ptf8oemoktlgao83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8TNRc92aCB8TvBhLuwq8Ekt1-0w3i1Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411539508555-mv4fgr9ateob8sj7ptf8oemoktlgao83.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "411539508555-1osoj2g2m2efubhkqf710hn0pn81b41c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "orgIdentifier.iosApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411539508555:android:eb9b20d60129892a402cce",
+        "android_client_info": {
+          "package_name": "dev.amal.onthewakelivekmm.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411539508555-7st9afp7ngprljuan77mn9saftdp5pun.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.amal.onthewakelivekmm.android",
+            "certificate_hash": "80c448864069fb8192bb7804c751e529aa7bbb33"
+          }
+        },
+        {
+          "client_id": "411539508555-mv4fgr9ateob8sj7ptf8oemoktlgao83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8TNRc92aCB8TvBhLuwq8Ekt1-0w3i1Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411539508555-mv4fgr9ateob8sj7ptf8oemoktlgao83.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "411539508555-1osoj2g2m2efubhkqf710hn0pn81b41c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "orgIdentifier.iosApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

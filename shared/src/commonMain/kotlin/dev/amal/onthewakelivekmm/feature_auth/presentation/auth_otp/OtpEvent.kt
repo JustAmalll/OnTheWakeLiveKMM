@@ -8,4 +8,5 @@ sealed class OtpEvent {
         val phoneNumber: String,
         val password: String
     ) : OtpEvent()
+    object OnSignUpResultSeen: OtpEvent()
 }

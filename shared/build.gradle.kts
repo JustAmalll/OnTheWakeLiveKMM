@@ -2,8 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    kotlin("plugin.serialization") version Deps.kotlinVersion
-//    id("com.squareup.sqldelight")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 kotlin {
@@ -27,29 +26,26 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(Deps.ktorCore)
-                implementation(Deps.ktorWebSockets)
-                implementation(Deps.ktorCIO)
-                implementation(Deps.ktorLogging)
-                implementation(Deps.ktorSerialization)
-                implementation(Deps.ktorSerializationJson)
-                implementation(Deps.kmmSettings)
-                implementation(Deps.kmmSettingsCoroutines)
-//                implementation(Deps.sqlDelightRuntime)
-//                implementation(Deps.sqlDelightCoroutinesExtensions)
-                implementation(Deps.kotlinDateTime)
+                implementation(SharedDeps.ktorCore)
+                implementation(SharedDeps.ktorWebSockets)
+                implementation(SharedDeps.ktorLogging)
+                implementation(SharedDeps.ktorSerialization)
+                implementation(SharedDeps.ktorSerializationJson)
+
+                implementation(SharedDeps.kmmSettings)
+                implementation(SharedDeps.kmmSettingsCoroutines)
+
+                implementation(SharedDeps.kotlinDateTime)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(Deps.assertK)
-                implementation(Deps.turbine)
             }
         }
         val androidMain by getting {
             dependencies {
-//                implementation(Deps.sqlDelightAndroidDriver)
+                implementation(AndroidDeps.ktorCIO)
             }
         }
         val androidTest by getting
@@ -63,8 +59,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation(Deps.ktorIOS)
-//                implementation(Deps.sqlDelightNativeDriver)
+                implementation(IosDeps.ktorIOS)
             }
         }
         val iosX64Test by getting

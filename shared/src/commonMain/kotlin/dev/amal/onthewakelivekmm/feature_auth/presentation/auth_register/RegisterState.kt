@@ -1,7 +1,6 @@
 package dev.amal.onthewakelivekmm.feature_auth.presentation.auth_register
 
 data class RegisterState(
-    val isLoading: Boolean = false,
     val signUpFirstName: String = "",
     val signUpFirstNameError: String? = null,
     val signUpLastName: String = "",

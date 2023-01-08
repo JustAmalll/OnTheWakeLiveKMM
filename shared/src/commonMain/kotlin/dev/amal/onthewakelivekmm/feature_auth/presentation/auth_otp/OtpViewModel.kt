@@ -1,7 +1,7 @@
 package dev.amal.onthewakelivekmm.feature_auth.presentation.auth_otp
 
-import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.core.domain.util.toCommonStateFlow
+import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.feature_auth.domain.repository.AuthRepository
 import dev.amal.onthewakelivekmm.feature_auth.domain.use_case.ValidationUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -31,6 +31,9 @@ class OtpViewModel(
                 phoneNumber = event.phoneNumber,
                 password = event.password
             )
+            is OtpEvent.OnSignUpResultSeen -> _state.update {
+                it.copy(signUpResult = null)
+            }
         }
     }
 

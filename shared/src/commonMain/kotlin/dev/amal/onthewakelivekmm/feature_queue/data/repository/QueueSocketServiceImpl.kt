@@ -54,7 +54,6 @@ class QueueSocketServiceImpl(
         timestamp: Long
     ) {
         socket?.send(Frame.Text("$isLeftQueue/$firstName/$timestamp"))
-        println("add to queue impl")
     }
 
     override suspend fun closeSession() {

@@ -3,6 +3,7 @@ package dev.amal.onthewakelivekmm.feature_auth.data.repository
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants.BASE_URL
+import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_JWT_TOKEN
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.AuthRequest
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.response.AuthResponse
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
@@ -42,7 +43,7 @@ class AuthRepositoryImpl(
     override suspend fun signIn(
         authRequest: AuthRequest
     ): AuthResult {
-        val result =  try {
+        val result = try {
             client.post("$BASE_URL/signin") {
                 setBody(authRequest)
             }
@@ -60,16 +61,28 @@ class AuthRepositoryImpl(
 
         return try {
             val authResponse = result.body<AuthResponse>()
-            preferenceManager.setString("token", authResponse.token)
+            preferenceManager.setString(PREFS_JWT_TOKEN, authResponse.token)
             AuthResult.Authorized
         } catch (exception: Exception) {
             AuthResult.UnknownError
         }
     }
 
+    override suspend fun isUserAlreadyExists(
+        phoneNumber: String
+    ): Boolean = try {
+        val request = client.get("$BASE_URL/isUserAlreadyExists") {
+            parameter("phoneNumber", phoneNumber)
+        }
+        request.body()
+    } catch (exception: Exception) {
+        exception.printStackTrace()
+        false
+    }
+
     override suspend fun authenticate(): AuthResult {
         return try {
-            val token = preferenceManager.getString("token")
+            val token = preferenceManager.getString(PREFS_JWT_TOKEN)
                 ?: return AuthResult.Unauthorized
 
             val result = client.get("$BASE_URL/authenticate") {

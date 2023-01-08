@@ -8,4 +8,5 @@ interface AuthRepository {
     suspend fun authenticate(): AuthResult
     suspend fun signIn(authRequest: AuthRequest): AuthResult
     suspend fun signUp(accountRequest: CreateAccountRequest): AuthResult
+    suspend fun isUserAlreadyExists(phoneNumber: String): Boolean
 }
