@@ -15,7 +15,6 @@ import shared
     private let viewModel: RegisterViewModel
     
     @Published var state: RegisterState = RegisterState(
-        isLoading: false,
         signUpFirstName: "",
         signUpFirstNameError: nil,
         signUpLastName: "",

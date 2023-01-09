@@ -83,10 +83,15 @@ struct QueueRightContent: View {
         let rightQueue = state.queue.filter { queue in
             return queue.isLeftQueue == false
         }
-        List {
-            ForEach(rightQueue, id: \.self.id) { queueItem in
-                NavigationLink(destination: Text(queueItem.firstName)) {
-                    QueueItem(queueItem: queueItem, event: event)
+        
+        if rightQueue.isEmpty {
+            EmptyQueueContent()
+        } else {
+            List {
+                ForEach(rightQueue, id: \.self.id) { queueItem in
+                    NavigationLink(destination: Text(queueItem.firstName)) {
+                        QueueItem(queueItem: queueItem, event: event)
+                    }
                 }
             }
         }
@@ -101,10 +106,15 @@ struct QueueLeftContent: View {
         let leftQueue = state.queue.filter { queue in
             return queue.isLeftQueue == true
         }
-        List {
-            ForEach(leftQueue, id: \.self.id) { queueItem in
-                NavigationLink(destination: Text(queueItem.firstName)) {
-                    QueueItem(queueItem: queueItem, event: event)
+        
+        if leftQueue.isEmpty {
+            EmptyQueueContent()
+        } else {
+            List {
+                ForEach(leftQueue, id: \.self.id) { queueItem in
+                    NavigationLink(destination: Text(queueItem.firstName)) {
+                        QueueItem(queueItem: queueItem, event: event)
+                    }
                 }
             }
         }

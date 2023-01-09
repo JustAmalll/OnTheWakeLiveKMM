@@ -16,27 +16,7 @@ struct QueueItem: View {
     
     var body: some View {
         HStack() {
-            CachedAsyncImage(
-                url: URL(string: queueItem.profilePictureUri)
-            ) { phase in
-                
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .scaledToFit()
-                        .clipShape(Circle())
-                } else {
-                    ZStack {
-                        Circle()
-                            .foregroundColor(.gray)
-                        Image(systemName: "person")
-                            .foregroundColor(Color.white)
-                    }
-                    .frame(width: 40, height: 40)
-                }
-            }
-            .padding(.trailing, 4)
+            StandardUserPicture(imageUrl: queueItem.profilePictureUri)
             
             VStack(alignment: .leading) {
                 Text(queueItem.firstName)

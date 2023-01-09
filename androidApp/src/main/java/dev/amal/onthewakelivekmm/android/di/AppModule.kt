@@ -20,7 +20,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): HttpClient = HttpClientFactory().create()
+    fun provideHttpClient(@ApplicationContext context: Context): HttpClient =
+        HttpClientFactory(providePreferencesManager(context)).create()
 
     @Provides
     @Singleton

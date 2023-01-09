@@ -13,25 +13,25 @@ import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueSocketServ
 
 class AppModule {
 
+    private val preferenceManager: PreferenceManager by lazy {
+        PreferenceManager(MultiplatformSettingsWrapper())
+    }
+
+    private val httpClientFactory = HttpClientFactory(preferenceManager).create()
+
     val authRepository: AuthRepository by lazy {
         AuthRepositoryImpl(
-            client = HttpClientFactory().create(),
-            preferenceManager = PreferenceManager(
-                MultiplatformSettingsWrapper()
-            )
+            client = httpClientFactory,
+            preferenceManager = preferenceManager
         )
     }
 
     val queueService: QueueService by lazy {
-        QueueServiceImpl(
-            HttpClientFactory().create()
-        )
+        QueueServiceImpl(httpClientFactory)
     }
 
     val queueSocketService: QueueSocketService by lazy {
-        QueueSocketServiceImpl(
-            HttpClientFactory().create()
-        )
+        QueueSocketServiceImpl(httpClientFactory )
     }
 
     val validationUseCase: ValidationUseCase by lazy {

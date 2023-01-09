@@ -13,6 +13,10 @@
 		6484FED7066D6EF277A7BAFF /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		B310235D2962D8A900B2D8A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B310235F2962D8A900B2D8A3 /* Localizable.strings */; };
+		B312FEB0296BD51F009E99A9 /* cat.json in Resources */ = {isa = PBXBuildFile; fileRef = B312FEAF296BD51F009E99A9 /* cat.json */; };
+		B312FEB2296BD5A4009E99A9 /* LottieAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB1296BD5A4009E99A9 /* LottieAnimationView.swift */; };
+		B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */; };
+		B312FEBA296BE1CD009E99A9 /* EmptyQueueContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */; };
 		B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */; };
 		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
 		B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */; };
@@ -42,6 +46,10 @@
 		85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B310235E2962D8A900B2D8A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B31023602962D8AD00B2D8A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B312FEAF296BD51F009E99A9 /* cat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = cat.json; path = ../../../../OnTheWakeLive/app/src/main/res/raw/cat.json; sourceTree = "<group>"; };
+		B312FEB1296BD5A4009E99A9 /* LottieAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationView.swift; sourceTree = "<group>"; };
+		B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardUserPicture.swift; sourceTree = "<group>"; };
+		B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyQueueContent.swift; sourceTree = "<group>"; };
 		B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSRegisterViewModel.swift; sourceTree = "<group>"; };
 		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3B93B5229648789000FD7EC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
@@ -119,18 +127,53 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				B312FEB3296BD8EB009E99A9 /* core */,
 				B3B93B5029648759000FD7EC /* feature_splash */,
 				B3BA0B74295FF0FF006E5C40 /* feature_auth */,
 				B3D67CC3295DF363001A653A /* feature_queue */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
+				B312FEAE296BD474009E99A9 /* LottieAnimation */,
 				B310235F2962D8A900B2D8A3 /* Localizable.strings */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
 			path = iosApp;
+			sourceTree = "<group>";
+		};
+		B312FEAE296BD474009E99A9 /* LottieAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				B312FEAF296BD51F009E99A9 /* cat.json */,
+			);
+			path = LottieAnimation;
+			sourceTree = "<group>";
+		};
+		B312FEB3296BD8EB009E99A9 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				B312FEB4296BD8F1009E99A9 /* presentation */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		B312FEB4296BD8F1009E99A9 /* presentation */ = {
+			isa = PBXGroup;
+			children = (
+				B312FEB6296BD8FD009E99A9 /* components */,
+			);
+			path = presentation;
+			sourceTree = "<group>";
+		};
+		B312FEB6296BD8FD009E99A9 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				B312FEB1296BD5A4009E99A9 /* LottieAnimationView.swift */,
+				B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 		B3B93B5029648759000FD7EC /* feature_splash */ = {
@@ -226,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				B3BA0B72295F71C9006E5C40 /* QueueItem.swift */,
+				B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -305,6 +349,7 @@
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				B310235D2962D8A900B2D8A3 /* Localizable.strings in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
+				B312FEB0296BD51F009E99A9 /* cat.json in Resources */,
 				B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +420,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */,
 				B3B93B5329648789000FD7EC /* SplashScreen.swift in Sources */,
+				B312FEBA296BE1CD009E99A9 /* EmptyQueueContent.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */,
 				B3BA0B8529608412006E5C40 /* IOSOtpViewModel.swift in Sources */,
@@ -387,6 +434,7 @@
 				B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */,
+				B312FEB2296BD5A4009E99A9 /* LottieAnimationView.swift in Sources */,
 				B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */,
 				B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */,
 			);
@@ -529,6 +577,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -565,6 +614,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
