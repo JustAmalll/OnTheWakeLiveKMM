@@ -56,13 +56,13 @@ struct QueueScreen: View {
                 ) {
                     Image(systemName: "plus")
                         .foregroundColor(.white)
-                        .frame(width: 20, height: 20)
+                        .frame(width: 24, height: 24)
                         .padding()
                         .background(.black)
                         .cornerRadius(14)
                 }
                     .padding(.trailing)
-                    .padding(.bottom),
+                    .padding(.bottom, 40),
                 alignment: .bottomTrailing
             )
             .overlay {
@@ -100,6 +100,7 @@ struct QueueRightContent: View {
                     }
                 }
             }
+            .padding(.bottom)
         }
     }
 }
@@ -123,6 +124,7 @@ struct QueueLeftContent: View {
                     }
                 }
             }
+            .padding(.bottom)
         }
     }
 }

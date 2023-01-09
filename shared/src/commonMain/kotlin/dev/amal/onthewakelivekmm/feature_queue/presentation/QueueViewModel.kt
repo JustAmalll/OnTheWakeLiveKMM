@@ -73,9 +73,7 @@ class QueueViewModel(
 
     private fun addToQueue(isLeftQueue: Boolean, firstName: String, timestamp: Long) {
         viewModelScope.launch {
-            _state.update { it.copy(isQueueLoading = true) }
             queueSocketService.addToQueue(isLeftQueue, firstName, timestamp)
-            _state.update { it.copy(isQueueLoading = false) }
         }
     }
 

@@ -67,10 +67,8 @@ struct ContentView: View {
                     )
                 )
                 .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Queue")
+                    Label("Queue", systemImage: "house.fill")
                 }
-            
             NavigationView {
                 VStack {
                     Text("Profile")
@@ -78,9 +76,9 @@ struct ContentView: View {
                 .navigationTitle("Profile")
             }
             .tabItem {
-                Image(systemName: "person.fill")
-                Text("Profile")
+                Label("Profile", systemImage: "person.fill")
             }
         }
+        .tint(.black)
     }
 }

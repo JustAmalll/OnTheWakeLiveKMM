@@ -25,7 +25,7 @@ struct QueueItem: View {
                     .font(.subheadline)
             }
         }
-        .swipeActions() {
+        .swipeActions {
             Button(role: .destructive) {
                 event(
                     QueueSocketEvent.DeleteQueueItem(
@@ -36,6 +36,7 @@ struct QueueItem: View {
                 Label("Delete", systemImage: "trash.fill")
             }
         }
+        .tint(.red)
     }
 }
 
