@@ -41,6 +41,7 @@ struct QueueScreen: View {
                     )
                 }
             }
+            .navigationTitle("Queue")
             .overlay(
                 Button(
                     action: {
@@ -64,7 +65,12 @@ struct QueueScreen: View {
                     .padding(.bottom),
                 alignment: .bottomTrailing
             )
-            .navigationTitle("Queue")
+            .overlay {
+                if viewModel.state.isQueueLoading  {
+                    Color(.systemBackground).ignoresSafeArea()
+                    ProgressView()
+                }
+            }
             .onAppear {
                 viewModel.startObserving()
             }
