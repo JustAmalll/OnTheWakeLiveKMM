@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueSocketService
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueSocketEvent
+import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueViewModel
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class AndroidQueueViewModel @Inject constructor(
 
     val state = viewModel.state
 
-    fun onEvent(event: QueueSocketEvent) {
+    fun onEvent(event: QueueEvent) {
         viewModel.onEvent(event)
     }
 }

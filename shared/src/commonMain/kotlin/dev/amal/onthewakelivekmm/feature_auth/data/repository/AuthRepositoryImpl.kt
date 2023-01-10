@@ -3,7 +3,9 @@ package dev.amal.onthewakelivekmm.feature_auth.data.repository
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants.BASE_URL
+import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_FIRST_NAME
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_JWT_TOKEN
+import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.AuthRequest
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.response.AuthResponse
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
@@ -62,6 +64,9 @@ class AuthRepositoryImpl(
         return try {
             val authResponse = result.body<AuthResponse>()
             preferenceManager.setString(PREFS_JWT_TOKEN, authResponse.token)
+            preferenceManager.setString(PREFS_USER_ID, authResponse.userId)
+            preferenceManager.setString(PREFS_FIRST_NAME, authResponse.firstName)
+
             AuthResult.Authorized
         } catch (exception: Exception) {
             AuthResult.UnknownError
@@ -88,6 +93,7 @@ class AuthRepositoryImpl(
             val result = client.get("$BASE_URL/authenticate") {
                 header("Bearer", token)
             }
+
             when (result.status.value) {
                 in 200..299 -> AuthResult.Authorized
                 401 -> AuthResult.Unauthorized

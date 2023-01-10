@@ -12,7 +12,7 @@ data class QueueItemState(
     val timestamp: Long
 )
 
-fun QueueItem.toQueueItemState(): QueueItemState = QueueItemState(
+fun QueueItemState.toQueueItem(): QueueItem = QueueItem(
     id = id,
     userId = userId,
     firstName = firstName,

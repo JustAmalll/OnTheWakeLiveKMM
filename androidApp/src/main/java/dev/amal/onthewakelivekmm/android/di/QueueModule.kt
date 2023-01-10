@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.feature_queue.data.repository.QueueServiceImpl
 import dev.amal.onthewakelivekmm.feature_queue.data.repository.QueueSocketServiceImpl
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
@@ -27,6 +28,6 @@ object QueueModule {
     @Provides
     @Singleton
     fun provideQueueSocketService(
-        client: HttpClient
-    ): QueueSocketService = QueueSocketServiceImpl(client)
+        client: HttpClient, preferenceManager: PreferenceManager
+    ): QueueSocketService = QueueSocketServiceImpl(client, preferenceManager)
 }

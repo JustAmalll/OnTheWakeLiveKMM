@@ -17,9 +17,7 @@ struct QueueScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                Picker(
-                    selection: $selected, label: Text("Queue")
-                ) {
+                Picker(selection: $selected, label: Text("Queue")) {
                     Text("Left Line").tag(1)
                     Text("Right Line").tag(2)
                 }
@@ -42,13 +40,23 @@ struct QueueScreen: View {
                 }
             }
             .navigationTitle("Queue")
+            .alert(Text(viewModel.state.error ?? ""), isPresented: $viewModel.hasQueueError) {
+                Button(
+                    action: {
+                        viewModel.onEvent(
+                            event: QueueEvent.OnQueueErrorSeen()
+                        )
+                    }
+                ) {
+                    Text("OK")
+                }
+            }
             .overlay(
                 Button(
                     action: {
                         viewModel.onEvent(
-                            event: QueueSocketEvent.AddToQueue(
+                            event: QueueEvent.AddToQueue(
                                 isLeftQueue: selected == 1,
-                                firstName: "ios test",
                                 timestamp: 123123
                             )
                         )
@@ -83,7 +91,7 @@ struct QueueScreen: View {
 
 struct QueueRightContent: View {
     let state: QueueState
-    let event: (QueueSocketEvent) -> Void
+    let event: (QueueEvent) -> Void
     
     var body: some View {
         let rightQueue = state.queue.filter { queue in
@@ -107,7 +115,7 @@ struct QueueRightContent: View {
 
 struct QueueLeftContent: View {
     let state: QueueState
-    let event: (QueueSocketEvent) -> Void
+    let event: (QueueEvent) -> Void
     
     var body: some View {
         let leftQueue = state.queue.filter { queue in

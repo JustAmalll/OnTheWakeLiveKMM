@@ -31,7 +31,7 @@ class AppModule {
     }
 
     val queueSocketService: QueueSocketService by lazy {
-        QueueSocketServiceImpl(httpClientFactory )
+        QueueSocketServiceImpl(httpClientFactory, preferenceManager)
     }
 
     val validationUseCase: ValidationUseCase by lazy {

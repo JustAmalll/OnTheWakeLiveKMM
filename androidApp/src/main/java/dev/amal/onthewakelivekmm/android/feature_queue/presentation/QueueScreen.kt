@@ -28,7 +28,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.EmptyContent
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.QueueItem
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.TabLayout
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueSocketEvent.AddToQueue
+import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent
+import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent.AddToQueue
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueState
 
 @ExperimentalPagerApi
@@ -53,6 +54,7 @@ fun QueueScreen(
     LaunchedEffect(key1 = state.error) {
         state.error?.let { error ->
             snackBarHostState.showSnackbar(message = error)
+            viewModel.onEvent(QueueEvent.OnQueueErrorSeen)
         }
     }
 
@@ -87,7 +89,6 @@ fun QueueScreen(
                     viewModel.onEvent(
                         AddToQueue(
                             isLeftQueue = pagerState.currentPage == 0,
-                            firstName = "First name",
                             timestamp = System.currentTimeMillis()
                         )
                     )

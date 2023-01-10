@@ -12,7 +12,7 @@ import CachedAsyncImage
 
 struct QueueItem: View {
     let queueItem: QueueItemState
-    let event: (QueueSocketEvent) -> Void
+    let event: (QueueEvent) -> Void
     
     var body: some View {
         HStack() {
@@ -28,7 +28,7 @@ struct QueueItem: View {
         .swipeActions {
             Button(role: .destructive) {
                 event(
-                    QueueSocketEvent.DeleteQueueItem(
+                    QueueEvent.DeleteQueueItem(
                         queueItemId: queueItem.id
                     )
                 )

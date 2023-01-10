@@ -15,6 +15,8 @@ import shared
     
     private let viewModel: QueueViewModel
     
+    @Published var hasQueueError: Bool = false
+    
     @Published var state: QueueState = QueueState(
         isQueueLoading: false, queue: [], error: nil
     )
@@ -31,13 +33,16 @@ import shared
         )
     }
     
-    func onEvent(event: QueueSocketEvent) {
+    func onEvent(event: QueueEvent) {
         viewModel.onEvent(event: event)
     }
     
     func startObserving() {
         handle = viewModel.state.subscribe { [weak self] state in
-            if let state { self?.state = state }
+            if let state {
+                self?.state = state
+                self?.hasQueueError = state.error != nil
+            }
         }
     }
     

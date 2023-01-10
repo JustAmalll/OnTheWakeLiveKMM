@@ -28,7 +28,7 @@ struct StandardUserPicture: View {
                 ZStack {
                     Circle()
                         .foregroundColor(.gray)
-                    Image(systemName: "person")
+                    Image(systemName: "person.fill")
                         .foregroundColor(Color.white)
                 }
                 .frame(width: 40, height: 40)

@@ -36,6 +36,8 @@ kotlin {
                 implementation(SharedDeps.kmmSettingsCoroutines)
 
                 implementation(SharedDeps.kotlinDateTime)
+
+                implementation(AndroidDeps.serialization)
             }
         }
         val commonTest by getting {
