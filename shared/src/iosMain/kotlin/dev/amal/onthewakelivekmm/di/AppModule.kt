@@ -13,7 +13,7 @@ import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueSocketServ
 
 class AppModule {
 
-    private val preferenceManager: PreferenceManager by lazy {
+    val preferenceManager: PreferenceManager by lazy {
         PreferenceManager(MultiplatformSettingsWrapper())
     }
 

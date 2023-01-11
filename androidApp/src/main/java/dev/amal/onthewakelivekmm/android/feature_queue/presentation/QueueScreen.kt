@@ -123,6 +123,9 @@ fun QueueScreen(
                             onDetailsClicked = { queueItemId ->
 
                             },
+                            onSwipeToDelete = { queueItemId ->
+                                viewModel.onEvent(QueueEvent.DeleteQueueItem(queueItemId))
+                            },
                             onUserAvatarClicked = { pictureUrl ->
 
                             }
@@ -132,6 +135,9 @@ fun QueueScreen(
                             imageLoader = imageLoader,
                             onDetailsClicked = { queueItemId ->
 
+                            },
+                            onSwipeToDelete = { queueItemId ->
+                                viewModel.onEvent(QueueEvent.DeleteQueueItem(queueItemId))
                             },
                             onUserAvatarClicked = { pictureUrl ->
 
@@ -150,6 +156,7 @@ fun QueueLeftContent(
     state: QueueState,
     imageLoader: ImageLoader,
     onDetailsClicked: (String) -> Unit,
+    onSwipeToDelete: (String) -> Unit,
     onUserAvatarClicked: (String) -> Unit
 ) {
     val leftQueue = remember(state.queue) {
@@ -167,7 +174,9 @@ fun QueueLeftContent(
                     QueueItem(
                         queueItem = item,
                         imageLoader = imageLoader,
+                        userId = state.userId,
                         onDetailsClicked = onDetailsClicked,
+                        onSwipeToDelete = onSwipeToDelete,
                         onUserAvatarClicked = onUserAvatarClicked
                     )
                 }
@@ -182,6 +191,7 @@ fun QueueRightContent(
     state: QueueState,
     imageLoader: ImageLoader,
     onDetailsClicked: (String) -> Unit,
+    onSwipeToDelete: (String) -> Unit,
     onUserAvatarClicked: (String) -> Unit
 ) {
     val rightQueue = remember(state.queue) {
@@ -199,7 +209,9 @@ fun QueueRightContent(
                     QueueItem(
                         queueItem = item,
                         imageLoader = imageLoader,
+                        userId = state.userId,
                         onDetailsClicked = onDetailsClicked,
+                        onSwipeToDelete = onSwipeToDelete,
                         onUserAvatarClicked = onUserAvatarClicked
                     )
                 }

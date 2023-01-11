@@ -3,58 +3,87 @@ package dev.amal.onthewakelivekmm.android.feature_queue.presentation.components
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.ImageLoader
-import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
+import dev.amal.onthewakelivekmm.android.R
+import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueItemState
+import me.saket.swipe.SwipeAction
+import me.saket.swipe.SwipeableActionsBox
 
 @ExperimentalAnimationApi
 @Composable
 fun QueueItem(
     queueItem: QueueItemState,
+    userId: String?,
     imageLoader: ImageLoader,
     onDetailsClicked: (String) -> Unit,
+    onSwipeToDelete: (String) -> Unit,
     onUserAvatarClicked: (String) -> Unit
 ) {
+    val haptic = LocalHapticFeedback.current
+
+    val isUserAdmin = userId in ADMIN_IDS
+    val isOwnQueueItem = queueItem.userId == userId
+    val isAdminQueueItem = queueItem.userId in ADMIN_IDS
+
+    val swipeToDelete = SwipeAction(
+        icon = {
+            Icon(
+                modifier = Modifier.padding(end = 20.dp),
+                imageVector = Icons.Default.Delete,
+                contentDescription = stringResource(id = R.string.delete_icon),
+                tint = MaterialTheme.colorScheme.onError
+            )
+        },
+        background = MaterialTheme.colorScheme.error,
+        onSwipe = {
+            onSwipeToDelete(queueItem.id)
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
+    )
 
     Spacer(modifier = Modifier.height(12.dp))
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onDetailsClicked(queueItem.id) }
-            .clip(shape = MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        StandardImageView(
-            imageLoader = imageLoader,
-            model = queueItem.profilePictureUri,
-            onUserAvatarClicked = onUserAvatarClicked
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Column {
-            Text(
-                text = queueItem.firstName,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(1.dp))
-            Text(
-                text = queueItem.lastName,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+    if (isOwnQueueItem || isUserAdmin) {
+        SwipeableActionsBox(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape = MaterialTheme.shapes.medium)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .clickable { if (!isAdminQueueItem) onDetailsClicked(queueItem.id) },
+            startActions = listOf(swipeToDelete),
+            swipeThreshold = 100.dp
+        ) {
+            if (isAdminQueueItem) QueueItemAddedByAdmin(firstName = queueItem.firstName)
+            else QueueItemContent(
+                queueItem = queueItem,
+                imageLoader = imageLoader,
+                onDetailsClicked = onDetailsClicked,
+                onUserAvatarClicked = onUserAvatarClicked
             )
         }
+    } else {
+        if (isAdminQueueItem) QueueItemAddedByAdmin(firstName = queueItem.firstName)
+        else QueueItemContent(
+            queueItem = queueItem,
+            imageLoader = imageLoader,
+            onDetailsClicked = onDetailsClicked,
+            onUserAvatarClicked = onUserAvatarClicked
+        )
     }
 }

@@ -9,7 +9,7 @@
     <string name="login">Логин</string>
     <string name="phone_number">Номер телефона</string>
     <string name="password">Пароль</string>
-    <string name="sign_in">Войти!</string>
+    <string name="sign_in">Войти</string>
     <string name="dont_have_an_account_yet">Нет учетной записи?</string>
     <string name="sign_up">Зарегистрироваться</string>
     <string name="user_already_exist">Пользователь уже существует</string>

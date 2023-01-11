@@ -12,6 +12,7 @@ struct ContentView: View {
     
     private let queueService: QueueService
     private let queueSocketService: QueueSocketService
+    private let preferenceManager: PreferenceManager
     
     private var isAuthorized: Bool = false
     
@@ -20,10 +21,13 @@ struct ContentView: View {
         validationUseCase: ValidationUseCase,
         queueService: QueueService,
         queueSocketService: QueueSocketService,
+        preferenceManager: PreferenceManager,
         isAuthorized: Bool
     ) {
         self.queueService = queueService
         self.queueSocketService = queueSocketService
+        
+        self.preferenceManager = preferenceManager
         
         self.authRepository = authRepository
         self.validationUseCase = validationUseCase
@@ -63,7 +67,8 @@ struct ContentView: View {
                 .environmentObject(
                     IOSQueueViewModel(
                         queueService: queueService,
-                        queueSocketService: queueSocketService
+                        queueSocketService: queueSocketService,
+                        preferenceManager: preferenceManager
                     )
                 )
                 .tabItem {

@@ -56,6 +56,8 @@ dependencies {
     implementation(AndroidDeps.tabs)
     implementation(AndroidDeps.tabIndicators)
 
+    implementation(AndroidDeps.swipeToDelete)
+
     implementation(AndroidDeps.hiltAndroid)
     kapt(AndroidDeps.hiltAndroidCompiler)
     kapt(AndroidDeps.hiltCompiler)

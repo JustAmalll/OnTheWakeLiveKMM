@@ -104,7 +104,11 @@ struct QueueRightContent: View {
             List {
                 ForEach(rightQueue, id: \.self.id) { queueItem in
                     NavigationLink(destination: Text(queueItem.firstName)) {
-                        QueueItem(queueItem: queueItem, event: event)
+                        QueueItem(
+                            queueItem: queueItem,
+                            userId: state.userId ?? "",
+                            event: event
+                        )
                     }
                 }
             }
@@ -128,7 +132,11 @@ struct QueueLeftContent: View {
             List {
                 ForEach(leftQueue, id: \.self.id) { queueItem in
                     NavigationLink(destination: Text(queueItem.firstName)) {
-                        QueueItem(queueItem: queueItem, event: event)
+                        QueueItem(
+                            queueItem: queueItem,
+                            userId: state.userId ?? "",
+                            event: event
+                        )
                     }
                 }
             }

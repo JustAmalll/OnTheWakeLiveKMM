@@ -12,9 +12,10 @@ struct iOSApp: App {
         WindowGroup {
             SplashScreen(
                 authRepository: appModule.authRepository,
+                validationUseCase: appModule.validationUseCase,
                 queueService: appModule.queueService,
                 queueSocketService: appModule.queueSocketService,
-                validationUseCase: appModule.validationUseCase
+                preferenceManager: appModule.preferenceManager
             )
         }
     }

@@ -10,25 +10,33 @@ import Foundation
 import shared
 
 @MainActor final class IOSQueueViewModel: ObservableObject {
+    
     private var queueService: QueueService
     private var queueSocketService: QueueSocketService
+    private var preferenceManager: PreferenceManager
     
     private let viewModel: QueueViewModel
     
     @Published var hasQueueError: Bool = false
     
     @Published var state: QueueState = QueueState(
-        isQueueLoading: false, queue: [], error: nil
+        isQueueLoading: false, userId: nil, queue: [], error: nil
     )
     
     private var handle: DisposableHandle?
     
-    init(queueService: QueueService, queueSocketService: QueueSocketService) {
+    init(
+        queueService: QueueService,
+        queueSocketService: QueueSocketService,
+        preferenceManager: PreferenceManager
+    ) {
         self.queueService = queueService
         self.queueSocketService = queueSocketService
+        self.preferenceManager = preferenceManager
         self.viewModel = QueueViewModel(
             queueService: queueService,
             queueSocketService: queueSocketService,
+            preferenceManager: preferenceManager,
             coroutineScope: nil
         )
     }

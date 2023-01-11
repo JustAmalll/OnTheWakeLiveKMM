@@ -1,6 +1,8 @@
 package dev.amal.onthewakelivekmm.feature_queue.presentation
 
+import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.domain.util.toCommonStateFlow
+import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
 import dev.amal.onthewakelivekmm.core.util.Resource
 import dev.amal.onthewakelivekmm.feature_queue.domain.module.toQueueItemState
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 class QueueViewModel(
     private val queueService: QueueService,
     private val queueSocketService: QueueSocketService,
+    preferenceManager: PreferenceManager,
     coroutineScope: CoroutineScope?
 ) {
     private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
@@ -23,8 +26,11 @@ class QueueViewModel(
     private val _state = MutableStateFlow(QueueState())
     val state = _state.toCommonStateFlow()
 
+    val userId = preferenceManager.getString(PREFS_USER_ID)
+
     init {
         connectToQueue()
+        _state.update { it.copy(userId = userId) }
     }
 
     private fun connectToQueue() {
