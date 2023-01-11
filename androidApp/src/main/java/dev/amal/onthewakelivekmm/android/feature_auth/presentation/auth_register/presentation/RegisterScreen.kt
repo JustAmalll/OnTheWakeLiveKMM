@@ -55,7 +55,7 @@ fun RegisterScreen(
         viewModel.authResult.collectLatest { result ->
             if (result == AuthResult.UserAlreadyExist) {
                 snackBarHostState.showSnackbar(
-                    message = "User with this phone number already exists"
+                    message = "Oops! User with this phone number already exists"
                 )
             }
         }

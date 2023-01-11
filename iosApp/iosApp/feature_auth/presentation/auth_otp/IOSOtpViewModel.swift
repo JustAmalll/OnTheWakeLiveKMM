@@ -52,16 +52,22 @@ import Firebase
         do {
             isLoading = true
             
-            let result = try await
-            PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil)
+            let isUserAlreadyExists = try await
+            authRepository.isUserAlreadyExists(phoneNumber: phoneNumber)
             
-            DispatchQueue.main.async {
-                self.isLoading = false
-                self.verificationCode = result
-                self.navigationTag = "Verification"
+            if isUserAlreadyExists == false {
+                let result = try await
+                PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil)
+                
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.verificationCode = result
+                    self.navigationTag = "Verification"
+                }
+            } else {
+                handleError(error: "Oops! User with this phone number already exists")
             }
         } catch {
-            print(error.localizedDescription)
             handleError(error: error.localizedDescription)
         }
     }
