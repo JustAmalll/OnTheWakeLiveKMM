@@ -65,13 +65,6 @@ struct OtpScreen: View {
                 ProgressView()
             }
         }
-//        .background {
-//            NavigationLink(tag: "Queue", selection: $otpViewModel.navigationTag) {
-//                ContentView()
-//            } label: {
-//                EmptyView()
-//            }
-//        }
         .onAppear {
             otpViewModel.startObserving()
         }

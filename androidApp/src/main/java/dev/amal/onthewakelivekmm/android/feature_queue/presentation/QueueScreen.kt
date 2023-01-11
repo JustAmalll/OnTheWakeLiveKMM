@@ -25,6 +25,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dev.amal.onthewakelivekmm.android.core.presentation.components.AnimatedShimmer
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.EmptyContent
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.QueueItem
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.TabLayout
@@ -112,9 +113,9 @@ fun QueueScreen(
 
             AnimatedContent(targetState = state.isQueueLoading) { isLoading ->
                 if (isLoading) {
-//                    Column {
-//                        repeat(5) { AnimatedShimmer() }
-//                    }
+                    Column {
+                        repeat(5) { AnimatedShimmer() }
+                    }
                 } else HorizontalPager(state = pagerState) { page ->
                     when (page) {
                         0 -> QueueLeftContent(
