@@ -59,7 +59,7 @@ struct SplashScreen: View {
                 withAnimation(.easeIn) {}
             }
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     isActive = true
                 }
             }
@@ -69,46 +69,3 @@ struct SplashScreen: View {
         }
     }
 }
-
-//            if let isAuthorized = splashViewModel.state.isAuthorized  {
-//                if isAuthorized == true {
-//                    ContentView()
-//                        .environmentObject(
-//                            IOSQueueViewModel(
-//                                queueService: queueService,
-//                                queueSocketService: queueSocketService
-//                            )
-//                        )
-//                        .environmentObject(
-//                            IOSOtpViewModel(
-//                                authRepository: authRepository,
-//                                validationUseCase: validationUseCase
-//                            )
-//                        )
-//                } else {
-//                    ContentView()
-//                        .environmentObject(
-//                            IOSLoginViewModel(
-//                                authRepository: authRepository,
-//                                validationUseCase: validationUseCase
-//                            )
-//                        )
-//                        .environmentObject(
-//                            IOSRegisterViewModel(
-//                                validationUseCase: validationUseCase
-//                            )
-//                        )
-//                        .environmentObject(
-//                            IOSOtpViewModel(
-//                                authRepository: authRepository,
-//                                validationUseCase: validationUseCase
-//                            )
-//                        )
-//                        .environmentObject(
-//                            IOSQueueViewModel(
-//                                queueService: queueService,
-//                                queueSocketService: queueSocketService
-//                            )
-//                        )
-//                }
-//            }

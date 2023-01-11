@@ -66,7 +66,7 @@ fun RegisterScreen(
             println("register viewModel.otpResult $result")
             when (result) {
                 OtpResult.OtpTooManyRequests -> snackBarHostState.showSnackbar(
-                    message = "OtpTooManyRequests"
+                    message = "Too many request on trying to send OTP"
                 )
                 OtpResult.OtpInvalidCredentials -> snackBarHostState.showSnackbar(
                     message = "Invalid phone number format"

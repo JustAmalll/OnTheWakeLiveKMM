@@ -15,6 +15,7 @@ import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login.Lo
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.presentation.OtpScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_register.presentation.RegisterScreen
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.QueueScreen
+import dev.amal.onthewakelivekmm.android.feature_splash.presentation.SplashScreen
 
 @ExperimentalPagerApi
 @ExperimentalMaterial3Api
@@ -26,8 +27,11 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.LoginScreen.route
+        startDestination = Screen.SplashScreen.route
     ) {
+        composable(route = Screen.SplashScreen.route) {
+            SplashScreen(navController = navController)
+        }
         composable(route = Screen.QueueScreen.route) {
             QueueScreen(imageLoader = imageLoader)
         }
