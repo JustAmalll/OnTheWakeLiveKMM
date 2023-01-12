@@ -13,7 +13,7 @@ import CachedAsyncImage
 struct QueueItem: View {
     let queueItem: QueueItemState
     let userId: String
-    let event: (QueueEvent) -> Void
+    let onSwipeToDelete: (String) -> Void
     
     var queueItemContent: some View {
         HStack() {
@@ -37,15 +37,11 @@ struct QueueItem: View {
         if isOwnQueueItem || isUserAdmin {
             if isAdminQueueItem {
                 Text(queueItem.firstName).swipeToDelete {
-                    event(QueueEvent.DeleteQueueItem(
-                        queueItemId: queueItem.id
-                    ))
+                    onSwipeToDelete(queueItem.id)
                 }
             } else {
                 queueItemContent.swipeToDelete {
-                    event(QueueEvent.DeleteQueueItem(
-                        queueItemId: queueItem.id
-                    ))
+                    onSwipeToDelete(queueItem.id)
                 }
             }
         } else {
@@ -84,7 +80,7 @@ struct QueueItem_Previews: PreviewProvider {
                 timestamp: 123123
             ),
             userId: "",
-            event: { event in }
+            onSwipeToDelete: { queueItemId in }
         )
     }
 }

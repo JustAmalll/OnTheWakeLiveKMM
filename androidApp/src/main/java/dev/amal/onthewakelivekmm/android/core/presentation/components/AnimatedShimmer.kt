@@ -43,7 +43,11 @@ fun AnimatedShimmer() {
         end = Offset(x = translateAnim.value, y = translateAnim.value)
     )
 
-    ShimmerGridItem(brush = brush)
+    Column {
+        repeat(5) {
+            ShimmerGridItem(brush = brush)
+        }
+    }
 }
 
 @Composable

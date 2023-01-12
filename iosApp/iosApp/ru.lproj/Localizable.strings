@@ -20,3 +20,8 @@
 
 "Incorrect phone number or password" = "Неверный номер телефона или пароль";
 "An unknown error occurred" = "Произошла неизвестная ошибка";
+
+"Leave" = "Покинуть";
+"Remove" = "Удалить";
+"leave_queue_confirmation_text" = "Вы уверены что хотите покинуть очередь? Это действие нельзя отменить.";
+"admin_remove_person_confirmation_text" = "Вы уверены что хотите удалить человека из очереди? Это действие нельзя отменить.";

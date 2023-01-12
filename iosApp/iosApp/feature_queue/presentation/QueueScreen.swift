@@ -12,9 +12,19 @@ import shared
 struct QueueScreen: View {
     
     @EnvironmentObject var viewModel: IOSQueueViewModel
+    
+    @State private var showDeleteConfirmationDialog = false
+    @State private var queueItemIdToDelete: String = ""
+    
     @State private var selected = 2
     
     var body: some View {
+        
+        let state = viewModel.state
+        
+        let userId = state.userId ?? ""
+        let isUserAdmin = Constants().ADMIN_IDS.contains(userId)
+        
         NavigationView {
             VStack {
                 Picker(selection: $selected, label: Text("Queue")) {
@@ -27,28 +37,53 @@ struct QueueScreen: View {
                 
                 if selected == 1 {
                     QueueLeftContent(
-                        state: viewModel.state, event: { event in
-                            viewModel.onEvent(event: event)
+                        state: state,
+                        onSwipeToDelete: { queueItemId in
+                            showDeleteConfirmationDialog.toggle()
+                            queueItemIdToDelete = queueItemId
                         }
                     )
                 } else {
                     QueueRightContent(
-                        state: viewModel.state, event: { event in
-                            viewModel.onEvent(event: event)
+                        state: state,
+                        onSwipeToDelete: { queueItemId in
+                            showDeleteConfirmationDialog.toggle()
+                            queueItemIdToDelete = queueItemId
                         }
                     )
                 }
             }
             .navigationTitle("Queue")
-            .alert(Text(viewModel.state.error ?? ""), isPresented: $viewModel.hasQueueError) {
-                Button(
-                    action: {
-                        viewModel.onEvent(
-                            event: QueueEvent.OnQueueErrorSeen()
-                        )
-                    }
-                ) {
+            .alert(viewModel.state.error ?? "", isPresented: $viewModel.hasQueueError) {
+                Button {
+                    viewModel.onEvent(
+                        event: QueueEvent.OnQueueErrorSeen()
+                    )
+                } label: {
                     Text("OK")
+                }
+            }
+            .confirmationDialog(
+                "Leave", isPresented: $showDeleteConfirmationDialog
+            ) {
+                Button(role: .destructive) {
+                    viewModel.onEvent(
+                        event: QueueEvent.DeleteQueueItem(
+                            queueItemId: queueItemIdToDelete
+                        )
+                    )
+                } label: {
+                    if isUserAdmin {
+                        Text("Remove")
+                    } else {
+                        Text("Leave")
+                    }
+                }
+            } message: {
+                if isUserAdmin {
+                    Text("admin_remove_person_confirmation_text")
+                } else {
+                    Text("leave_queue_confirmation_text")
                 }
             }
             .overlay(
@@ -56,8 +91,7 @@ struct QueueScreen: View {
                     action: {
                         viewModel.onEvent(
                             event: QueueEvent.AddToQueue(
-                                isLeftQueue: selected == 1,
-                                timestamp: 123123
+                                isLeftQueue: selected == 1
                             )
                         )
                     }
@@ -74,7 +108,7 @@ struct QueueScreen: View {
                 alignment: .bottomTrailing
             )
             .overlay {
-                if viewModel.state.isQueueLoading  {
+                if state.isQueueLoading  {
                     Color(.systemBackground).ignoresSafeArea()
                     ProgressView()
                 }
@@ -91,12 +125,12 @@ struct QueueScreen: View {
 
 struct QueueRightContent: View {
     let state: QueueState
-    let event: (QueueEvent) -> Void
+    let onSwipeToDelete: (String) -> Void
     
     var body: some View {
         let rightQueue = state.queue.filter { queue in
             return queue.isLeftQueue == false
-        }
+        }.reversed()
         
         if rightQueue.isEmpty {
             EmptyQueueContent()
@@ -107,7 +141,7 @@ struct QueueRightContent: View {
                         QueueItem(
                             queueItem: queueItem,
                             userId: state.userId ?? "",
-                            event: event
+                            onSwipeToDelete: onSwipeToDelete
                         )
                     }
                 }
@@ -119,12 +153,12 @@ struct QueueRightContent: View {
 
 struct QueueLeftContent: View {
     let state: QueueState
-    let event: (QueueEvent) -> Void
+    let onSwipeToDelete: (String) -> Void
     
     var body: some View {
         let leftQueue = state.queue.filter { queue in
             return queue.isLeftQueue == true
-        }
+        }.reversed()
         
         if leftQueue.isEmpty {
             EmptyQueueContent()
@@ -135,7 +169,7 @@ struct QueueLeftContent: View {
                         QueueItem(
                             queueItem: queueItem,
                             userId: state.userId ?? "",
-                            event: event
+                            onSwipeToDelete: onSwipeToDelete
                         )
                     }
                 }

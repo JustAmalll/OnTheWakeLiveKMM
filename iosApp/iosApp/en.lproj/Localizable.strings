@@ -24,3 +24,8 @@
 
 "Incorrect phone number or password" = "Incorrect phone number or password";
 "An unknown error occurred" = "An unknown error occurred";
+
+"Leave" = "Leave";
+"Remove" = "Remove";
+"leave_queue_confirmation_text" = "Are you sure you want to leave the queue? This action cannot be undone.";
+"admin_remove_person_confirmation_text" = "Are you sure you want to remove a person from the queue? This action cannot be undone.";

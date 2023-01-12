@@ -26,9 +26,11 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.core.presentation.components.AnimatedShimmer
+import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.ConfirmationDialog
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.EmptyContent
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.QueueItem
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.TabLayout
+import dev.amal.onthewakelivekmm.core.util.Constants
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent.AddToQueue
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueState
@@ -42,6 +44,9 @@ fun QueueScreen(
     imageLoader: ImageLoader
 ) {
     val state by viewModel.state.collectAsState()
+
+    var showConfirmationDialog by remember { mutableStateOf(false) }
+    var queueItemIdToDelete by remember { mutableStateOf("") }
 
     val haptic = LocalHapticFeedback.current
 
@@ -88,10 +93,7 @@ fun QueueScreen(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                     viewModel.onEvent(
-                        AddToQueue(
-                            isLeftQueue = pagerState.currentPage == 0,
-                            timestamp = System.currentTimeMillis()
-                        )
+                        AddToQueue(isLeftQueue = pagerState.currentPage == 0)
                     )
                 }
             ) {
@@ -104,6 +106,18 @@ fun QueueScreen(
         }
     ) { paddingValues ->
 
+        if (showConfirmationDialog) ConfirmationDialog(
+            showDialog = { showConfirmationDialog = it },
+            isUserAdmin = state.userId in Constants.ADMIN_IDS,
+            onLeaveQueue = {
+                viewModel.onEvent(
+                    QueueEvent.DeleteQueueItem(
+                        queueItemId = queueItemIdToDelete
+                    )
+                )
+            }
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -112,11 +126,8 @@ fun QueueScreen(
             TabLayout(pagerState = pagerState)
 
             AnimatedContent(targetState = state.isQueueLoading) { isLoading ->
-                if (isLoading) {
-                    Column {
-                        repeat(5) { AnimatedShimmer() }
-                    }
-                } else HorizontalPager(state = pagerState) { page ->
+                if (isLoading) AnimatedShimmer()
+                else HorizontalPager(state = pagerState) { page ->
                     when (page) {
                         0 -> QueueLeftContent(
                             state = state,
@@ -125,7 +136,8 @@ fun QueueScreen(
 
                             },
                             onSwipeToDelete = { queueItemId ->
-                                viewModel.onEvent(QueueEvent.DeleteQueueItem(queueItemId))
+                                showConfirmationDialog = true
+                                queueItemIdToDelete = queueItemId
                             },
                             onUserAvatarClicked = { pictureUrl ->
 
@@ -138,7 +150,8 @@ fun QueueScreen(
 
                             },
                             onSwipeToDelete = { queueItemId ->
-                                viewModel.onEvent(QueueEvent.DeleteQueueItem(queueItemId))
+                                showConfirmationDialog = true
+                                queueItemIdToDelete = queueItemId
                             },
                             onUserAvatarClicked = { pictureUrl ->
 

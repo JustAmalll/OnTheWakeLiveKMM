@@ -55,4 +55,13 @@
     <string name="filter_icon">Иконка фильтрации</string>
     <string name="finish_setup">Завершить</string>
     <string name="icon_done">Иконка готовности</string>
+
+    <string name="confirm_action">Подтвердите действие</string>
+    <string name="leave_queue_confirmation_text">Вы уверены что хотите покинуть очередь? Это действие нельзя отменить.</string>
+    <string name="admin_remove_person_confirmation_text">Вы уверены что хотите удалить человека из очереди? Это действие нельзя отменить.</string>
+    <string name="leave">Покинуть</string>
+    <string name="stay">Остаться</string>
+    <string name="remove">Удалить</string>
+    <string name="cancel">Отменить</string>
+
 </resources>
