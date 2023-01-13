@@ -30,6 +30,7 @@
 		B3BA0B8329607F18006E5C40 /* OtpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8229607F18006E5C40 /* OtpScreen.swift */; };
 		B3BA0B8529608412006E5C40 /* IOSOtpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B8429608412006E5C40 /* IOSOtpViewModel.swift */; };
 		B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */; };
+		B3C06FF629718C9800BA5F91 /* AdminBottomSheetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C06FF529718C9800BA5F91 /* AdminBottomSheetContent.swift */; };
 		B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */; };
 		B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D67CC8295DF400001A653A /* QueueScreen.swift */; };
 		B3D67CCF295E9CD8001A653A /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = B3D67CCE295E9CD8001A653A /* CachedAsyncImage */; };
@@ -61,6 +62,7 @@
 		B3BA0B8229607F18006E5C40 /* OtpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpScreen.swift; sourceTree = "<group>"; };
 		B3BA0B8429608412006E5C40 /* IOSOtpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSOtpViewModel.swift; sourceTree = "<group>"; };
 		B3BA0B862961AE1E006E5C40 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B3C06FF529718C9800BA5F91 /* AdminBottomSheetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminBottomSheetContent.swift; sourceTree = "<group>"; };
 		B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSQueueViewModel.swift; sourceTree = "<group>"; };
 		B3D67CC8295DF400001A653A /* QueueScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueScreen.swift; sourceTree = "<group>"; };
 		C5FFBB5CBA611AC6F879E1E2 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			children = (
 				B3BA0B72295F71C9006E5C40 /* QueueItemView.swift */,
 				B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */,
+				B3C06FF529718C9800BA5F91 /* AdminBottomSheetContent.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 			files = (
 				B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */,
 				B3B93B5329648789000FD7EC /* SplashScreen.swift in Sources */,
+				B3C06FF629718C9800BA5F91 /* AdminBottomSheetContent.swift in Sources */,
 				B312FEBA296BE1CD009E99A9 /* EmptyQueueContent.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */,

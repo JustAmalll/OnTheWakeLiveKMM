@@ -16,7 +16,9 @@ struct QueueScreen: View {
     @State private var showDeleteConfirmationDialog = false
     @State private var queueItemIdToDelete: String = ""
     
-    @State private var selected = 2
+    @State private var showAdminBottomSheet: Bool = false
+    
+    @State private var selectedLine = 2
     
     var body: some View {
         
@@ -27,7 +29,7 @@ struct QueueScreen: View {
         
         NavigationView {
             VStack {
-                Picker(selection: $selected, label: Text("Queue")) {
+                Picker(selection: $selectedLine, label: Text("Queue")) {
                     Text("Left Line").tag(1)
                     Text("Right Line").tag(2)
                 }
@@ -35,7 +37,7 @@ struct QueueScreen: View {
                 .padding(.top, 10)
                 .pickerStyle(SegmentedPickerStyle())
                 
-                if selected == 1 {
+                if selectedLine == 1 {
                     QueueLeftContent(
                         state: state,
                         onSwipeToDelete: { queueItemId in
@@ -87,16 +89,19 @@ struct QueueScreen: View {
                 }
             }
             .overlay(
-                Button(
-                    action: {
+                Button {
+                    let isUserAdmin = Constants().ADMIN_IDS.contains(userId)
+                    if isUserAdmin {
+                        showAdminBottomSheet = true
+                    } else {
                         viewModel.onEvent(
                             event: QueueEvent.AddToQueue(
-                                isLeftQueue: selected == 1,
+                                isLeftQueue: selectedLine == 1,
                                 firstName: nil
                             )
                         )
                     }
-                ) {
+                } label: {
                     Image(systemName: "plus")
                         .foregroundColor(.white)
                         .frame(width: 24, height: 24)
@@ -108,6 +113,19 @@ struct QueueScreen: View {
                     .padding(.bottom, 40),
                 alignment: .bottomTrailing
             )
+            .sheet(isPresented: $showAdminBottomSheet) {
+                AdminBottomSheetContent(
+                    queue: state.queue,
+                    onAddClicked: { isLeftQueue, firstName in
+                        viewModel.onEvent(
+                            event: QueueEvent.AddToQueue(
+                                isLeftQueue: isLeftQueue,
+                                firstName: firstName
+                            )
+                        )
+                    }
+                )
+            }
             .overlay {
                 if state.isQueueLoading  {
                     Color(.systemBackground).ignoresSafeArea()
