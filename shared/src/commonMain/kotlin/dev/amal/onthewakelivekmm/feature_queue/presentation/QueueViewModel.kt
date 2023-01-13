@@ -4,7 +4,6 @@ import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.domain.util.toCommonStateFlow
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
 import dev.amal.onthewakelivekmm.core.util.Resource
-import dev.amal.onthewakelivekmm.feature_queue.domain.module.toQueueItemState
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueSocketService
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 
 class QueueViewModel(
     private val queueService: QueueService,
@@ -27,7 +25,7 @@ class QueueViewModel(
     private val _state = MutableStateFlow(QueueState())
     val state = _state.toCommonStateFlow()
 
-    val userId = preferenceManager.getString(PREFS_USER_ID)
+    private val userId = preferenceManager.getString(PREFS_USER_ID)
 
     init {
         connectToQueue()
@@ -56,7 +54,7 @@ class QueueViewModel(
                     .toMutableList()
                     .apply {
                         if (queueItem.isDeleteAction) removeAll { it.id == queueItem.queueItem.id }
-                        else add(0, queueItem.queueItem.toQueueItemState())
+                        else add(0, queueItem.queueItem)
                     }
                     .sortedWith(compareByDescending { it.timestamp })
                 _state.update { it.copy(queue = newList) }
@@ -66,7 +64,10 @@ class QueueViewModel(
     fun onEvent(event: QueueEvent) {
         when (event) {
             is QueueEvent.AddToQueue -> {
-                addToQueue(isLeftQueue = event.isLeftQueue)
+                addToQueue(
+                    isLeftQueue = event.isLeftQueue,
+                    firstName = event.firstName
+                )
             }
             is QueueEvent.DeleteQueueItem -> {
                 deleteQueueItem(queueItemId = event.queueItemId)
@@ -77,16 +78,18 @@ class QueueViewModel(
         }
     }
 
-    private fun addToQueue(isLeftQueue: Boolean) {
+    private fun addToQueue(
+        isLeftQueue: Boolean, firstName: String? = null
+    ) {
         val canAddToQueue = queueSocketService.canAddToQueue(
-            isLeftQueue = isLeftQueue,
-            queue = _state.value.queue.map { it.toQueueItem() }
+            isLeftQueue = isLeftQueue, queue = _state.value.queue
         )
         val addToQueueError = canAddToQueue.message
 
         if (canAddToQueue is Resource.Success) viewModelScope.launch {
-            val currentTimeInMilliseconds = Clock.System.now().toEpochMilliseconds()
-            val result = queueSocketService.addToQueue(isLeftQueue, currentTimeInMilliseconds)
+            val result = queueSocketService.addToQueue(
+                isLeftQueue = isLeftQueue, firstName = firstName
+            )
             _state.update { it.copy(error = result.message) }
         } else {
             _state.update { it.copy(error = addToQueueError) }
@@ -98,10 +101,7 @@ class QueueViewModel(
             _state.update { it.copy(isQueueLoading = true) }
             val result = queueService.getQueue()
             _state.update { queueState ->
-                queueState.copy(
-                    queue = result.map { it.toQueueItemState() },
-                    isQueueLoading = false
-                )
+                queueState.copy(queue = result, isQueueLoading = false)
             }
         }
     }

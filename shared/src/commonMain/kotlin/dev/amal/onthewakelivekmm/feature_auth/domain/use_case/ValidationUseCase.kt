@@ -1,6 +1,7 @@
 package dev.amal.onthewakelivekmm.feature_auth.domain.use_case
 
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.ValidationResult
+import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 
 expect class ValidationUseCase {
 
@@ -11,6 +12,10 @@ expect class ValidationUseCase {
     fun validatePhoneNumber(phoneNumber: String): ValidationResult
 
     fun validatePassword(password: String): ValidationResult
-    
+
     fun validateOtp(otp: String): ValidationResult
+
+    fun validateAdminAddToQueue(
+        firstName: String, queue: List<QueueItem>
+    ): ValidationResult
 }

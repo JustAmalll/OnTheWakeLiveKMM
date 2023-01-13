@@ -21,6 +21,7 @@
 "The password can't be blank" = "The password can't be blank";
 "The password needs to consist of at least 6 characters" = "The password needs to consist of at least 6 characters";
 "OTP cannot be empty" = "OTP cannot be empty";
+"There is already this user in the queue" = "There is already this user in the queue";
 
 "Incorrect phone number or password" = "Incorrect phone number or password";
 "An unknown error occurred" = "An unknown error occurred";

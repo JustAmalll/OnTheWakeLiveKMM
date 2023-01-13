@@ -7,4 +7,5 @@
     <string name="validate_password_error">The password can\'t be blank</string>
     <string name="validate_password_length_error">The password needs to consist of at least 6 characters</string>
     <string name="validate_otp_error">OTP cannot be empty</string>
+    <string name="validate_user_error">There is already this user in the queue</string>
 </resources>

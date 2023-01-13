@@ -15,12 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.ImageLoader
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueItemState
+import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 
 @ExperimentalAnimationApi
 @Composable
 fun QueueItemContent(
-    queueItem: QueueItemState,
+    queueItem: QueueItem,
     imageLoader: ImageLoader,
     onDetailsClicked: (String) -> Unit,
     onUserAvatarClicked: (String) -> Unit

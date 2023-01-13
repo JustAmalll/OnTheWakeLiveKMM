@@ -1,6 +1,7 @@
 package dev.amal.onthewakelivekmm.feature_auth.domain.use_case
 
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.ValidationResult
+import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 
 actual class ValidationUseCase {
 
@@ -55,6 +56,29 @@ actual class ValidationUseCase {
             return ValidationResult(
                 successful = false,
                 errorMessage = "OTP cannot be empty"
+            )
+        }
+        return ValidationResult(successful = true)
+    }
+
+    actual fun validateAdminAddToQueue(
+        firstName: String, queue: List<QueueItem>
+    ): ValidationResult {
+        if (firstName.isBlank()) {
+            return ValidationResult(
+                successful = false,
+                errorMessage = "The first name can't be blank"
+            )
+        }
+        val formattedFirstName = firstName.trim().lowercase()
+        val isUserAlreadyInQueue = queue.none {
+            it.firstName.lowercase() == formattedFirstName
+        }
+
+        if (!isUserAlreadyInQueue) {
+            return ValidationResult(
+                successful = false,
+                errorMessage = "There is already this user in the queue"
             )
         }
         return ValidationResult(successful = true)

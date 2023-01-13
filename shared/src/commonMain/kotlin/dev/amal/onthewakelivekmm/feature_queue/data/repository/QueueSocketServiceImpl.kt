@@ -17,6 +17,7 @@ import io.ktor.client.request.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
+import kotlinx.datetime.Clock
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -88,13 +89,15 @@ class QueueSocketServiceImpl(
     }
 
     override suspend fun addToQueue(
-        isLeftQueue: Boolean, timestamp: Long
+        isLeftQueue: Boolean, firstName: String?
     ): SimpleResource {
         return try {
-            val firstName = preferenceManager.getString(PREFS_FIRST_NAME)
-                ?: return Resource.Error("Your account data is empty, try to re-login")
+            val name = firstName ?: (preferenceManager.getString(PREFS_FIRST_NAME)
+                ?: return Resource.Error("Your account data is empty, try to re-login"))
 
-            socket?.send(Frame.Text("$isLeftQueue/$firstName/$timestamp"))
+            val timestamp = Clock.System.now().toEpochMilliseconds()
+
+            socket?.send(Frame.Text("$isLeftQueue/$name/$timestamp"))
             Resource.Success(Unit)
         } catch (exception: Exception) {
             Resource.Error("An unknown error occurred")

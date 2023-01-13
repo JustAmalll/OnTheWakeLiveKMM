@@ -21,14 +21,14 @@ import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueItemState
+import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
 @ExperimentalAnimationApi
 @Composable
 fun QueueItem(
-    queueItem: QueueItemState,
+    queueItem: QueueItem,
     userId: String?,
     imageLoader: ImageLoader,
     onDetailsClicked: (String) -> Unit,

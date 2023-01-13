@@ -10,8 +10,8 @@ import SwiftUI
 import shared
 import CachedAsyncImage
 
-struct QueueItem: View {
-    let queueItem: QueueItemState
+struct QueueItemView: View {
+    let queueItem: QueueItem
     let userId: String
     let onSwipeToDelete: (String) -> Void
     
@@ -69,8 +69,8 @@ extension View {
 
 struct QueueItem_Previews: PreviewProvider {
     static var previews: some View {
-        QueueItem(
-            queueItem: QueueItemState(
+        QueueItemView(
+            queueItem: QueueItem(
                 id: "0",
                 userId: "0",
                 firstName: "Amal",

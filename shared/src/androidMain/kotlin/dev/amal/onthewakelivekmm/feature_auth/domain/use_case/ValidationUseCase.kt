@@ -3,6 +3,7 @@ package dev.amal.onthewakelivekmm.feature_auth.domain.use_case
 import android.content.Context
 import dev.amal.onthewakelivekmm.R
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.ValidationResult
+import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 
 actual class ValidationUseCase(
     private val context: Context
@@ -32,7 +33,7 @@ actual class ValidationUseCase(
         if (phoneNumber.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage =  context.getString(R.string.validate_phone_number_error)
+                errorMessage = context.getString(R.string.validate_phone_number_error)
             )
         }
         return ValidationResult(successful = true)
@@ -53,12 +54,35 @@ actual class ValidationUseCase(
         }
         return ValidationResult(successful = true)
     }
-    
+
     actual fun validateOtp(otp: String): ValidationResult {
         if (otp.isBlank()) {
             return ValidationResult(
                 successful = false,
                 errorMessage = context.getString(R.string.validate_otp_error)
+            )
+        }
+        return ValidationResult(successful = true)
+    }
+
+    actual fun validateAdminAddToQueue(
+        firstName: String, queue: List<QueueItem>
+    ): ValidationResult {
+        if (firstName.isBlank()) {
+            return ValidationResult(
+                successful = false,
+                errorMessage = context.getString(R.string.validate_first_name_error)
+            )
+        }
+        val formattedFirstName = firstName.trim().lowercase()
+        val isUserAlreadyInQueue = queue.none {
+            it.firstName.lowercase() == formattedFirstName
+        }
+
+        if (!isUserAlreadyInQueue) {
+            return ValidationResult(
+                successful = false,
+                errorMessage = context.getString(R.string.validate_user_error)
             )
         }
         return ValidationResult(successful = true)

@@ -23,7 +23,7 @@
 		B3B93B5329648789000FD7EC /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B93B5229648789000FD7EC /* SplashScreen.swift */; };
 		B3B93B5529648F57000FD7EC /* IOSSplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B93B5429648F57000FD7EC /* IOSSplashViewModel.swift */; };
 		B3BA0B71295F2CDB006E5C40 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3BA0B70295F2CDB006E5C40 /* Lottie */; };
-		B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B72295F71C9006E5C40 /* QueueItem.swift */; };
+		B3BA0B73295F71C9006E5C40 /* QueueItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B72295F71C9006E5C40 /* QueueItemView.swift */; };
 		B3BA0B79295FF149006E5C40 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B78295FF149006E5C40 /* LoginScreen.swift */; };
 		B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */; };
 		B3BA0B802960120F006E5C40 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */; };
@@ -54,7 +54,7 @@
 		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3B93B5229648789000FD7EC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		B3B93B5429648F57000FD7EC /* IOSSplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSSplashViewModel.swift; sourceTree = "<group>"; };
-		B3BA0B72295F71C9006E5C40 /* QueueItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
+		B3BA0B72295F71C9006E5C40 /* QueueItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueItemView.swift; sourceTree = "<group>"; };
 		B3BA0B78295FF149006E5C40 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		B3BA0B7C295FFCD4006E5C40 /* RegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreen.swift; sourceTree = "<group>"; };
 		B3BA0B7F2960120F006E5C40 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 		B3D67CC5295DF373001A653A /* components */ = {
 			isa = PBXGroup;
 			children = (
-				B3BA0B72295F71C9006E5C40 /* QueueItem.swift */,
+				B3BA0B72295F71C9006E5C40 /* QueueItemView.swift */,
 				B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */,
 			);
 			path = components;
@@ -426,7 +426,7 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				B3D67CC9295DF400001A653A /* QueueScreen.swift in Sources */,
 				B3BA0B8529608412006E5C40 /* IOSOtpViewModel.swift in Sources */,
-				B3BA0B73295F71C9006E5C40 /* QueueItem.swift in Sources */,
+				B3BA0B73295F71C9006E5C40 /* QueueItemView.swift in Sources */,
 				B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */,
 				B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */,
 				B3B93B5529648F57000FD7EC /* IOSSplashViewModel.swift in Sources */,
@@ -579,6 +579,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = F4P284SMKC;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -616,6 +617,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
+				DEVELOPMENT_TEAM = F4P284SMKC;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,6 +9,11 @@ interface QueueSocketService {
     suspend fun initSession(): SimpleResource
     fun observeQueue(): CommonFlow<QueueResponse>
     fun canAddToQueue(isLeftQueue: Boolean, queue: List<QueueItem>): SimpleResource
-    suspend fun addToQueue(isLeftQueue: Boolean, timestamp: Long): SimpleResource
+
+    suspend fun addToQueue(
+        isLeftQueue: Boolean,
+        firstName: String? = null
+    ): SimpleResource
+
     suspend fun closeSession()
 }

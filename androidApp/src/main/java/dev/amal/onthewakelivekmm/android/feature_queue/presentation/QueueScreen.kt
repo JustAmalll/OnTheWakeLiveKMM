@@ -26,11 +26,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.core.presentation.components.AnimatedShimmer
-import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.ConfirmationDialog
-import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.EmptyContent
-import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.QueueItem
-import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.TabLayout
-import dev.amal.onthewakelivekmm.core.util.Constants
+import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.*
+import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent.AddToQueue
 import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueState
@@ -44,6 +41,8 @@ fun QueueScreen(
     imageLoader: ImageLoader
 ) {
     val state by viewModel.state.collectAsState()
+
+    var showAdminDialog by remember { mutableStateOf(false) }
 
     var showConfirmationDialog by remember { mutableStateOf(false) }
     var queueItemIdToDelete by remember { mutableStateOf("") }
@@ -92,9 +91,8 @@ fun QueueScreen(
             if (!state.isQueueLoading) FloatingActionButton(
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    viewModel.onEvent(
-                        AddToQueue(isLeftQueue = pagerState.currentPage == 0)
-                    )
+                    if (state.userId in ADMIN_IDS) showAdminDialog = true
+                    else viewModel.onEvent(AddToQueue(isLeftQueue = pagerState.currentPage == 0))
                 }
             ) {
                 Icon(
@@ -108,11 +106,24 @@ fun QueueScreen(
 
         if (showConfirmationDialog) ConfirmationDialog(
             showDialog = { showConfirmationDialog = it },
-            isUserAdmin = state.userId in Constants.ADMIN_IDS,
+            isUserAdmin = state.userId in ADMIN_IDS,
             onLeaveQueue = {
                 viewModel.onEvent(
                     QueueEvent.DeleteQueueItem(
                         queueItemId = queueItemIdToDelete
+                    )
+                )
+            }
+        )
+
+        if (showAdminDialog) AdminDialog(
+            showDialog = { showAdminDialog = it },
+            queue = state.queue,
+            onAddClicked = { isLeftQueue, firstName ->
+                viewModel.onEvent(
+                    event = AddToQueue(
+                        isLeftQueue = isLeftQueue,
+                        firstName = firstName
                     )
                 )
             }

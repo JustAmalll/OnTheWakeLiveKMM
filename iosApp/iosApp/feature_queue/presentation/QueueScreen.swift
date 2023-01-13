@@ -91,7 +91,8 @@ struct QueueScreen: View {
                     action: {
                         viewModel.onEvent(
                             event: QueueEvent.AddToQueue(
-                                isLeftQueue: selected == 1
+                                isLeftQueue: selected == 1,
+                                firstName: nil
                             )
                         )
                     }
@@ -138,7 +139,7 @@ struct QueueRightContent: View {
             List {
                 ForEach(rightQueue, id: \.self.id) { queueItem in
                     NavigationLink(destination: Text(queueItem.firstName)) {
-                        QueueItem(
+                        QueueItemView(
                             queueItem: queueItem,
                             userId: state.userId ?? "",
                             onSwipeToDelete: onSwipeToDelete
@@ -166,7 +167,7 @@ struct QueueLeftContent: View {
             List {
                 ForEach(leftQueue, id: \.self.id) { queueItem in
                     NavigationLink(destination: Text(queueItem.firstName)) {
-                        QueueItem(
+                        QueueItemView(
                             queueItem: queueItem,
                             userId: state.userId ?? "",
                             onSwipeToDelete: onSwipeToDelete

@@ -7,4 +7,5 @@
     <string name="validate_password_error">Пароль не может быть пустым</string>
     <string name="validate_password_length_error">Пароль должен состоять не менее чем из 6 символов</string>
     <string name="validate_otp_error">OTP не может быть пустым</string>
+    <string name="validate_user_error">Этот человек уже есть в очереди</string>
 </resources>
