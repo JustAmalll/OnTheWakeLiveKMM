@@ -55,16 +55,30 @@ struct ContentView: View {
     
     var body: some View {
         
+        let userId = preferenceManager.getString(key: Constants().PREFS_USER_ID) ?? ""
+        let isUserAdmin = Constants().ADMIN_IDS.contains(userId)
         let isLoginSuccess = loginViewModel.state.loginResult == .authorized
         
         if isAuthorized || isLoginSuccess || otpViewModel.isOtpVerified {
-            mainContent
+            if isUserAdmin { adminContent }
+            else { mainContent }
         } else {
             LoginScreen()
                 .environmentObject(loginViewModel)
                 .environmentObject(registerViewModel)
                 .environmentObject(otpViewModel)
         }
+    }
+    
+    var adminContent: some View {
+        QueueScreen()
+            .environmentObject(
+                IOSQueueViewModel(
+                    queueService: queueService,
+                    queueSocketService: queueSocketService,
+                    preferenceManager: preferenceManager
+                )
+            )
     }
     
     var mainContent: some View {
