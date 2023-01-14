@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.feature_queue.presentation
+package dev.amal.onthewakelivekmm.feature_queue.presentation.queue
 
 sealed class QueueEvent {
     data class AddToQueue(val isLeftQueue: Boolean, val firstName: String? = null) : QueueEvent()

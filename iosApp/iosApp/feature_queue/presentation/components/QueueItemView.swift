@@ -16,7 +16,7 @@ struct QueueItemView: View {
     let onSwipeToDelete: (String) -> Void
     
     var queueItemContent: some View {
-        HStack() {
+        HStack {
             StandardUserPicture(imageUrl: queueItem.profilePictureUri)
             
             VStack(alignment: .leading) {

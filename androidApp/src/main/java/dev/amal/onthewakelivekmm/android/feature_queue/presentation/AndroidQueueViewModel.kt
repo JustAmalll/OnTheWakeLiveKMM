@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueSocketService
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueViewModel
+import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent
+import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueViewModel
 import javax.inject.Inject
 
 @HiltViewModel

@@ -28,9 +28,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.core.presentation.components.AnimatedShimmer
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.*
 import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueEvent.AddToQueue
-import dev.amal.onthewakelivekmm.feature_queue.presentation.QueueState
+import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent
+import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent.AddToQueue
+import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueState
 
 @ExperimentalPagerApi
 @ExperimentalMaterial3Api

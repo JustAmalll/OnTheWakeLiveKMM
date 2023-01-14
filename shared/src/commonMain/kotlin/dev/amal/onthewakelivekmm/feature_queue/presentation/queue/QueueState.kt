@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.feature_queue.presentation
+package dev.amal.onthewakelivekmm.feature_queue.presentation.queue
 
 import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 

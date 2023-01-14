@@ -74,15 +74,10 @@ struct ContentView: View {
                 .tabItem {
                     Label("Queue", systemImage: "house.fill")
                 }
-            NavigationView {
-                VStack {
-                    Text("Profile")
+            ProfileScreen()
+                .tabItem {
+                    Label("Profile", systemImage: "person.fill")
                 }
-                .navigationTitle("Profile")
-            }
-            .tabItem {
-                Label("Profile", systemImage: "person.fill")
-            }
         }
         .tint(.black)
     }

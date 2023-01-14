@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.feature_queue.presentation
+package dev.amal.onthewakelivekmm.feature_queue.presentation.queue
 
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.domain.util.toCommonStateFlow
