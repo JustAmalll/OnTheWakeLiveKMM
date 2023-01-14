@@ -15,6 +15,7 @@ struct iOSApp: App {
                 validationUseCase: appModule.validationUseCase,
                 queueService: appModule.queueService,
                 queueSocketService: appModule.queueSocketService,
+                profileRepository: appModule.profileRepository,
                 preferenceManager: appModule.preferenceManager
             )
         }

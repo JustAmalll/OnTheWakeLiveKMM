@@ -18,6 +18,7 @@
 		B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */; };
 		B312FEBA296BE1CD009E99A9 /* EmptyQueueContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */; };
 		B33516C02972935100431170 /* ProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33516BF2972935100431170 /* ProfileItem.swift */; };
+		B33516C22972A2FB00431170 /* IOSProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33516C12972A2FB00431170 /* IOSProfileViewModel.swift */; };
 		B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */; };
 		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
 		B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */; };
@@ -54,6 +55,7 @@
 		B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardUserPicture.swift; sourceTree = "<group>"; };
 		B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyQueueContent.swift; sourceTree = "<group>"; };
 		B33516BF2972935100431170 /* ProfileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItem.swift; sourceTree = "<group>"; };
+		B33516C12972A2FB00431170 /* IOSProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSProfileViewModel.swift; sourceTree = "<group>"; };
 		B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSRegisterViewModel.swift; sourceTree = "<group>"; };
 		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3B93B5229648789000FD7EC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				B33516BE2972933A00431170 /* components */,
 				B3C06FF829718FF600BA5F91 /* ProfileScreen.swift */,
+				B33516C12972A2FB00431170 /* IOSProfileViewModel.swift */,
 			);
 			path = feature_profile;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 			files = (
 				B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */,
 				B3B93B5329648789000FD7EC /* SplashScreen.swift in Sources */,
+				B33516C22972A2FB00431170 /* IOSProfileViewModel.swift in Sources */,
 				B3C06FF629718C9800BA5F91 /* AdminBottomSheetContent.swift in Sources */,
 				B3C06FF929718FF600BA5F91 /* ProfileScreen.swift in Sources */,
 				B33516C02972935100431170 /* ProfileItem.swift in Sources */,

@@ -66,13 +66,11 @@ struct LoginScreen: View {
                 viewModel.startObserving()
             }
             .alert(isPresented: $viewModel.hasLoginError, error: viewModel.state.loginResult) {
-                Button(
-                    action: {
-                        viewModel.onEvent(
-                            event: LoginEvent.OnLoginResultSeen()
-                        )
-                    }
-                ) {
+                Button{
+                    viewModel.onEvent(
+                        event: LoginEvent.OnLoginResultSeen()
+                    )
+                } label: {
                     Text("OK")
                 }
             }

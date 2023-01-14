@@ -11,19 +11,25 @@ import SwiftUI
 struct ProfileItem: View {
     
     let title: String
-    let subTitle: String
+    let subTitle: String?
     let isLastItem: Bool
     
     var body: some View {
         Text(title)
             .font(.system(size: 22, weight: .medium))
-        Text(subTitle)
+        
+        Text(formatedSubTitle(subTitle: subTitle))
             .font(.system(size: 18, weight: .regular))
         
         if !isLastItem {
-            Divider()
-                .padding(.vertical, 10)
+            Divider().padding(.vertical, 10)
         }
+    }
+    
+    func formatedSubTitle(subTitle: String?) -> String {
+        guard let subTitle = subTitle else { return "Not specified" }
+        if subTitle.isEmpty { return "Not specified" }
+        else { return subTitle }
     }
 }
 

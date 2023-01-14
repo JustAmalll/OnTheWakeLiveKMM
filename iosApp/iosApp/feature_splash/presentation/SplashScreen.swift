@@ -17,6 +17,9 @@ struct SplashScreen: View {
     
     private let queueService: QueueService
     private let queueSocketService: QueueSocketService
+    
+    private let profileRepository: ProfileRepository
+    
     private let preferenceManager: PreferenceManager
     
     init(
@@ -24,12 +27,14 @@ struct SplashScreen: View {
         validationUseCase: ValidationUseCase,
         queueService: QueueService,
         queueSocketService: QueueSocketService,
+        profileRepository: ProfileRepository,
         preferenceManager: PreferenceManager
     ) {
         self.authRepository = authRepository
         self.validationUseCase = validationUseCase
         self.queueService = queueService
         self.queueSocketService = queueSocketService
+        self.profileRepository = profileRepository
         self.preferenceManager = preferenceManager
         self.splashViewModel = IOSSplashViewModel(
             authRepository: authRepository
@@ -46,6 +51,7 @@ struct SplashScreen: View {
                 validationUseCase: validationUseCase,
                 queueService: queueService,
                 queueSocketService: queueSocketService,
+                profileRepository: profileRepository,
                 preferenceManager: preferenceManager,
                 isAuthorized: splashViewModel.state.isAuthorized == true
             )

@@ -12,6 +12,9 @@ struct ContentView: View {
     
     private let queueService: QueueService
     private let queueSocketService: QueueSocketService
+    
+    private let profileRepository: ProfileRepository
+    
     private let preferenceManager: PreferenceManager
     
     private var isAuthorized: Bool = false
@@ -21,11 +24,14 @@ struct ContentView: View {
         validationUseCase: ValidationUseCase,
         queueService: QueueService,
         queueSocketService: QueueSocketService,
+        profileRepository: ProfileRepository,
         preferenceManager: PreferenceManager,
         isAuthorized: Bool
     ) {
         self.queueService = queueService
         self.queueSocketService = queueSocketService
+        
+        self.profileRepository = profileRepository
         
         self.preferenceManager = preferenceManager
         
@@ -75,6 +81,11 @@ struct ContentView: View {
                     Label("Queue", systemImage: "house.fill")
                 }
             ProfileScreen()
+                .environmentObject(
+                    IOSProfileViewModel(
+                        profileRepository: profileRepository
+                    )
+                )
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }

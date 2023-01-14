@@ -8,5 +8,7 @@ object Constants {
 
     const val PREFS_JWT_TOKEN = "jwt_token"
     const val PREFS_USER_ID = "user_id"
-    const val PREFS_FIRST_NAME = "account_data"
+    const val PREFS_FIRST_NAME = "first_name"
+
+    const val PREFS_ACCOUNT_DATA = "account_data"
 }

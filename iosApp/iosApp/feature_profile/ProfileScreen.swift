@@ -7,9 +7,16 @@
 //
 
 import SwiftUI
+import shared
 
 struct ProfileScreen: View {
+    @EnvironmentObject var viewModel: IOSProfileViewModel
+    
     var body: some View {
+        
+        let state = viewModel.state
+        let profile = state.profile
+        
         NavigationView {
             VStack {
                 Form {
@@ -18,9 +25,9 @@ struct ProfileScreen: View {
                             StandardUserPicture(imageUrl: "")
                             
                             VStack(alignment: .leading) {
-                                Text("Amal")
+                                Text(profile?.firstName ?? "")
                                     .font(.headline)
-                                Text("Just Amalll")
+                                Text(profile?.lastName ?? "")
                                     .font(.subheadline)
                             }
                         }
@@ -34,22 +41,22 @@ struct ProfileScreen: View {
                 VStack(alignment: .leading, spacing: 6) {
                     ProfileItem(
                         title: "Instagram",
-                        subTitle: "Just_Amalll",
+                        subTitle: profile?.instagram,
                         isLastItem: false
                     )
                     ProfileItem(
                         title: "Telegram",
-                        subTitle: "JustAmal",
+                        subTitle: profile?.telegram,
                         isLastItem: false
                     )
                     ProfileItem(
                         title: "Phone number",
-                        subTitle: "+996 555 123 123",
+                        subTitle: profile?.phoneNumber,
                         isLastItem: false
                     )
                     ProfileItem(
                         title: "Date of Bitrh",
-                        subTitle: "Not specified",
+                        subTitle: profile?.dateOfBirth,
                         isLastItem: true
                     )
                 }
@@ -70,6 +77,28 @@ struct ProfileScreen: View {
                         Image(systemName: "rectangle.portrait.and.arrow.right")
                     }
                 }
+            }
+            .alert(state.error ?? "", isPresented: $viewModel.hasProfileError) {
+                Button{
+                    viewModel.onEvent(
+                        event: ProfileEvent.OnProfileErrorSeen()
+                    )
+                } label: {
+                    Text("OK")
+                }
+            }
+            .overlay {
+                if state.isLoading  {
+                    Color(.systemBackground).ignoresSafeArea()
+                    ProgressView()
+                }
+            }
+            .onAppear {
+                viewModel.startObserving()
+                viewModel.onEvent(event: ProfileEvent.GetProfile())
+            }
+            .onDisappear {
+                viewModel.dispose()
             }
         }
     }
