@@ -19,6 +19,8 @@
 		B312FEBA296BE1CD009E99A9 /* EmptyQueueContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */; };
 		B33516C02972935100431170 /* ProfileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33516BF2972935100431170 /* ProfileItem.swift */; };
 		B33516C22972A2FB00431170 /* IOSProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33516C12972A2FB00431170 /* IOSProfileViewModel.swift */; };
+		B33516C62973D1B000431170 /* IOSQueueItemDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33516C52973D1B000431170 /* IOSQueueItemDetailsViewModel.swift */; };
+		B33516C82973D3C700431170 /* QueueItemDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33516C72973D3C700431170 /* QueueItemDetailsScreen.swift */; };
 		B34546BA29632DFB004D400A /* IOSRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */; };
 		B37B2C422961B38800CB02E8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B37B2C412961B38800CB02E8 /* FirebaseAuth */; };
 		B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */; };
@@ -56,6 +58,8 @@
 		B312FEB9296BE1CD009E99A9 /* EmptyQueueContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyQueueContent.swift; sourceTree = "<group>"; };
 		B33516BF2972935100431170 /* ProfileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileItem.swift; sourceTree = "<group>"; };
 		B33516C12972A2FB00431170 /* IOSProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSProfileViewModel.swift; sourceTree = "<group>"; };
+		B33516C52973D1B000431170 /* IOSQueueItemDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSQueueItemDetailsViewModel.swift; sourceTree = "<group>"; };
+		B33516C72973D3C700431170 /* QueueItemDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueItemDetailsScreen.swift; sourceTree = "<group>"; };
 		B34546B929632DFB004D400A /* IOSRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSRegisterViewModel.swift; sourceTree = "<group>"; };
 		B37B2C432962C0A500CB02E8 /* IOSLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSLoginViewModel.swift; sourceTree = "<group>"; };
 		B3B93B5229648789000FD7EC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
@@ -193,6 +197,25 @@
 			path = components;
 			sourceTree = "<group>";
 		};
+		B33516C32973D16600431170 /* queue */ = {
+			isa = PBXGroup;
+			children = (
+				B3D67CC5295DF373001A653A /* components */,
+				B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */,
+				B3D67CC8295DF400001A653A /* QueueScreen.swift */,
+			);
+			path = queue;
+			sourceTree = "<group>";
+		};
+		B33516C42973D18A00431170 /* queue_item_details */ = {
+			isa = PBXGroup;
+			children = (
+				B33516C52973D1B000431170 /* IOSQueueItemDetailsViewModel.swift */,
+				B33516C72973D3C700431170 /* QueueItemDetailsScreen.swift */,
+			);
+			path = queue_item_details;
+			sourceTree = "<group>";
+		};
 		B3B93B5029648759000FD7EC /* feature_splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,9 +308,8 @@
 		B3D67CC4295DF36B001A653A /* presentation */ = {
 			isa = PBXGroup;
 			children = (
-				B3D67CC5295DF373001A653A /* components */,
-				B3D67CC6295DF3D5001A653A /* IOSQueueViewModel.swift */,
-				B3D67CC8295DF400001A653A /* QueueScreen.swift */,
+				B33516C32973D16600431170 /* queue */,
+				B33516C42973D18A00431170 /* queue_item_details */,
 			);
 			path = presentation;
 			sourceTree = "<group>";
@@ -450,6 +472,7 @@
 			files = (
 				B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */,
 				B3B93B5329648789000FD7EC /* SplashScreen.swift in Sources */,
+				B33516C82973D3C700431170 /* QueueItemDetailsScreen.swift in Sources */,
 				B33516C22972A2FB00431170 /* IOSProfileViewModel.swift in Sources */,
 				B3C06FF629718C9800BA5F91 /* AdminBottomSheetContent.swift in Sources */,
 				B3C06FF929718FF600BA5F91 /* ProfileScreen.swift in Sources */,
@@ -460,6 +483,7 @@
 				B3BA0B8529608412006E5C40 /* IOSOtpViewModel.swift in Sources */,
 				B3BA0B73295F71C9006E5C40 /* QueueItemView.swift in Sources */,
 				B37B2C442962C0A500CB02E8 /* IOSLoginViewModel.swift in Sources */,
+				B33516C62973D1B000431170 /* IOSQueueItemDetailsViewModel.swift in Sources */,
 				B3BA0B7D295FFCD4006E5C40 /* RegisterScreen.swift in Sources */,
 				B3B93B5529648F57000FD7EC /* IOSSplashViewModel.swift in Sources */,
 				B3D67CC7295DF3D5001A653A /* IOSQueueViewModel.swift in Sources */,

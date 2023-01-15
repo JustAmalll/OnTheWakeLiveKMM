@@ -73,6 +73,9 @@ struct ContentView: View {
     var adminContent: some View {
         QueueScreen()
             .environmentObject(
+                IOSQueueItemDetailsViewModel(queueService: queueService)
+            )
+            .environmentObject(
                 IOSQueueViewModel(
                     queueService: queueService,
                     queueSocketService: queueSocketService,
@@ -84,6 +87,9 @@ struct ContentView: View {
     var mainContent: some View {
         TabView {
             QueueScreen()
+                .environmentObject(
+                    IOSQueueItemDetailsViewModel(queueService: queueService)
+                )
                 .environmentObject(
                     IOSQueueViewModel(
                         queueService: queueService,

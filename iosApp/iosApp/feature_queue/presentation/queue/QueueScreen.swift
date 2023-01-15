@@ -40,6 +40,7 @@ struct QueueScreen: View {
                 if selectedLine == 1 {
                     QueueLeftContent(
                         state: state,
+                        isUserAdmin: isUserAdmin,
                         onSwipeToDelete: { queueItemId in
                             showDeleteConfirmationDialog.toggle()
                             queueItemIdToDelete = queueItemId
@@ -48,6 +49,7 @@ struct QueueScreen: View {
                 } else {
                     QueueRightContent(
                         state: state,
+                        isUserAdmin: isUserAdmin,
                         onSwipeToDelete: { queueItemId in
                             showDeleteConfirmationDialog.toggle()
                             queueItemIdToDelete = queueItemId
@@ -144,6 +146,7 @@ struct QueueScreen: View {
 
 struct QueueRightContent: View {
     let state: QueueState
+    let isUserAdmin: Bool
     let onSwipeToDelete: (String) -> Void
     
     var body: some View {
@@ -156,7 +159,11 @@ struct QueueRightContent: View {
         } else {
             List {
                 ForEach(rightQueue, id: \.self.id) { queueItem in
-                    NavigationLink(destination: Text(queueItem.firstName)) {
+                    NavigationLink(
+                        destination: QueueItemDetailsScreen(
+                            queueItemId: queueItem.id
+                        )
+                    ) {
                         QueueItemView(
                             queueItem: queueItem,
                             userId: state.userId ?? "",
@@ -165,16 +172,18 @@ struct QueueRightContent: View {
                     }
                 }
             }
-            .padding(.bottom)
+            .padding(!isUserAdmin ? .bottom : .bottom, 0)
         }
     }
 }
 
 struct QueueLeftContent: View {
     let state: QueueState
+    let isUserAdmin: Bool
     let onSwipeToDelete: (String) -> Void
     
     var body: some View {
+    
         let leftQueue = state.queue.filter { queue in
             return queue.isLeftQueue == true
         }.reversed()
@@ -184,7 +193,11 @@ struct QueueLeftContent: View {
         } else {
             List {
                 ForEach(leftQueue, id: \.self.id) { queueItem in
-                    NavigationLink(destination: Text(queueItem.firstName)) {
+                    NavigationLink(
+                        destination: QueueItemDetailsScreen(
+                            queueItemId: queueItem.id
+                        )
+                    ) {
                         QueueItemView(
                             queueItem: queueItem,
                             userId: state.userId ?? "",
@@ -193,7 +206,7 @@ struct QueueLeftContent: View {
                     }
                 }
             }
-            .padding(.bottom)
+            .padding(!isUserAdmin ? .bottom : .bottom, 0)
         }
     }
 }

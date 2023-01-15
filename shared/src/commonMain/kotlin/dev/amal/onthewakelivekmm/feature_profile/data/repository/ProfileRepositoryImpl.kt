@@ -4,7 +4,6 @@ import com.onthewake.onthewakelive.core.data.dto.response.BasicApiResponse
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants.BASE_URL
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_ACCOUNT_DATA
-import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
 import dev.amal.onthewakelivekmm.core.util.Resource
 import dev.amal.onthewakelivekmm.feature_profile.data.remote.response.ProfileResponse
 import dev.amal.onthewakelivekmm.feature_profile.domain.module.Profile
@@ -34,6 +33,8 @@ class ProfileRepositoryImpl(
             client.get("$BASE_URL/api/user/profile")
         } catch (exception: IOException) {
             return Resource.Error("Oops! Couldn't reach server. Check your internet connection.")
+        } catch (exception: Exception) {
+            return Resource.Error("Oops! Something went wrong. Please try again.")
         }
 
         when (result.status.value) {
