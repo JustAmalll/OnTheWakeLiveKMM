@@ -16,14 +16,20 @@ struct QueueItemView: View {
     let onSwipeToDelete: (String) -> Void
     
     var queueItemContent: some View {
-        HStack {
-            StandardUserPicture(imageUrl: queueItem.profilePictureUri)
-            
-            VStack(alignment: .leading) {
-                Text(queueItem.firstName)
-                    .font(.headline)
-                Text(queueItem.lastName)
-                    .font(.subheadline)
+        NavigationLink(
+            destination: QueueItemDetailsScreen(
+                queueItemId: queueItem.id
+            )
+        ) {
+            HStack {
+                StandardUserPicture(imageUrl: queueItem.profilePictureUri)
+                
+                VStack(alignment: .leading) {
+                    Text(queueItem.firstName)
+                        .font(.headline)
+                    Text(queueItem.lastName)
+                        .font(.subheadline)
+                }
             }
         }
     }

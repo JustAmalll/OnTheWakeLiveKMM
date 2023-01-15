@@ -49,15 +49,26 @@ class QueueViewModel(
 
     private fun observeQueue() {
         queueSocketService.observeQueue()
-            .onEach { queueItem ->
+            .onEach { queueResponse ->
                 val newList = state.value.queue
                     .toMutableList()
                     .apply {
-                        if (queueItem.isDeleteAction) removeAll { it.id == queueItem.queueItem.id }
-                        else add(0, queueItem.queueItem)
+                        queueResponse.queueItem?.let { queueItem ->
+                            if (queueResponse.isDeleteAction) removeAll {
+                                it.id == queueItem.id
+                            }
+                            else add(0, queueItem)
+                        }
                     }
                     .sortedWith(compareByDescending { it.timestamp })
-                _state.update { it.copy(queue = newList) }
+
+                _state.update {
+                    it.copy(
+                        queue = newList,
+                        error = queueResponse.error,
+                        isQueueLoading = false
+                    )
+                }
             }.launchIn(viewModelScope)
     }
 
@@ -81,18 +92,12 @@ class QueueViewModel(
     private fun addToQueue(
         isLeftQueue: Boolean, firstName: String? = null
     ) {
-        val canAddToQueue = queueSocketService.canAddToQueue(
-            isLeftQueue = isLeftQueue, queue = _state.value.queue
-        )
-        val addToQueueError = canAddToQueue.message
-
-        if (canAddToQueue is Resource.Success) viewModelScope.launch {
+        viewModelScope.launch {
+            _state.update { it.copy(isQueueLoading = true) }
             val result = queueSocketService.addToQueue(
                 isLeftQueue = isLeftQueue, firstName = firstName
             )
             _state.update { it.copy(error = result.message) }
-        } else {
-            _state.update { it.copy(error = addToQueueError) }
         }
     }
 

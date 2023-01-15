@@ -159,17 +159,11 @@ struct QueueRightContent: View {
         } else {
             List {
                 ForEach(rightQueue, id: \.self.id) { queueItem in
-                    NavigationLink(
-                        destination: QueueItemDetailsScreen(
-                            queueItemId: queueItem.id
-                        )
-                    ) {
-                        QueueItemView(
-                            queueItem: queueItem,
-                            userId: state.userId ?? "",
-                            onSwipeToDelete: onSwipeToDelete
-                        )
-                    }
+                    QueueItemView(
+                        queueItem: queueItem,
+                        userId: state.userId ?? "",
+                        onSwipeToDelete: onSwipeToDelete
+                    )
                 }
             }
             .padding(!isUserAdmin ? .bottom : .bottom, 0)
@@ -183,7 +177,7 @@ struct QueueLeftContent: View {
     let onSwipeToDelete: (String) -> Void
     
     var body: some View {
-    
+        
         let leftQueue = state.queue.filter { queue in
             return queue.isLeftQueue == true
         }.reversed()
@@ -193,17 +187,11 @@ struct QueueLeftContent: View {
         } else {
             List {
                 ForEach(leftQueue, id: \.self.id) { queueItem in
-                    NavigationLink(
-                        destination: QueueItemDetailsScreen(
-                            queueItemId: queueItem.id
-                        )
-                    ) {
-                        QueueItemView(
-                            queueItem: queueItem,
-                            userId: state.userId ?? "",
-                            onSwipeToDelete: onSwipeToDelete
-                        )
-                    }
+                    QueueItemView(
+                        queueItem: queueItem,
+                        userId: state.userId ?? "",
+                        onSwipeToDelete: onSwipeToDelete
+                    )
                 }
             }
             .padding(!isUserAdmin ? .bottom : .bottom, 0)
