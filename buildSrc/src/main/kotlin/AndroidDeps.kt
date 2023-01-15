@@ -17,6 +17,9 @@ object AndroidDeps {
     // Swipe to Delete
     const val swipeToDelete = "me.saket.swipe:swipe:1.0.0"
 
+    // Lottie
+    const val lottie = "com.airbnb.android:lottie-compose:5.2.0"
+
     // Tabs
     const val tabs = "com.google.accompanist:accompanist-pager:0.13.0"
     const val tabIndicators = "com.google.accompanist:accompanist-pager-indicators:0.13.0"

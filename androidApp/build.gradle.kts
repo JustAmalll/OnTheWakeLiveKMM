@@ -58,6 +58,8 @@ dependencies {
 
     implementation(AndroidDeps.swipeToDelete)
 
+    implementation(AndroidDeps.lottie)
+
     implementation(AndroidDeps.hiltAndroid)
     kapt(AndroidDeps.hiltAndroidCompiler)
     kapt(AndroidDeps.hiltCompiler)
