@@ -116,7 +116,7 @@ class EditProfileViewModel(
                     it.copy(resultMessage = "Successfully updated profile")
                 }
                 is Resource.Error -> _state.update {
-                    it.copy(resultMessage = "Oops! Something went wrong. Please try again.")
+                    it.copy(resultMessage = result.message)
                 }
             }
 

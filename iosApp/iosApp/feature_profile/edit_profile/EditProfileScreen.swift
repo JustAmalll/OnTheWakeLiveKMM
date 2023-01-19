@@ -168,7 +168,10 @@ struct EditProfileScreen: View {
                 viewModel.onEvent(
                     event: EditProfileEvent.OnResultSeen()
                 )
-                dismiss()
+                // hardcoded string res
+                if state.resultMessage == "Successfully updated profile" {
+                    dismiss()
+                }
             } label: {
                 Text("OK")
             }
@@ -180,8 +183,8 @@ struct EditProfileScreen: View {
             viewModel.dispose()
         }
     }
-    
 }
+
 
 struct EditProfileScreen_Previews: PreviewProvider {
     static var previews: some View {

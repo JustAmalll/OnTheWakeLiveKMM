@@ -58,9 +58,28 @@ class ProfileRepositoryImpl(
         }
     }
 
+    private fun isThereIsAnythingToUpdate(
+        oldProfileData: Profile,
+        profileDataToUpdate: UpdateProfileData
+    ): Boolean = !(oldProfileData.firstName == profileDataToUpdate.firstName &&
+            oldProfileData.lastName == profileDataToUpdate.lastName &&
+            oldProfileData.profilePictureUri == profileDataToUpdate.profilePictureUri &&
+            oldProfileData.instagram == profileDataToUpdate.instagram &&
+            oldProfileData.telegram == profileDataToUpdate.telegram &&
+            oldProfileData.dateOfBirth == profileDataToUpdate.dateOfBirth)
+
     override suspend fun updateProfile(
         updateProfileData: UpdateProfileData
     ): SimpleResource {
+
+        val profile = preferenceManager.getProfile()
+            ?: return Resource.Error("Oops! Something went wrong. Please try again.")
+
+        val isThereIsAnythingToUpdate = isThereIsAnythingToUpdate(
+            oldProfileData = profile, profileDataToUpdate = updateProfileData
+        )
+        if (!isThereIsAnythingToUpdate)
+            return Resource.Error("There is nothing to update")
 
         val result = try {
             client.put("$BASE_URL/api/user/update") {
@@ -69,6 +88,7 @@ class ProfileRepositoryImpl(
         } catch (exception: IOException) {
             return Resource.Error("Oops! Couldn't reach server. Check your internet connection.")
         } catch (exception: Exception) {
+            println(exception)
             return Resource.Error("Oops! Something went wrong. Please try again.")
         }
 
@@ -79,9 +99,6 @@ class ProfileRepositoryImpl(
 
         return try {
             val updateProfileResponse = result.body<BasicApiResponse<Unit>>()
-
-            val profile = preferenceManager.getProfile()
-                ?: return Resource.Error("Oops! Something went wrong. Please try again.")
 
             if (updateProfileResponse.successful) {
                 val profileJsonString = Json.encodeToString(
