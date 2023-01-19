@@ -35,6 +35,31 @@ actual class ValidationUseCase {
         return ValidationResult(successful = true)
     }
 
+    // TODO replace hardcode value 2023
+    actual fun validateDateOfBirth(dateOfBirth: String): ValidationResult {
+        if (dateOfBirth.isNotEmpty()) {
+            if (dateOfBirth.takeLast(4).toInt() >= 2023) {
+                return ValidationResult(
+                    successful = false,
+                    errorMessage = "Date of birth can't be greater than the current year"
+                )
+            }
+            if (dateOfBirth.take(2).toInt() > 31) {
+                return ValidationResult(
+                    successful = false,
+                    errorMessage = "Birthday can't be more than the number of days in a month"
+                )
+            }
+            if (dateOfBirth.drop(2).dropLast(4).toInt() > 12) {
+                return ValidationResult(
+                    successful = false,
+                    errorMessage = "The month of birth can't be greater than the number of months in a year"
+                )
+            }
+        }
+        return ValidationResult(successful = true)
+    }
+
     actual fun validatePassword(password: String): ValidationResult {
         if (password.isBlank()) {
             return ValidationResult(

@@ -78,7 +78,7 @@ struct LoginScreen: View {
                 viewModel.dispose()
             }
             .overlay {
-                if state.isLoading  {
+                if state.isLoading {
                     Color(.systemBackground).ignoresSafeArea()
                     ProgressView()
                 }

@@ -10,6 +10,8 @@ buildscript {
         classpath(AndroidDeps.androidBuildTools)
         classpath(AndroidDeps.hiltGradlePlugin)
         classpath(AndroidDeps.firebasePlugin)
+
+        classpath(SharedDeps.sqlDelightGradlePlugin)
     }
 }
 

@@ -11,6 +11,8 @@ expect class ValidationUseCase {
 
     fun validatePhoneNumber(phoneNumber: String): ValidationResult
 
+    fun validateDateOfBirth(dateOfBirth: String): ValidationResult
+
     fun validatePassword(password: String): ValidationResult
 
     fun validateOtp(otp: String): ValidationResult

@@ -106,6 +106,12 @@ struct ContentView: View {
                         profileRepository: profileRepository
                     )
                 )
+                .environmentObject(
+                    IOSEditProfileViewModel(
+                        profileRepository: profileRepository,
+                        validationUseCase: validationUseCase
+                    )
+                )
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }

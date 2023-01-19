@@ -19,24 +19,26 @@ struct ProfileScreen: View {
         
         NavigationView {
             VStack {
-                Form {
-                    Section {
-                        HStack {
-                            StandardUserPicture(imageUrl: "")
-                            
-                            VStack(alignment: .leading) {
-                                Text(profile?.firstName ?? "")
-                                    .font(.headline)
-                                Text(profile?.lastName ?? "")
-                                    .font(.subheadline)
+                NavigationLink(destination: EditProfileScreen()) {
+                    Form {
+                        Section {
+                            HStack {
+                                StandardUserPicture(imageUrl: profile?.profilePictureUri)
+                                
+                                VStack(alignment: .leading) {
+                                    Text(profile?.firstName ?? "")
+                                        .font(.headline)
+                                    Text(profile?.lastName ?? "")
+                                        .font(.subheadline)
+                                }
                             }
+                        } header: {
+                            Spacer()
                         }
-                    } header: {
-                        Spacer()
                     }
+                    .frame(height: 114)
+                    .disabled(true)
                 }
-                .frame(height: 114)
-                .disabled(true)
                 
                 VStack(alignment: .leading, spacing: 6) {
                     ProfileItem(

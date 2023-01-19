@@ -11,12 +11,12 @@ import CachedAsyncImage
 
 struct StandardUserPicture: View {
     
-    let imageUrl: String
+    let imageUrl: String?
     
     var body: some View {
         
         CachedAsyncImage(
-            url: URL(string: imageUrl)
+            url: URL(string: imageUrl ?? "")
         ) { phase in
             if let image = phase.image {
                 image

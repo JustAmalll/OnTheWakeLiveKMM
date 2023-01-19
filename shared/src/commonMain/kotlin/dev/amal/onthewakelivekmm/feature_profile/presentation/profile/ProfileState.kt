@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.feature_profile.presentation
+package dev.amal.onthewakelivekmm.feature_profile.presentation.profile
 
 import dev.amal.onthewakelivekmm.feature_profile.domain.module.Profile
 

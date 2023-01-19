@@ -3,6 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -37,7 +38,10 @@ kotlin {
 
                 implementation(SharedDeps.kotlinDateTime)
 
-                implementation(AndroidDeps.serialization)
+                implementation(SharedDeps.serialization)
+
+                implementation(SharedDeps.sqlDelightRuntime)
+                implementation(SharedDeps.sqlDelightCoroutinesExtensions)
             }
         }
         val commonTest by getting {
@@ -48,6 +52,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(AndroidDeps.ktorCIO)
+                implementation(AndroidDeps.sqlDelightAndroidDriver)
             }
         }
         val androidTest by getting
@@ -62,6 +67,7 @@ kotlin {
 
             dependencies {
                 implementation(IosDeps.ktorIOS)
+                implementation(IosDeps.sqlDelightNativeDriver)
             }
         }
         val iosX64Test by getting
@@ -82,5 +88,12 @@ android {
     defaultConfig {
         minSdk = 24
         targetSdk = 33
+    }
+}
+
+sqldelight {
+    database("OnTheWakeLiveDatabase") {
+        packageName = "dev.amal.onthewakelivekmm.database"
+        sourceFolders = listOf("sqldelight")
     }
 }

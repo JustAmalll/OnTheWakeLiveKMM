@@ -51,7 +51,7 @@ dependencies {
 
     implementation(AndroidDeps.ktorCIO)
 
-    implementation(AndroidDeps.serialization)
+    implementation(SharedDeps.serialization)
 
     implementation(AndroidDeps.tabs)
     implementation(AndroidDeps.tabIndicators)

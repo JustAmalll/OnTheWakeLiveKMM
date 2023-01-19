@@ -24,9 +24,6 @@ object AndroidDeps {
     const val tabs = "com.google.accompanist:accompanist-pager:0.13.0"
     const val tabIndicators = "com.google.accompanist:accompanist-pager-indicators:0.13.0"
 
-    // Serialization
-    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
-
     // Accompanist System UI Controller
     const val systemUiController = "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
 
@@ -51,6 +48,10 @@ object AndroidDeps {
     // Firebase
     const val firebaseBOM = "com.google.firebase:firebase-bom:31.0.2"
     const val firebaseAuth = "com.google.firebase:firebase-auth-ktx"
+
+    // SQLDELIGHT
+    private const val sqlDelightVersion = "1.5.4"
+    const val sqlDelightAndroidDriver = "com.squareup.sqldelight:android-driver:$sqlDelightVersion"
 
     // GRADLE PLUGINS
     const val kotlinVersion = "1.7.21"
