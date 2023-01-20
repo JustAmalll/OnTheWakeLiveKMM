@@ -116,7 +116,7 @@ class EditProfileViewModel(
                     it.copy(resultMessage = "Successfully updated profile")
                 }
                 is Resource.Error -> _state.update {
-                    it.copy(resultMessage = result.message)
+                    it.copy(resultMessage = result.message ?: "Unknown Error")
                 }
             }
 

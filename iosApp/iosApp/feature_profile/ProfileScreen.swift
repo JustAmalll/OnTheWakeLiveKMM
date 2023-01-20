@@ -32,12 +32,23 @@ struct ProfileScreen: View {
                                         .font(.subheadline)
                                 }
                             }
+                            .frame(
+                                maxWidth: .infinity,
+                                alignment: .leading
+                            )
+                            .overlay(alignment: .trailing) {
+                                Image(systemName: "pencil")
+                                    .resizable()
+                                    .frame(width: 18, height: 18)
+                                    .padding(.bottom)
+                                    .padding(.trailing, 4)
+                            }
                         } header: {
                             Spacer()
                         }
                     }
-                    .frame(height: 114)
                     .disabled(true)
+                    .frame(height: 114)
                 }
                 
                 VStack(alignment: .leading, spacing: 6) {
