@@ -24,12 +24,12 @@ struct QueueItemDetailsScreen: View {
             Form {
                 Section {
                     HStack {
-                        StandardUserPicture(imageUrl: "")
+                        StandardUserPicture(imageUrl: profile?.profilePictureUri)
                         
                         VStack(alignment: .leading) {
-                            Text(profile?.firstName ?? "")
+                            Text(profile?.firstName ?? "Not specified")
                                 .font(.headline)
-                            Text(profile?.lastName ?? "")
+                            Text(profile?.lastName ?? "Not specified")
                                 .font(.subheadline)
                         }
                     }

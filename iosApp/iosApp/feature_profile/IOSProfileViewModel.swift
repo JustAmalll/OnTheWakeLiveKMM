@@ -12,10 +12,13 @@ import shared
 @MainActor final class IOSProfileViewModel: ObservableObject {
     
     private var profileRepository: ProfileRepository
+    private var authRepository: AuthRepository
     
     private let viewModel: ProfileViewModel
     
     @Published var hasProfileError: Bool = false
+    
+    @Published var isLogoutConfirmed: Bool = false
     
     @Published var state: ProfileState = ProfileState(
         isLoading: false, profile: nil, error: nil
@@ -24,11 +27,14 @@ import shared
     private var handle: DisposableHandle?
     
     init(
-        profileRepository: ProfileRepository
+        profileRepository: ProfileRepository,
+        authRepository: AuthRepository
     ) {
         self.profileRepository = profileRepository
+        self.authRepository = authRepository
         self.viewModel = ProfileViewModel(
             profileRepository: profileRepository,
+            authRepository: authRepository,
             coroutineScope: nil
         )
     }

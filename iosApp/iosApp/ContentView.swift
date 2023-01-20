@@ -3,9 +3,17 @@ import shared
 
 struct ContentView: View {
     
+    @ObservedObject var splashViewModel: IOSSplashViewModel
+    
     @ObservedObject var loginViewModel: IOSLoginViewModel
     @ObservedObject var registerViewModel: IOSRegisterViewModel
     @ObservedObject var otpViewModel: IOSOtpViewModel
+    
+    @ObservedObject var queueViewModel: IOSQueueViewModel
+    @ObservedObject var queueItemDetailsViewModel: IOSQueueItemDetailsViewModel
+    
+    @ObservedObject var profileViewModel: IOSProfileViewModel
+    @ObservedObject var editProfileViewModel: IOSEditProfileViewModel
     
     private let authRepository: AuthRepository
     private let validationUseCase: ValidationUseCase
@@ -17,17 +25,17 @@ struct ContentView: View {
     
     private let preferenceManager: PreferenceManager
     
-    private var isAuthorized: Bool = false
-    
     init(
         authRepository: AuthRepository,
         validationUseCase: ValidationUseCase,
         queueService: QueueService,
         queueSocketService: QueueSocketService,
         profileRepository: ProfileRepository,
-        preferenceManager: PreferenceManager,
-        isAuthorized: Bool
+        preferenceManager: PreferenceManager
     ) {
+        self.authRepository = authRepository
+        self.validationUseCase = validationUseCase
+        
         self.queueService = queueService
         self.queueSocketService = queueSocketService
         
@@ -35,9 +43,9 @@ struct ContentView: View {
         
         self.preferenceManager = preferenceManager
         
-        self.authRepository = authRepository
-        self.validationUseCase = validationUseCase
-        
+        self.splashViewModel = IOSSplashViewModel(
+            authRepository: authRepository
+        )
         self.loginViewModel = IOSLoginViewModel(
             authRepository: authRepository,
             validationUseCase: validationUseCase
@@ -45,12 +53,26 @@ struct ContentView: View {
         self.registerViewModel = IOSRegisterViewModel(
             validationUseCase: validationUseCase
         )
+        self.queueViewModel = IOSQueueViewModel(
+            queueService: queueService,
+            queueSocketService: queueSocketService,
+            preferenceManager: preferenceManager
+        )
+        self.queueItemDetailsViewModel = IOSQueueItemDetailsViewModel(
+            queueService: queueService
+        )
+        self.profileViewModel = IOSProfileViewModel(
+            profileRepository: profileRepository,
+            authRepository: authRepository
+        )
+        self.editProfileViewModel = IOSEditProfileViewModel(
+            profileRepository: profileRepository,
+            validationUseCase: validationUseCase
+        )
         self.otpViewModel = IOSOtpViewModel(
             authRepository: authRepository,
             validationUseCase: validationUseCase
         )
-        
-        self.isAuthorized = isAuthorized
     }
     
     var body: some View {
@@ -59,62 +81,42 @@ struct ContentView: View {
         let isUserAdmin = Constants().ADMIN_IDS.contains(userId)
         let isLoginSuccess = loginViewModel.state.loginResult == .authorized
         
-        if isAuthorized || isLoginSuccess || otpViewModel.isOtpVerified {
-            if isUserAdmin { adminContent }
-            else { mainContent }
+        if splashViewModel.isSplashScreenShowing {
+            SplashScreen()
+                .environmentObject(splashViewModel)
         } else {
-            LoginScreen()
-                .environmentObject(loginViewModel)
-                .environmentObject(registerViewModel)
-                .environmentObject(otpViewModel)
+            let isAuthorized = splashViewModel.state.isAuthorized == true
+            
+            if isAuthorized || isLoginSuccess || otpViewModel.isOtpVerified {
+                if isUserAdmin { adminContent }
+                else { mainContent }
+            } else {
+                LoginScreen()
+                    .environmentObject(loginViewModel)
+                    .environmentObject(registerViewModel)
+                    .environmentObject(otpViewModel)
+            }
         }
     }
     
     var adminContent: some View {
         QueueScreen()
-            .environmentObject(
-                IOSQueueItemDetailsViewModel(queueService: queueService)
-            )
-            .environmentObject(
-                IOSQueueViewModel(
-                    queueService: queueService,
-                    queueSocketService: queueSocketService,
-                    preferenceManager: preferenceManager
-                )
-            )
+            .environmentObject(queueItemDetailsViewModel)
+            .environmentObject(queueViewModel)
     }
     
     var mainContent: some View {
         TabView {
             QueueScreen()
-                .environmentObject(
-                    IOSQueueItemDetailsViewModel(queueService: queueService)
-                )
-                .environmentObject(
-                    IOSQueueViewModel(
-                        queueService: queueService,
-                        queueSocketService: queueSocketService,
-                        preferenceManager: preferenceManager
-                    )
-                )
-                .tabItem {
-                    Label("Queue", systemImage: "house.fill")
-                }
+                .environmentObject(queueViewModel)
+                .environmentObject(queueItemDetailsViewModel)
+                .tabItem { Label("Queue", systemImage: "house.fill") }
+            
             ProfileScreen()
-                .environmentObject(
-                    IOSProfileViewModel(
-                        profileRepository: profileRepository
-                    )
-                )
-                .environmentObject(
-                    IOSEditProfileViewModel(
-                        profileRepository: profileRepository,
-                        validationUseCase: validationUseCase
-                    )
-                )
-                .tabItem {
-                    Label("Profile", systemImage: "person.fill")
-                }
+                .environmentObject(profileViewModel)
+                .environmentObject(loginViewModel)
+                .environmentObject(editProfileViewModel)
+                .tabItem { Label("Profile", systemImage: "person.fill") }
         }
         .tint(.black)
     }

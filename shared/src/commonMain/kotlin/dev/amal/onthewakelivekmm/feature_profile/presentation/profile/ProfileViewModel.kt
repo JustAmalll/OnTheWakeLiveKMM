@@ -2,6 +2,7 @@ package dev.amal.onthewakelivekmm.feature_profile.presentation.profile
 
 import dev.amal.onthewakelivekmm.core.domain.util.toCommonStateFlow
 import dev.amal.onthewakelivekmm.core.util.Resource
+import dev.amal.onthewakelivekmm.feature_auth.domain.repository.AuthRepository
 import dev.amal.onthewakelivekmm.feature_profile.domain.module.Profile
 import dev.amal.onthewakelivekmm.feature_profile.domain.repository.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val profileRepository: ProfileRepository,
+    private val authRepository: AuthRepository,
     coroutineScope: CoroutineScope?
 ) {
     private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
@@ -21,10 +23,9 @@ class ProfileViewModel(
 
     fun onEvent(event: ProfileEvent) {
         when (event) {
-            is ProfileEvent.OnProfileErrorSeen -> _state.update {
-                it.copy(error = null)
-            }
-            is ProfileEvent.GetProfile -> getProfile()
+            ProfileEvent.OnProfileErrorSeen -> _state.update { it.copy(error = null) }
+            ProfileEvent.GetProfile -> getProfile()
+            ProfileEvent.Logout -> authRepository.logout()
         }
     }
 

@@ -10,7 +10,11 @@ import SwiftUI
 import shared
 
 struct ProfileScreen: View {
+    
+    @EnvironmentObject var loginViewModel: IOSLoginViewModel
     @EnvironmentObject var viewModel: IOSProfileViewModel
+    
+    @State var showLogoutConfitamationDialog: Bool = false
     
     var body: some View {
         
@@ -26,9 +30,9 @@ struct ProfileScreen: View {
                                 StandardUserPicture(imageUrl: profile?.profilePictureUri)
                                 
                                 VStack(alignment: .leading) {
-                                    Text(profile?.firstName ?? "")
+                                    Text(profile?.firstName ?? "Not specified")
                                         .font(.headline)
-                                    Text(profile?.lastName ?? "")
+                                    Text(profile?.lastName ?? "Not specified")
                                         .font(.subheadline)
                                 }
                             }
@@ -85,7 +89,7 @@ struct ProfileScreen: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        
+                        showLogoutConfitamationDialog = true
                     } label: {
                         Image(systemName: "rectangle.portrait.and.arrow.right")
                     }
@@ -99,6 +103,18 @@ struct ProfileScreen: View {
                 } label: {
                     Text("OK")
                 }
+            }
+            .confirmationDialog(
+                "Confirm", isPresented: $showLogoutConfitamationDialog
+            ) {
+                Button(role: .destructive) {
+//                    viewModel.onEvent(event: ProfileEvent.Logout())
+                    viewModel.isLogoutConfirmed = true
+                } label: {
+                    Text("Logout")
+                }
+            } message: {
+                Text("Are you sure you want to logout?")
             }
             .overlay {
                 if state.isLoading  {

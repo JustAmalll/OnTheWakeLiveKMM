@@ -15,26 +15,46 @@ struct StandardUserPicture: View {
     
     var body: some View {
         
-        CachedAsyncImage(
-            url: URL(string: imageUrl ?? "")
-        ) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .scaledToFit()
-                    .clipShape(Circle())
-            } else {
-                ZStack {
-                    Circle()
-                        .foregroundColor(.gray)
-                    Image(systemName: "person.fill")
-                        .foregroundColor(Color.white)
+        if let url = imageUrl, !url.isEmpty {
+            CachedAsyncImage(url: URL(string: url)) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .frame(width: 42, height: 42)
+                        .scaledToFit()
+                        .clipShape(Circle())
+                case .empty:
+                    progressPlaceHolder
+                case .failure:
+                    placeholder
+                default:
+                    placeholder
                 }
-                .frame(width: 40, height: 40)
             }
+        } else {
+            placeholder
         }
-        .padding(.trailing, 4)
+    }
+    
+    var placeholder: some View {
+        ZStack {
+            Circle()
+                .foregroundColor(.gray)
+            Image(systemName: "person.fill")
+                .foregroundColor(Color.white)
+        }
+        .frame(width: 42, height: 42)
+    }
+    
+    var progressPlaceHolder: some View {
+        ZStack {
+            Circle()
+                .foregroundColor(.gray)
+            ProgressView()
+                .tint(Color.white)
+        }
+        .frame(width: 42, height: 42)
     }
 }
 

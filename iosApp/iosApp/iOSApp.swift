@@ -10,7 +10,7 @@ struct iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SplashScreen(
+            ContentView(
                 authRepository: appModule.authRepository,
                 validationUseCase: appModule.validationUseCase,
                 queueService: appModule.queueService,

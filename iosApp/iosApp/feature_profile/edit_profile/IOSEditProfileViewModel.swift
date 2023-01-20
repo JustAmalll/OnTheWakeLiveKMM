@@ -121,13 +121,15 @@ import shared
         handle = viewModel.state.subscribe { [weak self] state in
             if let state {
                 self?.state = state
-                self?.hasResultMessage = state.resultMessage != nil
                 
                 if state.resultMessage != nil {
+                    self?.hasResultMessage = true
                     self?.isUpdatingProfile = false
                 }
             }
         }
+        
+        onEvent(event: EditProfileEvent.GetProfile())
     }
     
     func dispose() {

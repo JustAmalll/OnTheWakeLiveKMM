@@ -27,9 +27,32 @@ class QueueViewModel(
 
     private val userId = preferenceManager.getString(PREFS_USER_ID)
 
-    init {
-        connectToQueue()
-        _state.update { it.copy(userId = userId) }
+    fun onEvent(event: QueueEvent) {
+        when (event) {
+            is QueueEvent.AddToQueue -> {
+                addToQueue(
+                    isLeftQueue = event.isLeftQueue,
+                    firstName = event.firstName
+                )
+            }
+            is QueueEvent.DeleteQueueItem -> {
+                deleteQueueItem(queueItemId = event.queueItemId)
+            }
+            QueueEvent.OnQueueErrorSeen -> _state.update {
+                it.copy(error = null)
+            }
+            QueueEvent.InitSession -> {
+                connectToQueue()
+                _state.update { it.copy(userId = userId) }
+            }
+            QueueEvent.CloseSession -> closeSession()
+        }
+    }
+
+    private fun closeSession() {
+        viewModelScope.launch {
+            queueSocketService.closeSession()
+        }
     }
 
     private fun connectToQueue() {
@@ -70,23 +93,6 @@ class QueueViewModel(
                     )
                 }
             }.launchIn(viewModelScope)
-    }
-
-    fun onEvent(event: QueueEvent) {
-        when (event) {
-            is QueueEvent.AddToQueue -> {
-                addToQueue(
-                    isLeftQueue = event.isLeftQueue,
-                    firstName = event.firstName
-                )
-            }
-            is QueueEvent.DeleteQueueItem -> {
-                deleteQueueItem(queueItemId = event.queueItemId)
-            }
-            is QueueEvent.OnQueueErrorSeen -> _state.update {
-                it.copy(error = null)
-            }
-        }
     }
 
     private fun addToQueue(

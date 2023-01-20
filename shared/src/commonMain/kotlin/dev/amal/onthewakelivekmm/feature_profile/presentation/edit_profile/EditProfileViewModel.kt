@@ -21,7 +21,36 @@ class EditProfileViewModel(
     private val _state = MutableStateFlow(EditProfileState())
     val state = _state.toCommonStateFlow()
 
-    init {
+    fun onEvent(event: EditProfileEvent) {
+        when (event) {
+            is EditProfileEvent.GetProfile -> {
+                getProfile()
+            }
+            is EditProfileEvent.OnResultSeen -> _state.update {
+                it.copy(resultMessage = null)
+            }
+            is EditProfileEvent.EditProfileFirstNameChanged -> _state.update {
+                it.copy(firstName = event.value)
+            }
+            is EditProfileEvent.EditProfileLastNameChanged -> _state.update {
+                it.copy(lastName = event.value)
+            }
+            is EditProfileEvent.EditProfileTelegramChanged -> _state.update {
+                it.copy(telegram = event.value)
+            }
+            is EditProfileEvent.EditProfileInstagramChanged -> _state.update {
+                it.copy(instagram = event.value)
+            }
+            is EditProfileEvent.EditProfileDateOfBirthChanged -> _state.update {
+                it.copy(dateOfBirth = event.value)
+            }
+            is EditProfileEvent.EditProfile -> editProfile(
+                updateProfileData = event.updateProfileData
+            )
+        }
+    }
+
+    private fun getProfile() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
             when (val result = profileRepository.getProfile()) {
@@ -45,32 +74,6 @@ class EditProfileViewModel(
                 }
             }
             _state.update { it.copy(isLoading = false) }
-        }
-    }
-
-    fun onEvent(event: EditProfileEvent) {
-        when (event) {
-            is EditProfileEvent.OnResultSeen -> _state.update {
-                it.copy(resultMessage = null)
-            }
-            is EditProfileEvent.EditProfileFirstNameChanged -> _state.update {
-                it.copy(firstName = event.value)
-            }
-            is EditProfileEvent.EditProfileLastNameChanged -> _state.update {
-                it.copy(lastName = event.value)
-            }
-            is EditProfileEvent.EditProfileTelegramChanged -> _state.update {
-                it.copy(telegram = event.value)
-            }
-            is EditProfileEvent.EditProfileInstagramChanged -> _state.update {
-                it.copy(instagram = event.value)
-            }
-            is EditProfileEvent.EditProfileDateOfBirthChanged -> _state.update {
-                it.copy(dateOfBirth = event.value)
-            }
-            is EditProfileEvent.EditProfile -> editProfile(
-                updateProfileData = event.updateProfileData
-            )
         }
     }
 

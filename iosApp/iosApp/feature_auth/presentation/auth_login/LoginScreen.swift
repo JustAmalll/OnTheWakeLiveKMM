@@ -65,7 +65,10 @@ struct LoginScreen: View {
             .onAppear {
                 viewModel.startObserving()
             }
-            .alert(isPresented: $viewModel.hasLoginError, error: viewModel.state.loginResult) {
+            .alert(
+                isPresented: $viewModel.hasLoginError,
+                error: viewModel.state.loginResult
+            ) {
                 Button{
                     viewModel.onEvent(
                         event: LoginEvent.OnLoginResultSeen()

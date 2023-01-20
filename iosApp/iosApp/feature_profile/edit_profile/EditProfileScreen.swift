@@ -37,12 +37,8 @@ struct EditProfileScreen: View {
                         Image(uiImage: avatarImage)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 120, height: 120)
+                            .frame(width: 130, height: 130)
                             .clipShape(Circle())
-                            .onTapGesture {
-                                isShowingPhotoPicker = true
-                            }
-                        
                     } else {
                         CachedAsyncImage(
                             url: URL(string: viewModel.state.profilePictureUri)
@@ -50,25 +46,23 @@ struct EditProfileScreen: View {
                             if let image = phase.image {
                                 image
                                     .resizable()
-                                    .frame(width: 120, height: 120)
+                                    .frame(width: 130, height: 130)
                                     .scaledToFit()
                                     .clipShape(Circle())
                             } else {
                                 ZStack {
                                     Circle()
                                         .foregroundColor(.gray)
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(Color.white)
+                                    ProgressView()
+                                        .tint(.white)
                                 }
-                                .frame(width: 120, height: 120)
+                                .frame(width: 130, height: 130)
                             }
                         }
-                        .onTapGesture {
-                            isShowingPhotoPicker = true
-                        }
                     }
+                }
+                .onTapGesture {
+                    isShowingPhotoPicker = true
                 }
                 .padding(.top)
                 .frame(maxWidth: .infinity, alignment: .center)

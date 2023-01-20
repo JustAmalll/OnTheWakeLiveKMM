@@ -23,6 +23,7 @@ class QueueServiceImpl(
         val httpResponse = client.get("$BASE_URL/queue")
         httpResponse.body<List<QueueItemDto>>().map { it.toQueueItem() }
     } catch (e: Exception) {
+        print("get queue exception $e")
         emptyList()
     }
 

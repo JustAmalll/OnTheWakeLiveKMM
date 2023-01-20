@@ -24,6 +24,7 @@ actual class HttpClientFactory(
             }
             install(DefaultRequest) {
                 val token = preferenceManager.getString(Constants.PREFS_JWT_TOKEN) ?: ""
+                println("darwin Bearer token is $token")
                 header("Authorization", "Bearer $token")
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }

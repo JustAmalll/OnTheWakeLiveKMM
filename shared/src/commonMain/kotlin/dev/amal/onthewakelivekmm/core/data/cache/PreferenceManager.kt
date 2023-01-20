@@ -16,8 +16,13 @@ class PreferenceManager(
     fun getString(key: String) =
         observableSettings.getStringOrNull(key = key)
 
+    fun clearPreferences() {
+        observableSettings.clear()
+    }
+
     fun getProfile(): Profile? {
-        val profileJson = observableSettings.getStringOrNull(PREFS_ACCOUNT_DATA) ?: return null
+        val profileJson = observableSettings.getStringOrNull(PREFS_ACCOUNT_DATA)
+        if (profileJson == null || profileJson.isEmpty()) return null
         return Json.decodeFromString<Profile>(profileJson)
     }
 }

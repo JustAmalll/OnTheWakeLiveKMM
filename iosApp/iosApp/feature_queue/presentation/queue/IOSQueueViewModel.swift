@@ -52,9 +52,12 @@ import shared
                 self?.hasQueueError = state.error != nil
             }
         }
+        
+        onEvent(event: QueueEvent.InitSession())
     }
     
     func dispose() {
         handle?.dispose()
+        onEvent(event: QueueEvent.CloseSession())
     }
 }

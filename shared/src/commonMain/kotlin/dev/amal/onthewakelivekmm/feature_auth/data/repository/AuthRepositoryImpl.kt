@@ -1,12 +1,13 @@
 package dev.amal.onthewakelivekmm.feature_auth.data.repository
 
-import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants.BASE_URL
+import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_ACCOUNT_DATA
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_FIRST_NAME
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_JWT_TOKEN
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.AuthRequest
+import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.feature_auth.data.remote.response.AuthResponse
 import dev.amal.onthewakelivekmm.feature_auth.domain.models.AuthResult
 import dev.amal.onthewakelivekmm.feature_auth.domain.repository.AuthRepository
@@ -63,6 +64,9 @@ class AuthRepositoryImpl(
 
         return try {
             val authResponse = result.body<AuthResponse>()
+
+            println("authResponse is $authResponse")
+
             preferenceManager.setString(PREFS_JWT_TOKEN, authResponse.token)
             preferenceManager.setString(PREFS_USER_ID, authResponse.userId)
             preferenceManager.setString(PREFS_FIRST_NAME, authResponse.firstName)
@@ -85,10 +89,17 @@ class AuthRepositoryImpl(
         false
     }
 
+    override fun logout() {
+        preferenceManager.setString(PREFS_ACCOUNT_DATA, "")
+        preferenceManager.setString(PREFS_JWT_TOKEN, "")
+        preferenceManager.setString(PREFS_USER_ID, "")
+        preferenceManager.setString(PREFS_FIRST_NAME, "")
+    }
+
     override suspend fun authenticate(): AuthResult {
         return try {
             val token = preferenceManager.getString(PREFS_JWT_TOKEN)
-                ?: return AuthResult.Unauthorized
+            if (token == null || token.isEmpty()) return AuthResult.Unauthorized
 
             val result = client.get("$BASE_URL/authenticate") {
                 header("Bearer", token)
