@@ -2,7 +2,6 @@ package dev.amal.onthewakelivekmm.feature_auth.data.repository
 
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants.BASE_URL
-import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_ACCOUNT_DATA
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_FIRST_NAME
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_JWT_TOKEN
 import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
@@ -90,10 +89,7 @@ class AuthRepositoryImpl(
     }
 
     override fun logout() {
-        preferenceManager.setString(PREFS_ACCOUNT_DATA, "")
-        preferenceManager.setString(PREFS_JWT_TOKEN, "")
-        preferenceManager.setString(PREFS_USER_ID, "")
-        preferenceManager.setString(PREFS_FIRST_NAME, "")
+        preferenceManager.clearPreferences()
     }
 
     override suspend fun authenticate(): AuthResult {

@@ -10,11 +10,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import coil.ImageLoader
 import com.google.accompanist.pager.ExperimentalPagerApi
+import dev.amal.onthewakelivekmm.android.feature_profile.presentation.profile.ProfileScreen
 import dev.amal.onthewakelivekmm.android.core.presentation.utils.Constants.REGISTER_DATA_ARGUMENT_KEY
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login.LoginScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.presentation.OtpScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_register.presentation.RegisterScreen
-import dev.amal.onthewakelivekmm.android.feature_profile.presentation.profile.ProfileScreen
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.QueueScreen
 import dev.amal.onthewakelivekmm.android.feature_splash.presentation.SplashScreen
 

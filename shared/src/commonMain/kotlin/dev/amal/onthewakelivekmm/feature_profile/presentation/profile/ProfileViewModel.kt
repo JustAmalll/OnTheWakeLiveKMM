@@ -33,9 +33,7 @@ class ProfileViewModel(
             _state.update { it.copy(isLoading = true) }
             when (val result = profileRepository.getProfile()) {
                 is Resource.Success -> {
-                    result.data?.let { profile ->
-                        _state.update { it.copy(profile = profile) }
-                    }
+                    _state.update { it.copy(profile = result.data) }
                 }
                 is Resource.Error -> {
                     _state.update { it.copy(error = result.message ?: "Unknown Error") }

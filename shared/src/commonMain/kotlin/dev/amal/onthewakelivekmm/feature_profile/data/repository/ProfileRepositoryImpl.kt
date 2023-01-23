@@ -48,7 +48,7 @@ class ProfileRepositoryImpl(
                 val profileJsonString = Json.encodeToString(profileResponse)
 
                 preferenceManager.setString(PREFS_ACCOUNT_DATA, profileJsonString)
-                Resource.Success(profile)
+                Resource.Success(profileResponse)
             } else {
                 response.message?.let { msg -> Resource.Error(msg) }
                     ?: Resource.Error("Oops! Something went wrong. Please try again.")
