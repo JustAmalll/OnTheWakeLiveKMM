@@ -20,6 +20,8 @@ import shared
     
     @Published var isLogoutConfirmed: Bool = false
     
+    @Published var isProfileLoading: Bool = false
+    
     @Published var state: ProfileState = ProfileState(
         isLoading: false, profile: nil, error: nil
     )
@@ -47,9 +49,12 @@ import shared
         handle = viewModel.state.subscribe { [weak self] state in
             if let state {
                 self?.state = state
+                self?.isProfileLoading = state.isLoading
                 self?.hasProfileError = state.error != nil
             }
         }
+        
+        onEvent(event: ProfileEvent.GetProfile())
     }
     
     func dispose() {

@@ -3,7 +3,6 @@ package dev.amal.onthewakelivekmm.feature_profile.presentation.profile
 import dev.amal.onthewakelivekmm.core.domain.util.toCommonStateFlow
 import dev.amal.onthewakelivekmm.core.util.Resource
 import dev.amal.onthewakelivekmm.feature_auth.domain.repository.AuthRepository
-import dev.amal.onthewakelivekmm.feature_profile.domain.module.Profile
 import dev.amal.onthewakelivekmm.feature_profile.domain.repository.ProfileRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,20 +34,7 @@ class ProfileViewModel(
             when (val result = profileRepository.getProfile()) {
                 is Resource.Success -> {
                     result.data?.let { profile ->
-                        _state.update {
-                            it.copy(
-                                profile = Profile(
-                                    userId = profile.userId,
-                                    firstName = profile.firstName,
-                                    lastName = profile.lastName,
-                                    profilePictureUri = profile.profilePictureUri,
-                                    phoneNumber = profile.phoneNumber,
-                                    telegram = profile.telegram,
-                                    instagram = profile.instagram,
-                                    dateOfBirth = profile.dateOfBirth
-                                )
-                            )
-                        }
+                        _state.update { it.copy(profile = profile) }
                     }
                 }
                 is Resource.Error -> {

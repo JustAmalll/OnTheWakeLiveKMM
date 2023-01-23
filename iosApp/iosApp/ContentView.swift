@@ -79,24 +79,34 @@ struct ContentView: View {
         
         let userId = preferenceManager.getString(key: Constants().PREFS_USER_ID) ?? ""
         let isUserAdmin = Constants().ADMIN_IDS.contains(userId)
+        
+        let isAuthorized = splashViewModel.state.isAuthorized == true
         let isLoginSuccess = loginViewModel.state.loginResult == .authorized
+        let isOtpVerified = otpViewModel.isOtpVerified
         
         if splashViewModel.isSplashScreenShowing {
             SplashScreen()
                 .environmentObject(splashViewModel)
         } else {
-            let isAuthorized = splashViewModel.state.isAuthorized == true
-            
-            if isAuthorized || isLoginSuccess || otpViewModel.isOtpVerified {
+            if isAuthorized || isLoginSuccess || isOtpVerified {
                 if isUserAdmin { adminContent }
-                else { mainContent }
+                else {
+                    mainContent
+                        .fullScreenCover(isPresented: $profileViewModel.isLogoutConfirmed) {
+                            loginScreen
+                        }
+                }
             } else {
-                LoginScreen()
-                    .environmentObject(loginViewModel)
-                    .environmentObject(registerViewModel)
-                    .environmentObject(otpViewModel)
+                loginScreen
             }
         }
+    }
+    
+    var loginScreen: some View {
+        LoginScreen()
+            .environmentObject(loginViewModel)
+            .environmentObject(registerViewModel)
+            .environmentObject(otpViewModel)
     }
     
     var adminContent: some View {
@@ -114,7 +124,6 @@ struct ContentView: View {
             
             ProfileScreen()
                 .environmentObject(profileViewModel)
-                .environmentObject(loginViewModel)
                 .environmentObject(editProfileViewModel)
                 .tabItem { Label("Profile", systemImage: "person.fill") }
         }

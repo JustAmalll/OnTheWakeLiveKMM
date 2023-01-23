@@ -18,7 +18,7 @@ struct ProfileItem: View {
         Text(title)
             .font(.system(size: 22, weight: .medium))
         
-        Text(formatedSubTitle(subTitle: subTitle))
+        Text(formattedSubTitle(subTitle: subTitle))
             .font(.system(size: 18, weight: .regular))
         
         if !isLastItem {
@@ -26,10 +26,9 @@ struct ProfileItem: View {
         }
     }
     
-    func formatedSubTitle(subTitle: String?) -> String {
-        guard let subTitle = subTitle else { return "Not specified" }
-        if subTitle.isEmpty { return "Not specified" }
-        else { return subTitle }
+    func formattedSubTitle(subTitle: String?) -> String {
+        if let subTitle = subTitle, !subTitle.isEmpty { return subTitle }
+        else { return "Not specified" }
     }
 }
 

@@ -124,7 +124,6 @@ struct ProfileScreen: View {
             }
             .onAppear {
                 viewModel.startObserving()
-                viewModel.onEvent(event: ProfileEvent.GetProfile())
             }
             .onDisappear {
                 viewModel.dispose()
