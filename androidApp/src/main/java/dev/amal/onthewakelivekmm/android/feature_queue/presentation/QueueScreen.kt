@@ -15,11 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import coil.ImageLoader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -48,6 +51,7 @@ fun QueueScreen(
     var queueItemIdToDelete by remember { mutableStateOf("") }
 
     val haptic = LocalHapticFeedback.current
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val pagerState = rememberPagerState(pageCount = 2, initialPage = 1)
     val snackBarHostState = remember { SnackbarHostState() }
@@ -103,6 +107,19 @@ fun QueueScreen(
             }
         }
     ) { paddingValues ->
+
+        DisposableEffect(key1 = lifecycleOwner) {
+            val observer = LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_START) {
+                    viewModel.onEvent(QueueEvent.InitSession)
+                }
+                else if (event == Lifecycle.Event.ON_PAUSE) {
+                    viewModel.onEvent(QueueEvent.CloseSession)
+                }
+            }
+            lifecycleOwner.lifecycle.addObserver(observer)
+            onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+        }
 
         if (showConfirmationDialog) ConfirmationDialog(
             showDialog = { showConfirmationDialog = it },
