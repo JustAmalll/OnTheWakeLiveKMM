@@ -14,6 +14,7 @@ import dev.amal.onthewakelivekmm.android.core.presentation.utils.Constants.REGIS
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login.LoginScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.presentation.OtpScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_register.presentation.RegisterScreen
+import dev.amal.onthewakelivekmm.android.feature_profile.presentation.profile.ProfileScreen
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.QueueScreen
 import dev.amal.onthewakelivekmm.android.feature_splash.presentation.SplashScreen
 
@@ -32,9 +33,6 @@ fun SetupNavGraph(
         composable(route = Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
-        composable(route = Screen.QueueScreen.route) {
-            QueueScreen(imageLoader = imageLoader)
-        }
         composable(route = Screen.LoginScreen.route) {
             LoginScreen(navController = navController)
         }
@@ -48,6 +46,12 @@ fun SetupNavGraph(
             })
         ) {
             OtpScreen(navController = navController)
+        }
+        composable(route = Screen.QueueScreen.route) {
+            QueueScreen(imageLoader = imageLoader)
+        }
+        composable(route = Screen.ProfileScreen.route) {
+            ProfileScreen(navController = navController, imageLoader = imageLoader)
         }
     }
 }
