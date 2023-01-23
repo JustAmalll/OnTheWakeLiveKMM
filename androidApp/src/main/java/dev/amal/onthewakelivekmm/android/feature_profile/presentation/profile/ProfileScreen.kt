@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -29,6 +30,7 @@ import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.FormattedDateOfBirth
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardLoadingView
+import dev.amal.onthewakelivekmm.android.core.presentation.utils.openInstagramProfile
 import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.feature_profile.presentation.profile.ProfileEvent
 
@@ -44,6 +46,7 @@ fun ProfileScreen(
 
     val snackBarHostState = remember { SnackbarHostState() }
 
+    val context = LocalContext.current
     val haptic = LocalHapticFeedback.current
 
     val surfaceColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
@@ -212,11 +215,13 @@ fun ProfileScreen(
                             if (profile.instagram.isNotEmpty()) {
                                 IconButton(onClick = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-//                            context.openInstagramProfile(profile.instagram)
+                                    context.openInstagramProfile(profile.instagram)
                                 }) {
                                     Icon(
                                         imageVector = Icons.Default.ArrowForward,
-                                        contentDescription = stringResource(id = R.string.right_arrow)
+                                        contentDescription = stringResource(
+                                            id = R.string.right_arrow
+                                        )
                                     )
                                 }
                             }
