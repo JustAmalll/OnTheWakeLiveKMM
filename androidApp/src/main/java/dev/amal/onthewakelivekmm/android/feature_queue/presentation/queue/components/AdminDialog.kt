@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.android.feature_queue.presentation.components
+package dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions

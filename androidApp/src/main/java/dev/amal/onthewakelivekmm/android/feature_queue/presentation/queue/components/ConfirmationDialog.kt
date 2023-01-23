@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.android.feature_queue.presentation.components
+package dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text

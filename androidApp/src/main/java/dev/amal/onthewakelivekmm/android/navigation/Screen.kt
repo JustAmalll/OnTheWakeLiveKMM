@@ -1,5 +1,6 @@
 package dev.amal.onthewakelivekmm.android.navigation
 
+import dev.amal.onthewakelivekmm.android.core.presentation.utils.Constants
 import dev.amal.onthewakelivekmm.android.core.presentation.utils.Constants.REGISTER_DATA_ARGUMENT_KEY
 
 sealed class Screen(val route: String) {
@@ -10,5 +11,10 @@ sealed class Screen(val route: String) {
         fun passRegisterData(registerData: String): String = "otp_screen/$registerData"
     }
     object QueueScreen : Screen("queue_screen")
+    object QueueDetailsScreen : Screen(
+        "queue_details_screen/{${Constants.DETAILS_ARGUMENT_KEY}}"
+    ) {
+        fun passItemId(itemId: String): String = "queue_details_screen/$itemId"
+    }
     object ProfileScreen : Screen("profile_screen")
 }

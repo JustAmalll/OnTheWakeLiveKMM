@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.android.feature_queue.presentation
+package dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

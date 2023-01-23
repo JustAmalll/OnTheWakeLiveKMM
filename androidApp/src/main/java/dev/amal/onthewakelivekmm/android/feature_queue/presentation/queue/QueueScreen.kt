@@ -1,4 +1,4 @@
-package dev.amal.onthewakelivekmm.android.feature_queue.presentation
+package dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -23,13 +23,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.core.presentation.components.AnimatedShimmer
-import dev.amal.onthewakelivekmm.android.feature_queue.presentation.components.*
+import dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue.components.*
+import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent.AddToQueue
@@ -41,6 +43,7 @@ import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueState
 @Composable
 fun QueueScreen(
     viewModel: AndroidQueueViewModel = hiltViewModel(),
+    navController: NavHostController,
     imageLoader: ImageLoader
 ) {
     val state by viewModel.state.collectAsState()
@@ -161,7 +164,9 @@ fun QueueScreen(
                             state = state,
                             imageLoader = imageLoader,
                             onDetailsClicked = { queueItemId ->
-
+                                navController.navigate(
+                                    Screen.QueueDetailsScreen.passItemId(itemId = queueItemId)
+                                )
                             },
                             onSwipeToDelete = { queueItemId ->
                                 showConfirmationDialog = true
@@ -175,7 +180,9 @@ fun QueueScreen(
                             state = state,
                             imageLoader = imageLoader,
                             onDetailsClicked = { queueItemId ->
-
+                                navController.navigate(
+                                    Screen.QueueDetailsScreen.passItemId(itemId = queueItemId)
+                                )
                             },
                             onSwipeToDelete = { queueItemId ->
                                 showConfirmationDialog = true
