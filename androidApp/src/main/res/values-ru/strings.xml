@@ -47,7 +47,7 @@
     <string name="couldnt_reach_server">Упс! Не удалось связаться с сервером. Проверьте свое подключение к Интернету.</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="something_went_wrong">Упс! Что-то пошло не так. Пожалуйста, попробуйте снова.</string>
-    <string name="edit_profile_date_of_birth">Дата рождения (дд/мм/гггг)</string>
+    <string name="date_of_birth_placeholder">Дата рождения (дд/мм/гггг)</string>
     <string name="edit">Редактировать</string>
     <string name="nothing_to_update">Нечего обновлять</string>
     <string name="verify_phone_number">Подтвердите номер телефона</string>

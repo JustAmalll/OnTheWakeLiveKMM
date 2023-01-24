@@ -10,7 +10,6 @@ buildscript {
         classpath(AndroidDeps.androidBuildTools)
         classpath(AndroidDeps.hiltGradlePlugin)
         classpath(AndroidDeps.firebasePlugin)
-
         classpath(SharedDeps.sqlDelightGradlePlugin)
     }
 }
@@ -19,6 +18,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://www.jitpack.io" ) }
     }
 }
 

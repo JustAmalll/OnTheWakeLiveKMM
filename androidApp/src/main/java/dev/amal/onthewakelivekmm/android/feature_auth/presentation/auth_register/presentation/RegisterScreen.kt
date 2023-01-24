@@ -127,7 +127,6 @@ fun RegisterScreen(
                             imeAction = ImeAction.Next
                         ),
                         label = stringResource(id = R.string.first_name),
-                        isError = state.signUpFirstNameError != null,
                         errorText = state.signUpFirstNameError
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -141,7 +140,6 @@ fun RegisterScreen(
                             imeAction = ImeAction.Next
                         ),
                         label = stringResource(id = R.string.last_name),
-                        isError = state.signUpLastNameError != null,
                         errorText = state.signUpLastNameError
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -155,7 +153,6 @@ fun RegisterScreen(
                             keyboardType = KeyboardType.Phone,
                             imeAction = ImeAction.Next
                         ),
-                        isError = state.signUpPhoneNumberError != null,
                         errorText = state.signUpPhoneNumberError
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -176,7 +173,6 @@ fun RegisterScreen(
                             }
                         ),
                         isPasswordTextField = true,
-                        isError = state.signUpPasswordError != null,
                         errorText = state.signUpPasswordError
                     )
                     Spacer(modifier = Modifier.height(16.dp))

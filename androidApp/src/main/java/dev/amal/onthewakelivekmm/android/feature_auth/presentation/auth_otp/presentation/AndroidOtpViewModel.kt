@@ -8,7 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.amal.onthewakelivekmm.android.core.presentation.utils.Constants.REGISTER_DATA_ARGUMENT_KEY
+import dev.amal.onthewakelivekmm.android.core.utils.Constants.REGISTER_DATA_ARGUMENT_KEY
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.model.OtpResult
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.repository.OtpRepository
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_register.presentation.RegisterData

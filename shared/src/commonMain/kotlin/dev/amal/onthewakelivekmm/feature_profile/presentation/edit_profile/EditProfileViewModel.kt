@@ -45,7 +45,7 @@ class EditProfileViewModel(
                 it.copy(dateOfBirth = event.value)
             }
             is EditProfileEvent.EditProfile -> editProfile(
-                updateProfileData = event.updateProfileData
+                profilePictureUri = event.profilePictureUri
             )
         }
     }
@@ -77,7 +77,7 @@ class EditProfileViewModel(
         }
     }
 
-    private fun editProfile(updateProfileData: UpdateProfileData) {
+    private fun editProfile(profilePictureUri: String?) {
         val firstNameResult = validationUseCase.validateFirstName(state.value.firstName)
         val lastNameResult = validationUseCase.validateLastName(state.value.lastName)
         val dateOfBirthResult = validationUseCase.validateDateOfBirth(state.value.dateOfBirth)
@@ -111,7 +111,14 @@ class EditProfileViewModel(
             _state.update { it.copy(isLoading = true) }
 
             val result = profileRepository.updateProfile(
-                updateProfileData = updateProfileData
+                updateProfileData = UpdateProfileData(
+                    firstName = state.value.firstName.trim(),
+                    lastName = state.value.lastName.trim(),
+                    instagram = state.value.instagram.trim(),
+                    telegram = state.value.telegram.trim(),
+                    dateOfBirth = state.value.dateOfBirth,
+                    profilePictureUri = profilePictureUri
+                )
             )
 
             when (result) {

@@ -58,11 +58,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "411539508555-7st9afp7ngprljuan77mn9saftdp5pun.apps.googleusercontent.com",
+          "client_id": "411539508555-nl3s3osijicnedlnv2tdqosb518ubhl5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "dev.amal.onthewakelivekmm.android",
-            "certificate_hash": "80c448864069fb8192bb7804c751e529aa7bbb33"
+            "certificate_hash": "24b84fbbd443e858fd532c3f5c5d69281e96c34b"
           }
         },
         {

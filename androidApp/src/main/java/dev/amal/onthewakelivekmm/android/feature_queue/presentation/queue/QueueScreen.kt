@@ -30,9 +30,9 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.core.presentation.components.AnimatedShimmer
+import dev.amal.onthewakelivekmm.android.core.utils.isUserAdmin
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue.components.*
 import dev.amal.onthewakelivekmm.android.navigation.Screen
-import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueEvent.AddToQueue
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue.QueueState
@@ -96,9 +96,10 @@ fun QueueScreen(
         },
         floatingActionButton = {
             if (!state.isQueueLoading) FloatingActionButton(
+                modifier = Modifier.padding(bottom = if (state.userId.isUserAdmin()) 0.dp else 76.dp),
                 onClick = {
                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                    if (state.userId in ADMIN_IDS) showAdminDialog = true
+                    if (state.userId.isUserAdmin()) showAdminDialog = true
                     else viewModel.onEvent(AddToQueue(isLeftQueue = pagerState.currentPage == 0))
                 }
             ) {
@@ -115,8 +116,7 @@ fun QueueScreen(
             val observer = LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_START) {
                     viewModel.onEvent(QueueEvent.InitSession)
-                }
-                else if (event == Lifecycle.Event.ON_PAUSE) {
+                } else if (event == Lifecycle.Event.ON_PAUSE) {
                     viewModel.onEvent(QueueEvent.CloseSession)
                 }
             }
@@ -126,7 +126,7 @@ fun QueueScreen(
 
         if (showConfirmationDialog) ConfirmationDialog(
             showDialog = { showConfirmationDialog = it },
-            isUserAdmin = state.userId in ADMIN_IDS,
+            isUserAdmin = state.userId.isUserAdmin(),
             onLeaveQueue = {
                 viewModel.onEvent(
                     QueueEvent.DeleteQueueItem(

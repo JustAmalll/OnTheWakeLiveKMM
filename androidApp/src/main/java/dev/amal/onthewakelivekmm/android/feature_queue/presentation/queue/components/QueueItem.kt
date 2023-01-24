@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import dev.amal.onthewakelivekmm.android.R
-import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
+import dev.amal.onthewakelivekmm.android.core.utils.isUserAdmin
 import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueItem
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -37,9 +37,9 @@ fun QueueItem(
 ) {
     val haptic = LocalHapticFeedback.current
 
-    val isUserAdmin = userId in ADMIN_IDS
+    val isUserAdmin = userId.isUserAdmin()
     val isOwnQueueItem = queueItem.userId == userId
-    val isAdminQueueItem = queueItem.userId in ADMIN_IDS
+    val isAdminQueueItem = queueItem.userId.isUserAdmin()
 
     val swipeToDelete = SwipeAction(
         icon = {

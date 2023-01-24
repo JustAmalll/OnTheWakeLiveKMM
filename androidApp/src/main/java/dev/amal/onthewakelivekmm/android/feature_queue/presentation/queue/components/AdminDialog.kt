@@ -31,7 +31,7 @@ fun AdminDialog(
     var isRightButtonActive by remember { mutableStateOf(true) }
 
     var firstNameFieldState by remember { mutableStateOf("") }
-    var errorMessage by remember { mutableStateOf("") }
+    var errorMessage: String? by remember { mutableStateOf(null) }
 
     val rightButtonColor = if (isRightButtonActive) MaterialTheme.colorScheme.primary
     else MaterialTheme.colorScheme.onPrimary
@@ -95,7 +95,6 @@ fun AdminDialog(
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Sentences
                     ),
-                    isError = errorMessage.isNotEmpty(),
                     errorText = errorMessage
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -106,9 +105,8 @@ fun AdminDialog(
                             .validateAdminAddToQueue(
                                 firstName = firstNameFieldState, queue = queue
                             )
-                        addToQueueResult.errorMessage?.let { resultErrorMessage ->
-                            errorMessage = resultErrorMessage
-                        }
+                        errorMessage = addToQueueResult.errorMessage
+
                         if (addToQueueResult.successful) {
                             onAddClicked(isLeftButtonActive, firstNameFieldState)
                             showDialog(false)

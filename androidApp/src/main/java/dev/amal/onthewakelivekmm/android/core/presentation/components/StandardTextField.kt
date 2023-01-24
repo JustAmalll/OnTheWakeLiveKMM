@@ -22,8 +22,7 @@ fun StandardTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    errorText: String? = "",
-    isError: Boolean = false,
+    errorText: String? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
     keyboardActions: KeyboardActions = KeyboardActions(onDone = {}),
     isPasswordTextField: Boolean = false
@@ -39,7 +38,7 @@ fun StandardTextField(
         singleLine = true,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        isError = isError,
+        isError = errorText != null,
         visualTransformation = if (!showPassword && isPasswordTextField)
             PasswordVisualTransformation() else VisualTransformation.None,
         trailingIcon = {
@@ -59,7 +58,7 @@ fun StandardTextField(
             }
         }
     )
-    if (isError && errorText != null) {
+    if (errorText != null) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = errorText,

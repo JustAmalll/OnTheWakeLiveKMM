@@ -66,7 +66,7 @@
     <string name="person_icon">Person Icon</string>
 
     <string name="edit_profile">Edit Profile</string>
-    <string name="edit_profile_date_of_birth">Date of Birth (dd/mm/yyyy)</string>
+    <string name="date_of_birth_placeholder">Date of Birth (dd/mm/yyyy)</string>
     <string name="nothing_to_update">Nothing to update</string>
     <string name="edit">Edit</string>
 

@@ -13,11 +13,11 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardScaffold
 import dev.amal.onthewakelivekmm.android.core.presentation.ui.theme.OnTheWakeLiveTheme
+import dev.amal.onthewakelivekmm.android.core.utils.isUserAdmin
 import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.android.navigation.SetupNavGraph
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
 import dev.amal.onthewakelivekmm.core.util.Constants
-import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 import javax.inject.Inject
 
 @ExperimentalPagerApi
@@ -39,13 +39,13 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-                val isAdmin = preferencesManager.getString(Constants.PREFS_USER_ID) in ADMIN_IDS
+                val isUserAdmin = preferencesManager.getString(Constants.PREFS_USER_ID).isUserAdmin()
 
                 StandardScaffold(
                     navController = navController,
                     showBottomBar = navBackStackEntry?.destination?.route in listOf(
                         Screen.QueueScreen.route, Screen.ProfileScreen.route
-                    ) && !isAdmin
+                    ) && !isUserAdmin
                 ) {
                     SetupNavGraph(navController = navController, imageLoader = imageLoader)
                 }

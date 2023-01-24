@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import dev.amal.onthewakelivekmm.android.core.presentation.utils.findActivity
+import dev.amal.onthewakelivekmm.android.core.utils.findActivity
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.model.OtpResult
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.repository.OtpRepository
 import java.util.concurrent.TimeUnit

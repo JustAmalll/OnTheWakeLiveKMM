@@ -61,11 +61,11 @@ class ProfileRepositoryImpl(
     private fun isThereIsAnythingToUpdate(
         oldProfileData: Profile,
         profileDataToUpdate: UpdateProfileData
-    ): Boolean = !(oldProfileData.firstName == profileDataToUpdate.firstName &&
-            oldProfileData.lastName == profileDataToUpdate.lastName &&
+    ): Boolean = !(oldProfileData.firstName.trim() == profileDataToUpdate.firstName.trim() &&
+            oldProfileData.lastName.trim() == profileDataToUpdate.lastName.trim() &&
             oldProfileData.profilePictureUri == profileDataToUpdate.profilePictureUri &&
-            oldProfileData.instagram == profileDataToUpdate.instagram &&
-            oldProfileData.telegram == profileDataToUpdate.telegram &&
+            oldProfileData.instagram.trim() == profileDataToUpdate.instagram.trim() &&
+            oldProfileData.telegram.trim() == profileDataToUpdate.telegram.trim() &&
             oldProfileData.dateOfBirth == profileDataToUpdate.dateOfBirth)
 
     override suspend fun updateProfile(
@@ -75,20 +75,34 @@ class ProfileRepositoryImpl(
         val profile = preferenceManager.getProfile()
             ?: return Resource.Error("Oops! Something went wrong. Please try again.")
 
+        val oldProfilePicture = profile.profilePictureUri
+        val newProfilePicture = updateProfileData.profilePictureUri
+
         val isThereIsAnythingToUpdate = isThereIsAnythingToUpdate(
-            oldProfileData = profile, profileDataToUpdate = updateProfileData
+            oldProfileData = profile,
+            profileDataToUpdate = updateProfileData.copy(
+                profilePictureUri = newProfilePicture ?: oldProfilePicture
+            )
         )
         if (!isThereIsAnythingToUpdate)
             return Resource.Error("There is nothing to update")
 
         val result = try {
             client.put("$BASE_URL/api/user/update") {
-                setBody(updateProfileData)
+                setBody(
+                    UpdateProfileData(
+                        firstName = updateProfileData.firstName,
+                        lastName = updateProfileData.lastName,
+                        instagram = updateProfileData.lastName,
+                        telegram = updateProfileData.telegram,
+                        dateOfBirth = updateProfileData.dateOfBirth,
+                        profilePictureUri = newProfilePicture ?: oldProfilePicture
+                    )
+                )
             }
         } catch (exception: IOException) {
             return Resource.Error("Oops! Couldn't reach server. Check your internet connection.")
         } catch (exception: Exception) {
-            println(exception)
             return Resource.Error("Oops! Something went wrong. Please try again.")
         }
 
@@ -104,12 +118,12 @@ class ProfileRepositoryImpl(
                 val profileJsonString = Json.encodeToString(
                     Profile(
                         userId = profile.userId,
-                        firstName = updateProfileData.firstName,
-                        lastName = updateProfileData.lastName,
-                        profilePictureUri = updateProfileData.profilePictureUri,
-                        phoneNumber = profile.phoneNumber,
-                        telegram = updateProfileData.telegram,
-                        instagram = updateProfileData.instagram,
+                        firstName = updateProfileData.firstName.trim(),
+                        lastName = updateProfileData.lastName.trim(),
+                        profilePictureUri = newProfilePicture ?: oldProfilePicture,
+                        phoneNumber = profile.phoneNumber.trim(),
+                        telegram = updateProfileData.telegram.trim(),
+                        instagram = updateProfileData.instagram.trim(),
                         dateOfBirth = updateProfileData.dateOfBirth
                     )
                 )

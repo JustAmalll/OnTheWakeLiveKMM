@@ -28,7 +28,7 @@ import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.FormattedDateOfBirth
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardLoadingView
-import dev.amal.onthewakelivekmm.android.core.presentation.utils.openInstagramProfile
+import dev.amal.onthewakelivekmm.android.core.utils.openInstagramProfile
 import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue_item_details.QueueItemDetailsEvent
 

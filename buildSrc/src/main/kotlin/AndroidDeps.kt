@@ -17,6 +17,9 @@ object AndroidDeps {
     // Swipe to Delete
     const val swipeToDelete = "me.saket.swipe:swipe:1.0.0"
 
+    // uCrop
+    const val uCrop = "com.github.yalantis:ucrop:2.2.8"
+
     // Lottie
     const val lottie = "com.airbnb.android:lottie-compose:5.2.0"
 
@@ -46,8 +49,9 @@ object AndroidDeps {
     const val ktorCIO = "io.ktor:ktor-client-cio:$ktorVersion"
 
     // Firebase
-    const val firebaseBOM = "com.google.firebase:firebase-bom:31.0.2"
+    const val firebaseBOM = "com.google.firebase:firebase-bom:31.2.0"
     const val firebaseAuth = "com.google.firebase:firebase-auth-ktx"
+    const val firebaseStorage = "com.google.firebase:firebase-storage-ktx"
 
     // SQLDELIGHT
     private const val sqlDelightVersion = "1.5.4"
@@ -62,7 +66,7 @@ object AndroidDeps {
 
     const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
 
-    const val firebasePlugin = "com.google.gms:google-services:4.3.14"
+    const val firebasePlugin = "com.google.gms:google-services:4.3.15"
 
     const val serializationPlugin = "org.jetbrains.kotlin:kotlin-serialization:1.7.21"
 }

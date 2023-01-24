@@ -109,7 +109,6 @@ fun LoginScreen(
                             imeAction = ImeAction.Next
                         ),
                         label = stringResource(id = R.string.phone_number),
-                        isError = state.signInPhoneNumberError != null,
                         errorText = state.signInPhoneNumberError,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -130,7 +129,6 @@ fun LoginScreen(
                                 focusManager.clearFocus()
                             }
                         ),
-                        isError = state.signInPasswordError != null,
                         errorText = state.signInPasswordError,
                         isPasswordTextField = true
                     )

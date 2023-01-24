@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.amal.onthewakelivekmm.android.core.presentation.utils.Constants.DETAILS_ARGUMENT_KEY
+import dev.amal.onthewakelivekmm.android.core.utils.Constants.DETAILS_ARGUMENT_KEY
 import dev.amal.onthewakelivekmm.feature_queue.domain.repository.QueueService
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue_item_details.QueueItemDetailsEvent
 import dev.amal.onthewakelivekmm.feature_queue.presentation.queue_item_details.QueueItemDetailsViewModel

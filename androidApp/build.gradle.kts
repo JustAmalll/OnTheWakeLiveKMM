@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     id("kotlin-kapt")
 }
 
@@ -56,15 +56,16 @@ dependencies {
     implementation(AndroidDeps.tabs)
     implementation(AndroidDeps.tabIndicators)
 
-    implementation(AndroidDeps.swipeToDelete)
+    implementation(platform(AndroidDeps.firebaseBOM))
+    implementation(AndroidDeps.firebaseAuth)
+    implementation(AndroidDeps.firebaseStorage)
 
+    implementation(AndroidDeps.swipeToDelete)
+    implementation(AndroidDeps.uCrop)
     implementation(AndroidDeps.lottie)
 
     implementation(AndroidDeps.hiltAndroid)
     kapt(AndroidDeps.hiltAndroidCompiler)
     kapt(AndroidDeps.hiltCompiler)
     implementation(AndroidDeps.hiltNavigationCompose)
-
-    implementation(platform(AndroidDeps.firebaseBOM))
-    implementation(AndroidDeps.firebaseAuth)
 }

@@ -30,7 +30,7 @@ import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.FormattedDateOfBirth
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardLoadingView
-import dev.amal.onthewakelivekmm.android.core.presentation.utils.openInstagramProfile
+import dev.amal.onthewakelivekmm.android.core.utils.openInstagramProfile
 import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.feature_profile.presentation.profile.ProfileEvent
 
@@ -131,7 +131,7 @@ fun ProfileScreen(
                                         haptic.performHapticFeedback(
                                             HapticFeedbackType.TextHandleMove
                                         )
-//                                navController.navigate(Screen.EditProfileScreen.route)
+                                        navController.navigate(Screen.EditProfileScreen.route)
                                     }
                                 ) {
                                     Icon(

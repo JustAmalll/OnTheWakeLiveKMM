@@ -1,10 +1,11 @@
-package dev.amal.onthewakelivekmm.android.core.presentation.utils
+package dev.amal.onthewakelivekmm.android.core.utils
 
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
+import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 
 fun Context.findActivity(): Activity {
     var context = this
@@ -18,3 +19,7 @@ fun Context.findActivity(): Activity {
 fun Context.openInstagramProfile(instagram: String) = this.startActivity(
     Intent(Intent.ACTION_VIEW, Uri.parse("${Constants.INSTAGRAM_URL}/$instagram/"))
 )
+
+fun String?.isUserAdmin(): Boolean {
+    return this in ADMIN_IDS
+}

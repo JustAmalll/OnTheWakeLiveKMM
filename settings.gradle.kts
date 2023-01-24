@@ -6,13 +6,6 @@ pluginManagement {
     }
 }
 
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
 rootProject.name = "OnTheWakeLiveKMM"
 include(":androidApp")
 include(":shared")

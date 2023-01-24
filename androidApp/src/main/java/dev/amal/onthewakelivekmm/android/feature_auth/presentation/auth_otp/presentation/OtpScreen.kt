@@ -125,7 +125,6 @@ fun OtpScreen(
                         imeAction = ImeAction.Next
                     ),
                     label = "Code",
-                    isError = state.otpError != null,
                     errorText = state.otpError
                 )
                 Spacer(modifier = Modifier.height(4.dp))
