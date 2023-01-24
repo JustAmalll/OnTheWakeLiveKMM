@@ -15,7 +15,7 @@ class SplashViewModel(
 ) {
     private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
 
-    private val _state = MutableStateFlow(SplashScreenState())
+    private val _state = MutableStateFlow<AuthResult?>(null)
     val state = _state.toCommonStateFlow()
 
     init {
@@ -24,9 +24,7 @@ class SplashViewModel(
 
     private fun authenticate() {
         viewModelScope.launch {
-            val result = repository.authenticate()
-            val isAuthorized = result == AuthResult.Authorized
-            _state.update { it.copy(isAuthorized = isAuthorized) }
+            _state.update { repository.authenticate() }
         }
     }
 }

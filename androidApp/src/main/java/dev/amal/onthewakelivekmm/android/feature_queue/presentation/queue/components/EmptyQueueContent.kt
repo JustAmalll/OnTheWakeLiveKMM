@@ -14,15 +14,12 @@ import dev.amal.onthewakelivekmm.android.R
 
 @Composable
 fun EmptyContent(modifier: Modifier = Modifier) {
-
     val compositionResult: LottieCompositionResult =
         rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.cat))
 
     val progress by animateLottieCompositionAsState(
         composition = compositionResult.value,
-        isPlaying = true,
-        iterations = LottieConstants.IterateForever,
-        speed = 1.0f
+        iterations = LottieConstants.IterateForever
     )
 
     Column(
