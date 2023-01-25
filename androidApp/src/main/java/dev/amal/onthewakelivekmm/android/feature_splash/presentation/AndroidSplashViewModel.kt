@@ -19,5 +19,5 @@ class AndroidSplashViewModel @Inject constructor(
         )
     }
 
-    val state = viewModel.state
+    val state = viewModel.authResult
 }
