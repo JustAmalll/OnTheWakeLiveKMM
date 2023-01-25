@@ -80,7 +80,7 @@ struct ContentView: View {
         let userId = preferenceManager.getString(key: Constants().PREFS_USER_ID) ?? ""
         let isUserAdmin = Constants().ADMIN_IDS.contains(userId)
         
-        let isAuthorized = splashViewModel.state.isAuthorized == true
+        let isAuthorized = splashViewModel.authResult == .authorized
         let isLoginSuccess = loginViewModel.state.loginResult == .authorized
         let isOtpVerified = otpViewModel.isOtpVerified
         

@@ -77,7 +77,11 @@ import shared
                         }
                         
                         if let url = url {
-                            self.editProfile(url: url.absoluteString)
+                            self.onEvent(
+                                event: EditProfileEvent.EditProfile(
+                                    profilePictureUri: url.absoluteString
+                                )
+                            )
                         } else {
                             self.handleError(error: "Unknown error")
                         }
@@ -85,24 +89,12 @@ import shared
                 }
             }
         } else {
-            editProfile(url: state.profilePictureUri)
-        }
-    }
-    
-    func editProfile(url: String) {
-        onEvent(
-            event: EditProfileEvent.EditProfile(
-                updateProfileData:
-                    UpdateProfileData(
-                        firstName: state.firstName,
-                        lastName: state.lastName,
-                        instagram: state.instagram,
-                        telegram: state.telegram,
-                        dateOfBirth: state.dateOfBirth,
-                        profilePictureUri: url
-                    )
+            onEvent(
+                event: EditProfileEvent.EditProfile(
+                    profilePictureUri: nil
+                )
             )
-        )
+        }
     }
     
     func handleError(error: String) {

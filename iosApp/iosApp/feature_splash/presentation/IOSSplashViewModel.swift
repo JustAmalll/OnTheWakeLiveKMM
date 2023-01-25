@@ -26,13 +26,11 @@ import shared
     
     private var handle: DisposableHandle?
     
-    @Published var state: SplashScreenState = SplashScreenState(
-        isAuthorized: nil
-    )
+    @Published var authResult: AuthResult?
     
     func startObserving() {
-        handle = viewModel.state.subscribe { [weak self] state in
-            if let state { self?.state = state }
+        handle = viewModel.authResult.subscribe { [weak self] authResult in
+            if let authResult { self?.authResult = authResult }
         }
     }
     
