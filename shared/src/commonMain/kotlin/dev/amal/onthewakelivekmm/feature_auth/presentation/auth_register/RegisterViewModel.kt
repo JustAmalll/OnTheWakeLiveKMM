@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.update
 class RegisterViewModel(
     private val validationUseCase: ValidationUseCase
 ) {
-
     private val _state = MutableStateFlow(RegisterState())
     val state = _state.toCommonStateFlow()
 
@@ -51,7 +50,6 @@ class RegisterViewModel(
                     signUpPasswordError = passwordResult.errorMessage
                 )
             }
-            return false
         } else {
             _state.update {
                 it.copy(
@@ -61,7 +59,7 @@ class RegisterViewModel(
                     signUpPasswordError = null
                 )
             }
-            return true
         }
+        return !hasError
     }
 }

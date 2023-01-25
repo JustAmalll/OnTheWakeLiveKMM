@@ -94,8 +94,7 @@ fun RegisterScreen(
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
-    ) { _ ->
-
+    ) {
         AnimatedContent(targetState = viewModel.isLoading) { isLoading ->
             if (isLoading) StandardLoadingView()
             else Box(
@@ -184,7 +183,7 @@ fun RegisterScreen(
                         },
                         modifier = Modifier.align(Alignment.End)
                     ) {
-                        Text(text = stringResource(id = R.string.sign_up))
+                        Text(text = stringResource(id = R.string.create_account))
                     }
                     Spacer(modifier = Modifier.height(30.dp))
                 }

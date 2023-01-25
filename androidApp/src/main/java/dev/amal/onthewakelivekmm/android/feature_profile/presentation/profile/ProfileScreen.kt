@@ -5,7 +5,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Edit
@@ -28,6 +30,7 @@ import coil.ImageLoader
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.FormattedDateOfBirth
+import dev.amal.onthewakelivekmm.android.core.presentation.components.ProfileItem
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardLoadingView
 import dev.amal.onthewakelivekmm.android.core.utils.openInstagramProfile
@@ -108,7 +111,11 @@ fun ProfileScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = paddingValues.calculateTopPadding())
+                        .verticalScroll(rememberScrollState())
+                        .padding(
+                            top = paddingValues.calculateTopPadding(),
+                            bottom = 100.dp
+                        )
                 ) {
                     Box(
                         modifier = Modifier
@@ -180,38 +187,10 @@ fun ProfileScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = "Trick List",
-                                fontSize = 22.sp,
-                                color = MaterialTheme.colorScheme.secondary
+                            ProfileItem(
+                                title = stringResource(id = R.string.instagram),
+                                subtitle = profile.instagram
                             )
-                            IconButton(onClick = {
-                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-//                        navController.navigate(Screen.AddTricksScreen.route)
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Default.ArrowForward,
-                                    contentDescription = stringResource(id = R.string.right_arrow)
-                                )
-                            }
-                        }
-                        Divider(modifier = Modifier.padding(vertical = 18.dp))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Column {
-                                Text(
-                                    text = stringResource(id = R.string.instagram),
-                                    fontSize = 22.sp,
-                                    color = MaterialTheme.colorScheme.secondary
-                                )
-                                Spacer(modifier = Modifier.height(2.dp))
-                                Text(text = profile.instagram.ifEmpty {
-                                    stringResource(id = R.string.not_specified)
-                                })
-                            }
                             if (profile.instagram.isNotEmpty()) {
                                 IconButton(onClick = {
                                     haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
@@ -227,27 +206,15 @@ fun ProfileScreen(
                             }
                         }
                         Divider(modifier = Modifier.padding(vertical = 18.dp))
-                        Column {
-                            Text(
-                                text = stringResource(id = R.string.telegram),
-                                fontSize = 22.sp,
-                                color = MaterialTheme.colorScheme.secondary
-                            )
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(text = profile.telegram.ifEmpty {
-                                stringResource(id = R.string.not_specified)
-                            })
-                        }
+                        ProfileItem(
+                            title = stringResource(id = R.string.telegram),
+                            subtitle = profile.telegram
+                        )
                         Divider(modifier = Modifier.padding(vertical = 18.dp))
-                        Column {
-                            Text(
-                                text = stringResource(id = R.string.phone_number),
-                                fontSize = 22.sp,
-                                color = MaterialTheme.colorScheme.secondary
-                            )
-                            Spacer(modifier = Modifier.height(2.dp))
-                            Text(text = profile.phoneNumber)
-                        }
+                        ProfileItem(
+                            title = stringResource(id = R.string.phone_number),
+                            subtitle = profile.phoneNumber
+                        )
                         Divider(modifier = Modifier.padding(vertical = 18.dp))
                         FormattedDateOfBirth(profile.dateOfBirth)
                     }

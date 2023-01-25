@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
+import dev.amal.onthewakelivekmm.android.core.utils.Constants.INSTAGRAM_URL
 import dev.amal.onthewakelivekmm.core.util.Constants.ADMIN_IDS
 
 fun Context.findActivity(): Activity {
@@ -17,7 +18,7 @@ fun Context.findActivity(): Activity {
 }
 
 fun Context.openInstagramProfile(instagram: String) = this.startActivity(
-    Intent(Intent.ACTION_VIEW, Uri.parse("${Constants.INSTAGRAM_URL}/$instagram/"))
+    Intent(Intent.ACTION_VIEW, Uri.parse("$INSTAGRAM_URL/$instagram/"))
 )
 
 fun String?.isUserAdmin(): Boolean {

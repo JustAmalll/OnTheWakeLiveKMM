@@ -13,9 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,6 +24,7 @@ import coil.ImageLoader
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.amal.onthewakelivekmm.android.R
 import dev.amal.onthewakelivekmm.android.core.presentation.components.FormattedDateOfBirth
+import dev.amal.onthewakelivekmm.android.core.presentation.components.ProfileItem
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardImageView
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardLoadingView
 import dev.amal.onthewakelivekmm.android.core.utils.openInstagramProfile
@@ -43,7 +42,6 @@ fun QueueItemDetailsScreen(
     val state by viewModel.state.collectAsState()
 
     val context = LocalContext.current
-    val haptic = LocalHapticFeedback.current
     val snackBarHostState = remember { SnackbarHostState() }
 
     val surfaceColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
@@ -157,42 +155,10 @@ fun QueueItemDetailsScreen(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text(
-                                    text = "Trick List",
-                                    fontSize = 22.sp,
-                                    color = MaterialTheme.colorScheme.secondary
+                                ProfileItem(
+                                    title = stringResource(id = R.string.instagram),
+                                    subtitle = profile.instagram
                                 )
-                                IconButton(onClick = {
-                                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-//                                navController.navigate(
-//                                    Screen.TrickListScreen.passUserId(userId = profile.userId)
-//                                )
-                                }) {
-                                    Icon(
-                                        imageVector = Icons.Default.ArrowForward,
-                                        contentDescription = stringResource(
-                                            id = R.string.right_arrow
-                                        )
-                                    )
-                                }
-                            }
-                            Divider(modifier = Modifier.padding(vertical = 20.dp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Column {
-                                    Text(
-                                        text = stringResource(id = R.string.instagram),
-                                        fontSize = 22.sp,
-                                        color = MaterialTheme.colorScheme.secondary
-                                    )
-                                    Spacer(modifier = Modifier.height(2.dp))
-                                    Text(text = profile.instagram.ifEmpty {
-                                        stringResource(id = R.string.not_specified)
-                                    })
-                                }
                                 if (profile.instagram.isNotEmpty()) {
                                     IconButton(onClick = {
                                         context.openInstagramProfile(profile.instagram)
@@ -206,29 +172,17 @@ fun QueueItemDetailsScreen(
                                     }
                                 }
                             }
-                            Divider(modifier = Modifier.padding(vertical = 20.dp))
-                            Column {
-                                Text(
-                                    text = stringResource(id = R.string.telegram),
-                                    fontSize = 22.sp,
-                                    color = MaterialTheme.colorScheme.secondary
-                                )
-                                Spacer(modifier = Modifier.height(2.dp))
-                                Text(text = profile.telegram.ifEmpty {
-                                    stringResource(id = R.string.not_specified)
-                                })
-                            }
-                            Divider(modifier = Modifier.padding(vertical = 20.dp))
-                            Column {
-                                Text(
-                                    text = stringResource(id = R.string.phone_number),
-                                    fontSize = 22.sp,
-                                    color = MaterialTheme.colorScheme.secondary
-                                )
-                                Spacer(modifier = Modifier.height(2.dp))
-                                Text(text = profile.phoneNumber)
-                            }
-                            Divider(modifier = Modifier.padding(vertical = 20.dp))
+                            Divider(modifier = Modifier.padding(vertical = 18.dp))
+                            ProfileItem(
+                                title = stringResource(id = R.string.telegram),
+                                subtitle = profile.telegram
+                            )
+                            Divider(modifier = Modifier.padding(vertical = 18.dp))
+                            ProfileItem(
+                                title = stringResource(id = R.string.phone_number),
+                                subtitle = profile.phoneNumber
+                            )
+                            Divider(modifier = Modifier.padding(vertical = 18.dp))
                             FormattedDateOfBirth(profile.dateOfBirth)
                         }
                     }

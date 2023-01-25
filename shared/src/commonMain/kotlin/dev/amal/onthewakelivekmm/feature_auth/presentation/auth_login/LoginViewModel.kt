@@ -66,7 +66,6 @@ class LoginViewModel(
                     password = state.value.signInPassword.trim()
                 )
             )
-            println("auth result is $result")
             _state.update { it.copy(loginResult = result, isLoading = false) }
         }
     }

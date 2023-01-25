@@ -17,7 +17,7 @@ import dev.amal.onthewakelivekmm.android.core.utils.isUserAdmin
 import dev.amal.onthewakelivekmm.android.navigation.Screen
 import dev.amal.onthewakelivekmm.android.navigation.SetupNavGraph
 import dev.amal.onthewakelivekmm.core.data.cache.PreferenceManager
-import dev.amal.onthewakelivekmm.core.util.Constants
+import dev.amal.onthewakelivekmm.core.util.Constants.PREFS_USER_ID
 import javax.inject.Inject
 
 @ExperimentalPagerApi
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-                val isUserAdmin = preferencesManager.getString(Constants.PREFS_USER_ID).isUserAdmin()
+                val isUserAdmin = preferencesManager.getString(PREFS_USER_ID).isUserAdmin()
 
                 StandardScaffold(
                     navController = navController,

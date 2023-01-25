@@ -12,21 +12,21 @@
     <string name="something_went_wrong">Oops! Something went wrong. Please try again.</string>
     <string name="incorrect_data">Incorrect phone number or password</string>
 
-    <string name="login">Login</string>
     <string name="verify_phone_number">Verify phone number</string>
     <string name="phone_number">Phone number</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
 
     <string name="dont_have_an_account_yet">Don\'t have an account yet?</string>
+    <string name="create">Create!</string>
     <string name="sign_up">Sign Up</string>
 
     <string name="user_already_exist">User already exist</string>
 
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
-    <string name="telegram">Telegram</string>
-    <string name="instagram">Instagram</string>
+    <string name="telegram" translatable="false">Telegram</string>
+    <string name="instagram" translatable="false">Instagram</string>
     <string name="already_have_an_account">Already have an account?</string>
 
     <string name="couldnt_establish_a_connection">Couldn\'t establish a connection</string>
@@ -99,5 +99,6 @@
     <string name="stay">Stay</string>
     <string name="remove">Remove</string>
     <string name="cancel">Cancel</string>
+    <string name="create_account">Create account</string>
 
 </resources>

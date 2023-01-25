@@ -75,30 +75,21 @@ class ProfileRepositoryImpl(
         val profile = preferenceManager.getProfile()
             ?: return Resource.Error("Oops! Something went wrong. Please try again.")
 
-        val oldProfilePicture = profile.profilePictureUri
-        val newProfilePicture = updateProfileData.profilePictureUri
+        val oldProfilePictureUri = profile.profilePictureUri
+        val newProfilePictureUri = updateProfileData.profilePictureUri
+
+        val profilePictureUri = newProfilePictureUri ?: oldProfilePictureUri
 
         val isThereIsAnythingToUpdate = isThereIsAnythingToUpdate(
             oldProfileData = profile,
-            profileDataToUpdate = updateProfileData.copy(
-                profilePictureUri = newProfilePicture ?: oldProfilePicture
-            )
+            profileDataToUpdate = updateProfileData.copy(profilePictureUri = profilePictureUri)
         )
         if (!isThereIsAnythingToUpdate)
             return Resource.Error("There is nothing to update")
 
         val result = try {
             client.put("$BASE_URL/api/user/update") {
-                setBody(
-                    UpdateProfileData(
-                        firstName = updateProfileData.firstName,
-                        lastName = updateProfileData.lastName,
-                        instagram = updateProfileData.lastName,
-                        telegram = updateProfileData.telegram,
-                        dateOfBirth = updateProfileData.dateOfBirth,
-                        profilePictureUri = newProfilePicture ?: oldProfilePicture
-                    )
-                )
+                setBody(updateProfileData.copy(profilePictureUri = profilePictureUri))
             }
         } catch (exception: IOException) {
             return Resource.Error("Oops! Couldn't reach server. Check your internet connection.")
@@ -118,12 +109,12 @@ class ProfileRepositoryImpl(
                 val profileJsonString = Json.encodeToString(
                     Profile(
                         userId = profile.userId,
-                        firstName = updateProfileData.firstName.trim(),
-                        lastName = updateProfileData.lastName.trim(),
-                        profilePictureUri = newProfilePicture ?: oldProfilePicture,
-                        phoneNumber = profile.phoneNumber.trim(),
-                        telegram = updateProfileData.telegram.trim(),
-                        instagram = updateProfileData.instagram.trim(),
+                        firstName = updateProfileData.firstName,
+                        lastName = updateProfileData.lastName,
+                        profilePictureUri = profilePictureUri,
+                        phoneNumber = profile.phoneNumber,
+                        telegram = updateProfileData.telegram,
+                        instagram = updateProfileData.instagram,
                         dateOfBirth = updateProfileData.dateOfBirth
                     )
                 )

@@ -87,15 +87,17 @@ import Firebase
                     withVerificationID: verificationCode,
                     verificationCode: state.otp
                 )
-
+            
             try await Auth.auth().signIn(with: credential)
-  
+            
             viewModel.onEvent(
                 event: OtpEvent.SignUp(
-                    firstName: firstName,
-                    lastName: lastName,
-                    phoneNumber: phoneNumber,
-                    password: password
+                    createAccountRequest: CreateAccountRequest(
+                        firstName: firstName,
+                        lastName: lastName,
+                        phoneNumber: phoneNumber,
+                        password: password
+                    )
                 )
             )
             

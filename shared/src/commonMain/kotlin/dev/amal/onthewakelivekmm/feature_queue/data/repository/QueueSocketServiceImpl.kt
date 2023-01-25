@@ -35,7 +35,6 @@ class QueueSocketServiceImpl(
         if (socket?.isActive == true) Resource.Success(Unit)
         else Resource.Error("Couldn't establish a connection")
     } catch (exception: Exception) {
-        println("init session exception $exception")
         Resource.Error("An unknown error occurred")
     }
 

@@ -26,10 +26,7 @@ class OtpViewModel(
                 it.copy(otp = event.value)
             }
             is OtpEvent.SignUp -> signUp(
-                firstName = event.firstName,
-                lastName = event.lastName,
-                phoneNumber = event.phoneNumber,
-                password = event.password
+                createAccountRequest = event.createAccountRequest
             )
             is OtpEvent.OnSignUpResultSeen -> _state.update {
                 it.copy(signUpResult = null)
@@ -37,24 +34,10 @@ class OtpViewModel(
         }
     }
 
-    private fun signUp(
-        firstName: String,
-        lastName: String,
-        phoneNumber: String,
-        password: String
-    ) {
+    private fun signUp(createAccountRequest: CreateAccountRequest) {
         viewModelScope.launch {
-            val signUpResult = repository.signUp(
-                CreateAccountRequest(
-                    firstName = firstName,
-                    lastName = lastName,
-                    phoneNumber = phoneNumber,
-                    password = password
-                )
-            )
-            _state.update {
-                it.copy(signUpResult = signUpResult)
-            }
+            val signUpResult = repository.signUp(createAccountRequest)
+            _state.update { it.copy(signUpResult = signUpResult) }
         }
     }
 

@@ -12,6 +12,7 @@ import dev.amal.onthewakelivekmm.android.core.utils.Constants.REGISTER_DATA_ARGU
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.model.OtpResult
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.repository.OtpRepository
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_register.presentation.RegisterData
+import dev.amal.onthewakelivekmm.feature_auth.data.remote.request.CreateAccountRequest
 import dev.amal.onthewakelivekmm.feature_auth.domain.repository.AuthRepository
 import dev.amal.onthewakelivekmm.feature_auth.domain.use_case.ValidationUseCase
 import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_otp.OtpEvent
@@ -71,15 +72,15 @@ class AndroidOtpViewModel @Inject constructor(
 
                 val otpResult = otpRepository.verifyOtp(state.value.otp)
 
-                println("verify otp result $otpResult")
-
                 if (otpResult == OtpResult.OtpVerified) {
                     onEvent(
                         OtpEvent.SignUp(
-                            firstName = androidOtpState.signUpFirstName,
-                            lastName = androidOtpState.signUpLastName,
-                            phoneNumber = androidOtpState.signUpPhoneNumber,
-                            password = androidOtpState.signUpPassword
+                            CreateAccountRequest(
+                                firstName = androidOtpState.signUpFirstName,
+                                lastName = androidOtpState.signUpLastName,
+                                phoneNumber = androidOtpState.signUpPhoneNumber,
+                                password = androidOtpState.signUpPassword
+                            )
                         )
                     )
                 } else {
@@ -97,7 +98,6 @@ class AndroidOtpViewModel @Inject constructor(
                 context = context,
                 isResendAction = true
             )
-            println("resending otp $resendResult")
             _otpResult.emit(resendResult)
         }
     }

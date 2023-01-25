@@ -64,8 +64,6 @@ class AuthRepositoryImpl(
         return try {
             val authResponse = result.body<AuthResponse>()
 
-            println("authResponse is $authResponse")
-
             preferenceManager.setString(PREFS_JWT_TOKEN, authResponse.token)
             preferenceManager.setString(PREFS_USER_ID, authResponse.userId)
             preferenceManager.setString(PREFS_FIRST_NAME, authResponse.firstName)
@@ -84,7 +82,6 @@ class AuthRepositoryImpl(
         }
         request.body()
     } catch (exception: Exception) {
-        exception.printStackTrace()
         false
     }
 

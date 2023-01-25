@@ -29,6 +29,10 @@ class QueueViewModel(
 
     fun onEvent(event: QueueEvent) {
         when (event) {
+            QueueEvent.InitSession -> {
+                connectToQueue()
+                _state.update { it.copy(userId = userId) }
+            }
             is QueueEvent.AddToQueue -> {
                 addToQueue(
                     isLeftQueue = event.isLeftQueue,
@@ -41,17 +45,7 @@ class QueueViewModel(
             QueueEvent.OnQueueErrorSeen -> _state.update {
                 it.copy(error = null)
             }
-            QueueEvent.InitSession -> {
-                connectToQueue()
-                _state.update { it.copy(userId = userId) }
-            }
             QueueEvent.CloseSession -> closeSession()
-        }
-    }
-
-    private fun closeSession() {
-        viewModelScope.launch {
-            queueSocketService.closeSession()
         }
     }
 
@@ -95,6 +89,14 @@ class QueueViewModel(
             }.launchIn(viewModelScope)
     }
 
+    private fun getQueue() {
+        viewModelScope.launch {
+            _state.update { it.copy(isQueueLoading = true) }
+            val result = queueService.getQueue()
+            _state.update { it.copy(queue = result, isQueueLoading = false) }
+        }
+    }
+
     private fun addToQueue(
         isLeftQueue: Boolean, firstName: String? = null
     ) {
@@ -104,16 +106,6 @@ class QueueViewModel(
                 isLeftQueue = isLeftQueue, firstName = firstName
             )
             _state.update { it.copy(error = result.message) }
-        }
-    }
-
-    private fun getQueue() {
-        viewModelScope.launch {
-            _state.update { it.copy(isQueueLoading = true) }
-            val result = queueService.getQueue()
-            _state.update { queueState ->
-                queueState.copy(queue = result, isQueueLoading = false)
-            }
         }
     }
 
@@ -127,6 +119,12 @@ class QueueViewModel(
                 }
             }
             _state.value = state.value.copy(isQueueLoading = false)
+        }
+    }
+
+    private fun closeSession() {
+        viewModelScope.launch {
+            queueSocketService.closeSession()
         }
     }
 }

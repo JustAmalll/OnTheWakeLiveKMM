@@ -7,7 +7,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -27,7 +26,6 @@ fun StandardTextField(
     keyboardActions: KeyboardActions = KeyboardActions(onDone = {}),
     isPasswordTextField: Boolean = false
 ) {
-
     var showPassword by remember { mutableStateOf(false) }
 
     TextField(
@@ -42,29 +40,22 @@ fun StandardTextField(
         visualTransformation = if (!showPassword && isPasswordTextField)
             PasswordVisualTransformation() else VisualTransformation.None,
         trailingIcon = {
-            if (isPasswordTextField) {
-                if (value.isNotEmpty()) {
-                    val image =
-                        if (showPassword) painterResource(id = R.drawable.ic_visibility_off)
-                        else painterResource(id = R.drawable.ic_visibility_on)
+            if (isPasswordTextField && value.isNotEmpty()) {
+                val image =
+                    if (showPassword) painterResource(id = R.drawable.ic_visibility_off)
+                    else painterResource(id = R.drawable.ic_visibility_on)
 
-                    val description = if (showPassword) stringResource(id = R.string.hide_password)
-                    else stringResource(id = R.string.show_password)
-
-                    IconButton(onClick = { showPassword = !showPassword }) {
-                        Icon(painter = image, description)
-                    }
+                IconButton(onClick = { showPassword = !showPassword }) {
+                    Icon(painter = image, contentDescription = "Toggle password visibility icon")
                 }
             }
         }
     )
-    if (errorText != null) {
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = errorText,
-            color = MaterialTheme.colorScheme.error,
-            fontSize = 14.sp,
-            textAlign = TextAlign.End
-        )
-    }
+    if (errorText != null) Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = errorText,
+        color = MaterialTheme.colorScheme.error,
+        fontSize = 14.sp,
+        textAlign = TextAlign.End
+    )
 }

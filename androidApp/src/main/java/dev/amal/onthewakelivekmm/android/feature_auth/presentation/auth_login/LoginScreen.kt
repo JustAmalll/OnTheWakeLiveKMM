@@ -93,7 +93,7 @@ fun LoginScreen(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = stringResource(id = R.string.login),
+                        text = stringResource(id = R.string.sign_in),
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onBackground
@@ -160,7 +160,7 @@ fun LoginScreen(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = stringResource(id = R.string.sign_up) + "!",
+                        text = stringResource(id = R.string.create),
                         color = MaterialTheme.colorScheme.primary
                     )
                 }

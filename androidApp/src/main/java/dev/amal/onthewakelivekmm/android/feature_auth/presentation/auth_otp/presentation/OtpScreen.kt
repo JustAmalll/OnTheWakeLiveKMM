@@ -1,6 +1,8 @@
 package dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.presentation
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dev.amal.onthewakelivekmm.android.R
+import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardLoadingView
 import dev.amal.onthewakelivekmm.android.core.presentation.components.StandardTextField
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.domain.model.OtpResult
 import dev.amal.onthewakelivekmm.android.navigation.Screen
@@ -30,6 +33,7 @@ import dev.amal.onthewakelivekmm.feature_auth.presentation.auth_otp.OtpEvent.Otp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
+@ExperimentalAnimationApi
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
@@ -49,9 +53,6 @@ fun OtpScreen(
             when (result) {
                 OtpResult.IncorrectOtp -> snackBarHostState.showSnackbar(
                     message = "Incorrect OTP"
-                )
-                OtpResult.OtpTooManyRequests -> snackBarHostState.showSnackbar(
-                    message = "OtpTooManyRequests"
                 )
                 else -> snackBarHostState.showSnackbar(
                     message = context.getString(R.string.unknown_error)
@@ -74,65 +75,67 @@ fun OtpScreen(
         }
     }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
-        topBar = {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = stringResource(id = R.string.arrow_back_icon)
-                        )
-                    }
-                }
-            )
-        }
-    ) { _ ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 100.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Column {
-                Text(
-                    text = stringResource(id = R.string.verify_phone_number),
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "An 6 digit code has been sent to\n${androidOtpState.signUpPhoneNumber}",
-                    fontSize = 13.sp,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                StandardTextField(
-                    value = state.otp,
-                    onValueChange = {
-                        if (it.length <= 6) viewModel.onEvent(OtpChanged(it))
-                        if (it.length == 6) {
-                            focusManager.clearFocus()
-                            viewModel.verifyOtpAndSignUp()
+    AnimatedContent(targetState = state.isLoading) { isLoading ->
+        if (isLoading) StandardLoadingView()
+        else Scaffold(
+            snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
+            topBar = {
+                TopAppBar(
+                    title = {},
+                    navigationIcon = {
+                        IconButton(onClick = { navController.popBackStack() }) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = stringResource(id = R.string.arrow_back_icon)
+                            )
                         }
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
-                        imeAction = ImeAction.Next
-                    ),
-                    label = "Code",
-                    errorText = state.otpError
+                    }
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Timer(onResendClicked = { viewModel.resendCode(context) })
+            }
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 100.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.verify_phone_number),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "An 6 digit code has been sent to\n${androidOtpState.signUpPhoneNumber}",
+                        fontSize = 13.sp,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    StandardTextField(
+                        value = state.otp,
+                        onValueChange = {
+                            if (it.length <= 6) viewModel.onEvent(OtpChanged(it))
+                            if (it.length == 6) {
+                                focusManager.clearFocus()
+                                viewModel.verifyOtpAndSignUp()
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        ),
+                        label = "Code",
+                        errorText = state.otpError
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Timer(onResendClicked = { viewModel.resendCode(context) })
+                }
             }
         }
     }
-//    if (state.isLoading) StandardLoadingView()
 }
 
 @Composable

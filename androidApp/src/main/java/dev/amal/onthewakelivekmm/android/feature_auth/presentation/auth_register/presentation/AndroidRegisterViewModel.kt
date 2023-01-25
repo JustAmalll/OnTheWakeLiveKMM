@@ -48,35 +48,37 @@ class AndroidRegisterViewModel @Inject constructor(
     }
 
     fun sendOtp(context: Context) {
-        if (viewModel.isValidationSuccess()) {
-            viewModelScope.launch {
-                isLoading = true
+        if (!viewModel.isValidationSuccess()) {
+            return
+        }
 
-                val isUserAlreadyExists = repository.isUserAlreadyExists(
-                    state.value.signUpPhoneNumber
+        viewModelScope.launch {
+            isLoading = true
+
+            val isUserAlreadyExists = repository.isUserAlreadyExists(
+                phoneNumber = state.value.signUpPhoneNumber
+            )
+
+            if (!isUserAlreadyExists) {
+                val result = otpRepository.sendOtp(
+                    phoneNumber = state.value.signUpPhoneNumber.trim(),
+                    context = context,
+                    isResendAction = false
                 )
-
-                if (!isUserAlreadyExists) {
-                    val result = otpRepository.sendOtp(
-                        phoneNumber = state.value.signUpPhoneNumber.trim(),
-                        context = context,
-                        isResendAction = false
-                    )
-                    if (result == OtpResult.OtpSentSuccess)
-                        _navigateUpEvent.emit(
-                            RegisterData(
-                                firstName = state.value.signUpFirstName.trim(),
-                                lastName = state.value.signUpLastName.trim(),
-                                phoneNumber = state.value.signUpPhoneNumber.trim(),
-                                password = state.value.signUpPassword.trim()
-                            )
+                if (result == OtpResult.OtpSentSuccess)
+                    _navigateUpEvent.emit(
+                        RegisterData(
+                            firstName = state.value.signUpFirstName.trim(),
+                            lastName = state.value.signUpLastName.trim(),
+                            phoneNumber = state.value.signUpPhoneNumber.trim(),
+                            password = state.value.signUpPassword.trim()
                         )
-                    _otpResult.emit(result)
-                } else {
-                    _authResult.emit(AuthResult.UserAlreadyExist)
-                }
-                isLoading = false
+                    )
+                _otpResult.emit(result)
+            } else {
+                _authResult.emit(AuthResult.UserAlreadyExist)
             }
+            isLoading = false
         }
     }
 }

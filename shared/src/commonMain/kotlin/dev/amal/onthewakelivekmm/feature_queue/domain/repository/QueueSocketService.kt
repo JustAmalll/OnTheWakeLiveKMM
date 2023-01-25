@@ -7,11 +7,6 @@ import dev.amal.onthewakelivekmm.feature_queue.domain.module.QueueResponse
 interface QueueSocketService {
     suspend fun initSession(): SimpleResource
     fun observeQueue(): CommonFlow<QueueResponse>
-
-    suspend fun addToQueue(
-        isLeftQueue: Boolean,
-        firstName: String? = null
-    ): SimpleResource
-
+    suspend fun addToQueue(isLeftQueue: Boolean, firstName: String? = null): SimpleResource
     suspend fun closeSession()
 }
