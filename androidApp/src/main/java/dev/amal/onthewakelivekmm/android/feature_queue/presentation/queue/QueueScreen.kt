@@ -173,7 +173,10 @@ fun QueueScreen(
                                 queueItemIdToDelete = queueItemId
                             },
                             onUserAvatarClicked = { pictureUrl ->
-
+                                if (pictureUrl.isNotEmpty()) navController.navigate(
+                                    Screen.FullSizeAvatarScreen.passPictureUrl(pictureUrl)
+                                )
+                                println("pictureUrl $pictureUrl")
                             }
                         )
                         1 -> QueueRightContent(
@@ -189,7 +192,9 @@ fun QueueScreen(
                                 queueItemIdToDelete = queueItemId
                             },
                             onUserAvatarClicked = { pictureUrl ->
-
+                                if (pictureUrl.isNotEmpty()) navController.navigate(
+                                    Screen.FullSizeAvatarScreen.passPictureUrl(pictureUrl)
+                                )
                             }
                         )
                     }

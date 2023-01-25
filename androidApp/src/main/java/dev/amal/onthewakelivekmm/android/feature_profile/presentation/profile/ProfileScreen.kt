@@ -157,9 +157,9 @@ fun ProfileScreen(
                                         imageLoader = imageLoader,
                                         model = profile.profilePictureUri,
                                         onUserAvatarClicked = { pictureUrl ->
-//                                    if (pictureUrl.isNotEmpty()) navController.navigate(
-//                                        Screen.FullSizeAvatarScreen.passPictureUrl(pictureUrl)
-//                                    )
+                                            if (pictureUrl.isNotEmpty()) navController.navigate(
+                                                Screen.FullSizeAvatarScreen.passPictureUrl(pictureUrl)
+                                            )
                                         }
                                     )
                                     Spacer(modifier = Modifier.width(12.dp))

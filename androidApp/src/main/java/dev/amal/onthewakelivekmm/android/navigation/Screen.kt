@@ -2,6 +2,8 @@ package dev.amal.onthewakelivekmm.android.navigation
 
 import dev.amal.onthewakelivekmm.android.core.utils.Constants
 import dev.amal.onthewakelivekmm.android.core.utils.Constants.REGISTER_DATA_ARGUMENT_KEY
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 sealed class Screen(val route: String) {
     object SplashScreen : Screen("splash_screen")
@@ -18,4 +20,12 @@ sealed class Screen(val route: String) {
     }
     object ProfileScreen : Screen("profile_screen")
     object EditProfileScreen : Screen("edit_profile_screen")
+    object FullSizeAvatarScreen : Screen(
+        "full_size_avatar_screen/{${Constants.PICTURE_URL_ARGUMENT_KEY}}"
+    ) {
+        fun passPictureUrl(url: String): String {
+            val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+            return "full_size_avatar_screen/$encodedUrl"
+        }
+    }
 }

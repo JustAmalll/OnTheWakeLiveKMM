@@ -18,9 +18,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
+import dev.amal.onthewakelivekmm.android.R
 
 @ExperimentalAnimationApi
 @Composable
@@ -32,7 +34,10 @@ fun StandardImageView(
     var isImageLoading by remember { mutableStateOf(false) }
 
     IconButton(
-        onClick = { onUserAvatarClicked(model) },
+        onClick = {
+            onUserAvatarClicked(model)
+            println("model is $model")
+        },
         modifier = Modifier.size(46.dp),
     ) {
         AnimatedContent(targetState = isImageLoading) { isLoading ->
@@ -43,7 +48,7 @@ fun StandardImageView(
                 if (!isLoading && model.isEmpty()) {
                     Icon(
                         imageVector = Icons.Default.Person,
-                        contentDescription = "Person Icon"
+                        contentDescription = stringResource(id = R.string.person_icon)
                     )
                 }
                 if (isLoading) CircularProgressIndicator(
@@ -66,7 +71,7 @@ fun StandardImageView(
                         onError = { isImageLoading = false },
                         onSuccess = { isImageLoading = false }
                     ),
-                    contentDescription = "User Picture"
+                    contentDescription = stringResource(id = R.string.user_picture)
                 )
             }
         }

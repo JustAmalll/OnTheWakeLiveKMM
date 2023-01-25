@@ -11,12 +11,14 @@ import androidx.navigation.navArgument
 import coil.ImageLoader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.amal.onthewakelivekmm.android.core.utils.Constants.DETAILS_ARGUMENT_KEY
-import dev.amal.onthewakelivekmm.android.feature_profile.presentation.profile.ProfileScreen
+import dev.amal.onthewakelivekmm.android.core.utils.Constants.PICTURE_URL_ARGUMENT_KEY
 import dev.amal.onthewakelivekmm.android.core.utils.Constants.REGISTER_DATA_ARGUMENT_KEY
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_login.LoginScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_otp.presentation.OtpScreen
 import dev.amal.onthewakelivekmm.android.feature_auth.presentation.auth_register.presentation.RegisterScreen
+import dev.amal.onthewakelivekmm.android.feature_full_size_avatar.presentation.FullSizeAvatarScreen
 import dev.amal.onthewakelivekmm.android.feature_profile.presentation.edit_profile.EditProfileScreen
+import dev.amal.onthewakelivekmm.android.feature_profile.presentation.profile.ProfileScreen
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue.QueueScreen
 import dev.amal.onthewakelivekmm.android.feature_queue.presentation.queue_item_details.QueueItemDetailsScreen
 import dev.amal.onthewakelivekmm.android.feature_splash.presentation.SplashScreen
@@ -66,6 +68,14 @@ fun SetupNavGraph(
         }
         composable(route = Screen.EditProfileScreen.route) {
             EditProfileScreen(imageLoader = imageLoader, navController = navController)
+        }
+        composable(
+            route = Screen.FullSizeAvatarScreen.route,
+            arguments = listOf(navArgument(PICTURE_URL_ARGUMENT_KEY) {
+                type = NavType.StringType
+            })
+        )  {
+            FullSizeAvatarScreen(navController = navController, imageLoader = imageLoader)
         }
     }
 }

@@ -97,94 +97,92 @@ fun QueueItemDetailsScreen(
                     )
                 }
             ) { paddingValues ->
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    Column {
-                        Box(
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(color = surfaceColor),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(color = surfaceColor),
-                            contentAlignment = Alignment.CenterStart
+                                .padding(horizontal = 16.dp)
+                                .padding(top = 20.dp, bottom = 40.dp),
+                            shape = RoundedCornerShape(12.dp)
                         ) {
-                            Card(
+                            Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .padding(top = 20.dp, bottom = 40.dp),
-                                shape = RoundedCornerShape(12.dp)
+                                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    StandardImageView(
-                                        imageLoader = imageLoader,
-                                        model = profile.profilePictureUri,
-                                        onUserAvatarClicked = { pictureUrl ->
-//                                        if (pictureUrl.isNotEmpty()) navController.navigate(
-//                                            Screen.FullSizeAvatarScreen.passPictureUrl(pictureUrl)
-//                                        )
-                                        }
-                                    )
-                                    Spacer(modifier = Modifier.width(12.dp))
-                                    Column {
-                                        Text(
-                                            text = profile.firstName,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                            fontSize = 16.sp,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                        Spacer(modifier = Modifier.height(1.dp))
-                                        Text(
-                                            text = profile.lastName,
-                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                StandardImageView(
+                                    imageLoader = imageLoader,
+                                    model = profile.profilePictureUri,
+                                    onUserAvatarClicked = { pictureUrl ->
+                                        if (pictureUrl.isNotEmpty()) navController.navigate(
+                                            Screen.FullSizeAvatarScreen.passPictureUrl(pictureUrl)
                                         )
                                     }
-                                }
-                            }
-                        }
-                        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                            Spacer(modifier = Modifier.height(20.dp))
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                ProfileItem(
-                                    title = stringResource(id = R.string.instagram),
-                                    subtitle = profile.instagram
                                 )
-                                if (profile.instagram.isNotEmpty()) {
-                                    IconButton(onClick = {
-                                        context.openInstagramProfile(profile.instagram)
-                                    }) {
-                                        Icon(
-                                            imageVector = Icons.Default.ArrowForward,
-                                            contentDescription = stringResource(
-                                                id = R.string.right_arrow
-                                            )
-                                        )
-                                    }
+                                Spacer(modifier = Modifier.width(12.dp))
+                                Column {
+                                    Text(
+                                        text = profile.firstName,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Spacer(modifier = Modifier.height(1.dp))
+                                    Text(
+                                        text = profile.lastName,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
                                 }
                             }
-                            Divider(modifier = Modifier.padding(vertical = 18.dp))
-                            ProfileItem(
-                                title = stringResource(id = R.string.telegram),
-                                subtitle = profile.telegram
-                            )
-                            Divider(modifier = Modifier.padding(vertical = 18.dp))
-                            ProfileItem(
-                                title = stringResource(id = R.string.phone_number),
-                                subtitle = profile.phoneNumber
-                            )
-                            Divider(modifier = Modifier.padding(vertical = 18.dp))
-                            FormattedDateOfBirth(profile.dateOfBirth)
                         }
+                    }
+                    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            ProfileItem(
+                                title = stringResource(id = R.string.instagram),
+                                subtitle = profile.instagram
+                            )
+                            if (profile.instagram.isNotEmpty()) {
+                                IconButton(onClick = {
+                                    context.openInstagramProfile(profile.instagram)
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowForward,
+                                        contentDescription = stringResource(
+                                            id = R.string.right_arrow
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                        Divider(modifier = Modifier.padding(vertical = 18.dp))
+                        ProfileItem(
+                            title = stringResource(id = R.string.telegram),
+                            subtitle = profile.telegram
+                        )
+                        Divider(modifier = Modifier.padding(vertical = 18.dp))
+                        ProfileItem(
+                            title = stringResource(id = R.string.phone_number),
+                            subtitle = profile.phoneNumber
+                        )
+                        Divider(modifier = Modifier.padding(vertical = 18.dp))
+                        FormattedDateOfBirth(profile.dateOfBirth)
                     }
                 }
             }
