@@ -87,6 +87,8 @@ struct ContentView: View {
         if splashViewModel.isSplashScreenShowing {
             SplashScreen()
                 .environmentObject(splashViewModel)
+        } else if splashViewModel.authResult == .unknownerror {
+            errorContent
         } else {
             if isAuthorized || isLoginSuccess || isOtpVerified {
                 if isUserAdmin { adminContent }
@@ -128,5 +130,22 @@ struct ContentView: View {
                 .tabItem { Label("Profile", systemImage: "person.fill") }
         }
         .tint(.black)
+    }
+    
+    var errorContent: some View {
+        VStack {
+            LottieView(animationName: "server_error")
+                .frame(width: 250, height: 250)
+            
+            Text("Server Unavailable")
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundColor(.red)
+            
+            Text("The server is temporarily busy, try again later!")
+                .font(.system(size: 16))
+                .foregroundColor(.red)
+                .padding(.top, 1)
+        }
+        .padding(.bottom, 80)
     }
 }

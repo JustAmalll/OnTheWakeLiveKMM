@@ -13,6 +13,7 @@
 		6484FED7066D6EF277A7BAFF /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		B310235D2962D8A900B2D8A3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B310235F2962D8A900B2D8A3 /* Localizable.strings */; };
+		B31187E929815A290021FFF2 /* server_error.json in Resources */ = {isa = PBXBuildFile; fileRef = B31187E829815A280021FFF2 /* server_error.json */; };
 		B312FEB0296BD51F009E99A9 /* cat.json in Resources */ = {isa = PBXBuildFile; fileRef = B312FEAF296BD51F009E99A9 /* cat.json */; };
 		B312FEB2296BD5A4009E99A9 /* LottieAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB1296BD5A4009E99A9 /* LottieAnimationView.swift */; };
 		B312FEB8296BD94A009E99A9 /* StandardUserPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */; };
@@ -57,6 +58,7 @@
 		85124908D4C1F58B75329FB1 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B310235E2962D8A900B2D8A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B31023602962D8AD00B2D8A3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B31187E829815A280021FFF2 /* server_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = server_error.json; sourceTree = "<group>"; };
 		B312FEAF296BD51F009E99A9 /* cat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = cat.json; path = ../../../../OnTheWakeLive/app/src/main/res/raw/cat.json; sourceTree = "<group>"; };
 		B312FEB1296BD5A4009E99A9 /* LottieAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieAnimationView.swift; sourceTree = "<group>"; };
 		B312FEB7296BD94A009E99A9 /* StandardUserPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardUserPicture.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		B312FEAE296BD474009E99A9 /* LottieAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				B31187E829815A280021FFF2 /* server_error.json */,
 				B312FEAF296BD51F009E99A9 /* cat.json */,
 			);
 			path = LottieAnimation;
@@ -432,6 +435,7 @@
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 				B312FEB0296BD51F009E99A9 /* cat.json in Resources */,
 				B3BA0B872961AE1E006E5C40 /* GoogleService-Info.plist in Resources */,
+				B31187E929815A290021FFF2 /* server_error.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
